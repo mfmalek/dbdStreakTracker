@@ -1,0 +1,41 @@
+:root {
+    --bg-card: #222;
+    --bg-light: #f4f4f4;
+    --primary: #4CAF50;
+    --primary-hover: #45a049;
+    --text-main: #f0f0f0;
+    --text-light: #fff;
+    --border: #333;
+    --border-light: #666;
+    --checked: #2ecc71;
+}
+
+body {
+    background: url('../Images/Miscellaneous/Background_Foggy.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    color: var(--text-main);
+}
+
+h1, h2 {
+    color: var(--text-light);
+}
+
+h3 {
+    display: inline;
+}
+
+label {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    gap: 8px;
+    user-select: none;
+}
+
+select, input[type="text"] {
+    width: 200px;
+    padding: 5px;
+}

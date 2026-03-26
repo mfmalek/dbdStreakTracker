@@ -1,0 +1,68 @@
+body {
+    margin: 0;
+    background: url('../Images/Miscellaneous/Background_Foggy.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    padding-top: 60px;
+}
+
+h1 {
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 8px #000;
+}
+
+.perkGrid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 150px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.row.center {
+    justify-content: center;
+    margin: -20px 0;
+}
+
+.row.spread {
+    justify-content: space-between;
+    width: 340px;
+    margin: 10px 0;
+}
+
+.streakButton {
+    width: 120px;
+    height: 120px;
+    transform: rotate(45deg);
+    overflow: hidden;
+    border: none;
+    padding: 0;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.streakButton img {
+    width: 140%;
+    height: 140%;
+    object-fit: cover;
+    transform: rotate(-45deg) translateY(-20%);
+    display: block;
+    transition: filter 0.2s;
+}
+
+.streakButton:hover {
+    transform: rotate(45deg) scale(1.05);
+    box-shadow: 0 0 20px rgba(94, 42, 108, 0.7);
+}

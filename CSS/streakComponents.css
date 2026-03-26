@@ -1,0 +1,235 @@
+/* CARDS */
+
+.perkBuilder {
+    width: 100%;
+}
+
+.survivorCardWrapper {
+    position: relative;
+}
+
+.card {
+    background: var(--bg-light);
+    border-radius: 12px;
+    padding: 20px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+
+/* CHARACTERS */
+
+.nickAndChar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.nickname {
+    margin-left: 20px;
+}
+
+.characterPortrait {
+    height: 200px;
+    width: 200px;
+}
+
+.portraitGrid {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 10px;
+    border-radius: 10px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.portraitGrid.hidden {
+    display: none;
+}
+
+.portraitOption {
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: transform 0.2s;
+}
+
+.portraitOption.selected {
+    outline: 2px solid var(--primary);
+    transform: scale(1.1);
+}
+
+.portraitOption:hover {
+    transform: scale(1.5);
+}
+
+.editable {
+    cursor: pointer;
+}
+
+.selectable {
+    cursor: pointer;
+}
+
+/* PERKS */
+
+.perkSlots {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.perkSlot {
+    display: flex;
+    flex-direction: column;
+}
+
+.perkBuilderTitle {
+    color: var(--border);
+    margin: 10px 0;
+    text-align: center;
+}
+
+.perkNumberText {
+    font-family: Copperplate, fantasy;
+    font-size: 18px;
+    color: var(--border);
+}
+
+/* PRESETS */
+
+.presetControls {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.presetButton {
+    margin-top: 5px;
+}
+
+/* MAPS */
+
+#mapImage {
+    height: 147px;
+    width: 300px;
+    margin-top: 20px;
+}
+
+.mapImageSection {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.tsOptgroupHeader {
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: #111;
+    padding: 6px 8px;
+    background: rgba(76, 175, 80, 0.9);
+}
+
+.tsMapOption {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+}
+
+/* SELECTS AND INPUTS */
+
+select#mapName, select#killerName, .ts-wrapper.single.full.has-items.input-hidden {
+    height: 36px;
+    min-width: 210px;
+}
+
+#deleteMatchNumber {
+    height: 35px;
+    width: 80px;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+
+/* BUTTONS */
+
+button {
+    padding: 10px;
+    background-color: var(--primary);
+    color: var(--text-light);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+}
+
+/* CHECKBOXES */
+
+input[type="checkbox"] {
+    appearance: none;
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-light);
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: relative;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--checked);
+    border-color: var(--checked);
+}
+
+input[type="checkbox"]::before {
+    content: "✔";
+    color: var(--text-light);
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    left: 3px;
+    display: none;
+}
+
+input[type="checkbox"]:checked::before {
+    display: block;
+}
+
+/* TABLE */
+
+table {
+    margin-top: 30px;
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
+}
+
+th, td {
+    border: 1px solid var(--border);
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background: var(--border);
+    border: 1px solid var(--border-light);
+}
