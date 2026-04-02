@@ -12,6 +12,11 @@ const app = express();
 app.use(cors({origin: "*",}));
 app.use(express.json());
 
+app.get("/api/health", (req, res) => {
+    console.log("Health check ping");
+    res.status(200).json({ status: "ok" });
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/survivors", survivorRoutes);
 app.use("/api/presets", presetsRoutes);
