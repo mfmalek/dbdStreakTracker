@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - DBD Streak Tracker</title>
+    <link rel="icon" type="image/x-icon" href="../Images/Miscellaneous/Logo_DBD.ico">
+    <link rel="stylesheet" href="../CSS/auth.css" />
+</head>
+
+<body data-page="login">
+    <div class="authContainer">
+        <h1>DBD Streak Tracker</h1>
+
+        <div class="form">
+            <label for="username">Username</label>
+            <input type="text" id="username" required />
+
+            <label for="password">Password</label>
+            <input type="password" id="password" required />
+
+            <div class="buttons">
+                <button id="loginButton">Login</button>
+            </div>
+
+            <div>
+                <span> Don't have an account? </span>
+                <a href="./register.html" class="pageLinking"> Register </a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../JS/app.js"></script>
+</body>
+
+</html>

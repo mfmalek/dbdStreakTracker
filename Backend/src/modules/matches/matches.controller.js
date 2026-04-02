@@ -1,0 +1,70 @@
+const matchesService = require('./matches.service');
+
+const getMatches = async (req, res) => {
+    try {
+        const user = req.user.username;
+        const { mode } = req.query;
+
+        const matches = await matchesService.getMatches(user, mode);
+
+        res.json(matches);
+    } catch (error) {
+        console.error("GET MATCHES ERROR:", error);
+
+        res.status(500).json({
+            error: "Failed to fetch matches",
+            details: error.message
+        });
+    }
+};
+
+const createMatch = async (req, res) => {
+    try {
+        const user = req.user.username;
+        const { mode, ...matchData } = req.body;
+
+        const newMatch = await matchesService.createMatch({
+            user,
+            mode,
+            ...matchData
+        });
+
+        res.json(newMatch);
+    } catch (error) {
+        console.error("CREATE MATCH ERROR:", error);
+        res.status(500).json({ error: "Failed to create match" });
+    }
+};
+
+const deleteMatch = async (req, res) => {
+    try {
+        const user = req.user.username;
+        const { id } = req.params;
+
+        await matchesService.deleteMatch(id, user);
+
+        res.json({ message: 'Deleted' });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to delete match' });
+    }
+};
+
+const clearMatches = async (req, res) => {
+    try {
+        const user = req.user.username;
+        const { mode } = req.query;
+
+        await matchesService.clearMatches(user, mode);
+
+        res.json({ message: "Cleared" });
+    } catch (error) {
+        res.status(500).json({ error: "Failed to clear matches" });
+    }
+};
+
+module.exports = {
+    getMatches,
+    createMatch,
+    deleteMatch,
+    clearMatches
+};

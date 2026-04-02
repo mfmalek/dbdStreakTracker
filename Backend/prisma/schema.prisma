@@ -1,0 +1,54 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id       Int    @id @default(autoincrement())
+    username String @unique
+    password String
+}
+
+model SurvivorConfig {
+    id        Int      @id @default(autoincrement())
+    user      String
+    mode      String
+    index     Int
+    name      String
+    image     String
+    createdAt DateTime @default(now())
+}
+
+model Preset {
+    id        Int      @id @default(autoincrement())
+    user      String
+    mode      String
+    survivor  Int
+    name      String
+    perks     Json
+    createdAt DateTime @default(now())
+
+    @@index([user, mode, survivor])
+}
+
+model Match {
+    id        Int      @id @default(autoincrement())
+    user      String
+    mode      String
+    result    String
+    data      Json
+    createdAt DateTime @default(now())
+}
+
+model Streak {
+    id   Int    @id @default(autoincrement())
+    user String
+    mode String
+    best Int    @default(0)
+
+    @@unique([user, mode])
+}
