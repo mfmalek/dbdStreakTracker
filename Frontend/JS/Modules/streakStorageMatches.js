@@ -1,7 +1,7 @@
 import { dbdCore } from "./streakCore.js";
 import { auth } from "./auth.js";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://dbdstreaktracker.onrender.com/api";
 const API_MATCHES = `${API_URL}/matches`;
 
 function getAuthHeaders() {

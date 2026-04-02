@@ -1,6 +1,6 @@
 import { auth } from "../Modules/auth.js";
 
-const API_URL = "http://localhost:3000/api";
+const API_URL = "https://dbdstreaktracker.onrender.com/api";
 
 function initRegister() {
     if (auth.isLoggedIn()) {
