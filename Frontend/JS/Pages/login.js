@@ -3,6 +3,8 @@ import { auth } from "../Modules/auth.js";
 const API_URL = "http://localhost:3000/api";
 
 function initLogin() {
+    auth.redirectIfLoggedIn();
+
     if (auth.isLoggedIn()) {
         window.location.href = "home.html";
         return;

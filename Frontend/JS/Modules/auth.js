@@ -40,11 +40,29 @@ function checkLoggedUser() {
     }
 }
 
+function requireAuth() {
+    const user = getUserFromToken();
+
+    if (!user) {
+        window.location.href = "login.html";
+        return null;
+    }
+    return user;
+}
+
+function redirectIfLoggedIn() {
+    if (isLoggedIn()) {
+        window.location.href = "home.html";
+    }
+}
+
 export const auth = {
     saveToken,
     getToken,
     logout,
     isLoggedIn,
     getUserFromToken,
-    checkLoggedUser
+    checkLoggedUser,
+    requireAuth,
+    redirectIfLoggedIn
 };

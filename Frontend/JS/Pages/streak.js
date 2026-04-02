@@ -7,9 +7,13 @@ import { dbdListeners } from "../Modules/streakListeners.js";
 import { dbdController } from "../Modules/streakController.js";
 
 async function initStreak() {
+    const user = auth.requireAuth();
+    if (!user) return;
+    
+    auth.checkLoggedUser();
+
     const matches = await dbdStorageMatches.getMatches() || [];
 
-    auth.checkLoggedUser();
     setupNavbar();
     await dbdUI.initUI();
     dbdUI.renderTable(matches);
