@@ -35,7 +35,7 @@ function setupNavbar() {
     const logoutBtn = document.getElementById("logoutButton");
 
     homeBtn?.addEventListener("click", () => {
-        window.location.href = "home.html";
+        window.location.href = "/home";
     });
 
     logoutBtn?.addEventListener("click", () => {

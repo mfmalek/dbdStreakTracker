@@ -10,7 +10,7 @@ function getToken() {
 
 function logout() {
     localStorage.removeItem(TOKEN_KEY);
-    window.location.href = "login.html";
+    window.location.href = "/login";
 }
 
 function isLoggedIn() {
@@ -44,7 +44,7 @@ function requireAuth() {
     const user = getUserFromToken();
 
     if (!user) {
-        window.location.href = "login.html";
+        window.location.href = "/login";
         return null;
     }
     return user;
@@ -52,7 +52,7 @@ function requireAuth() {
 
 function redirectIfLoggedIn() {
     if (isLoggedIn()) {
-        window.location.href = "home.html";
+        window.location.href = "/home";
     }
 }
 

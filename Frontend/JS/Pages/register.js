@@ -4,7 +4,7 @@ const API_URL = "https://dbdstreaktracker.onrender.com/api";
 
 function initRegister() {
     if (auth.isLoggedIn()) {
-        window.location.href = "home.html";
+        window.location.href = "/home";
         return;
     }
     
@@ -67,7 +67,7 @@ async function userRegister() {
     document.getElementById("password").value = "";
 
     alert("Account created successfully!");
-    window.location.href = "login.html";
+    window.location.href = "/login";
 }
 
 export const register = {

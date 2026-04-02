@@ -6,7 +6,7 @@ function initLogin() {
     auth.redirectIfLoggedIn();
 
     if (auth.isLoggedIn()) {
-        window.location.href = "home.html";
+        window.location.href = "/home";
         return;
     }
     
@@ -56,7 +56,7 @@ async function userLogin() {
     document.getElementById("password").value = "";
 
     localStorage.setItem("token", data.token);
-    window.location.href = "home.html";
+    window.location.href = "/home";
 }
 
 export const login = {
