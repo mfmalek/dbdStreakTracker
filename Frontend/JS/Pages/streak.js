@@ -7,16 +7,21 @@ import { dbdListeners } from "../Modules/streakListeners.js";
 import { dbdController } from "../Modules/streakController.js";
 
 async function initStreak() {
+    const loading = document.getElementById("loadingScreen");
+    loading.style.display = "flex";
+
     const user = auth.requireAuth();
     if (!user) return;
     
     auth.checkLoggedUser();
-
-    const matches = await dbdStorageMatches.getMatches() || [];
-
     setupNavbar();
+
+    const [matches] = await Promise.all([
+        dbdStorageMatches.getMatches()
+    ]);
+
     await dbdUI.initUI();
-    dbdUI.renderTable(matches);
+    dbdUI.renderTable(matches || []);
     await dbdController.handleRenderStats();
     dbdCore.initCore();
     dbdPresets.initPresets();
@@ -28,6 +33,7 @@ async function initStreak() {
         clearTableMatches,
         resetBestStreak: dbdController.handleResetBestStreak
     });
+    loading.style.display = "none";
 }
 
 function setupNavbar() {
