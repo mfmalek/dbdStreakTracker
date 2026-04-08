@@ -1,46 +1,46 @@
 const prisma = require("../../config/prisma");
 
-const getBestStreak = async (user, mode) => {
-    const record = await prisma.streak.findUnique({
-        where: {
-            user_mode: {
-                user,
-                mode
-            }
-        }
-    });
+const getBestStreak = async (user, mode, groupId) => {
+    const where = groupId
+        ? { groupId_mode: { groupId: Number(groupId), mode } }
+        : { user_mode: { user, mode } };
+
+    const record = await prisma.streak.findUnique({ where });
 
     return record?.best || 0;
 };
 
-const updateBestStreak = async (user, mode, currentStreak) => {
-    const existing = await prisma.streak.findUnique({
-        where: {
-            user_mode: { user, mode }
-        }
-    });
+const updateBestStreak = async (user, mode, currentStreak, groupId) => {
+    const where = groupId
+        ? { groupId_mode: { groupId, mode } }
+        : { user_mode: { user, mode } };
+
+    const existing = await prisma.streak.findUnique({ where });
 
     const previousBest = existing?.best || 0;
     const newBest = Math.max(previousBest, currentStreak);
 
     return await prisma.streak.upsert({
-        where: {
-            user_mode: { user, mode }
-        },
+        where,
         update: {
             best: newBest
         },
         create: {
-            user,
+            user: groupId ? null : user,
+            groupId: groupId || null,
             mode,
             best: newBest
         }
     });
 };
 
-const resetBestStreak = async (user, mode) => {
+const resetBestStreak = async (user, mode, groupId) => {
+    const whereMatches = groupId
+        ? { groupId: Number(groupId), mode }
+        : { user, mode };
+
     const matches = await prisma.match.findMany({
-        where: { user, mode },
+        where: whereMatches,
         orderBy: { createdAt: "asc" }
     });
 
@@ -54,15 +54,18 @@ const resetBestStreak = async (user, mode) => {
         }
     }
 
+    const where = groupId
+        ? { groupId_mode: { groupId: Number(groupId), mode } }
+        : { user_mode: { user, mode } };
+
     return await prisma.streak.upsert({
-        where: {
-            user_mode: { user, mode }
-        },
+        where,
         update: {
             best: currentStreak
         },
         create: {
-            user,
+            user: groupId ? null : user,
+            groupId: groupId ? Number(groupId) : null,
             mode,
             best: currentStreak
         }

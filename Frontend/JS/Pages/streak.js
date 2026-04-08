@@ -2,6 +2,7 @@ import { auth } from "../Modules/auth.js";
 import { dbdCore } from "../Modules/streakCore.js";
 import { dbdPresets } from "../Modules/streakPresets.js";
 import { dbdStorageMatches } from "../Modules/streakStorageMatches.js";
+import { dbdGroups } from "../Modules/streakGroups.js";
 import { dbdUI } from "../Modules/streakUI.js";
 import { dbdListeners } from "../Modules/streakListeners.js";
 import { dbdController } from "../Modules/streakController.js";
@@ -15,6 +16,17 @@ async function initStreak() {
     
     auth.checkLoggedUser();
     setupNavbar();
+
+    const mode = document.body.dataset.mode;
+    let group = null;
+
+    try {
+        group = await dbdGroups.getMyGroup(mode);
+    } catch (err) {
+        console.error("GROUP FETCH ERROR:", err);
+    }
+
+    window.currentGroupId = group?.id || null;
 
     const [matches] = await Promise.all([
         dbdStorageMatches.getMatches()
@@ -31,7 +43,9 @@ async function initStreak() {
         submitMatch,
         deleteTableMatch,
         clearTableMatches,
-        resetBestStreak: dbdController.handleResetBestStreak
+        resetBestStreak: dbdController.handleResetBestStreak,
+        inviteUser: dbdGroups.inviteUser,
+        acceptInvite: dbdGroups.acceptInvite
     });
     loading.style.display = "none";
 }

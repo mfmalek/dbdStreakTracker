@@ -36,19 +36,59 @@ model Preset {
 }
 
 model Match {
-    id        Int      @id @default(autoincrement())
-    user      String
-    mode      String
-    result    String
-    data      Json
-    createdAt DateTime @default(now())
+    id          Int          @id @default(autoincrement())
+    user        String?
+    mode        String
+    result      String
+    data        Json
+    createdAt   DateTime     @default(now())
+    createdBy   String?
+    groupId     Int?
+    StreakGroup StreakGroup? @relation(fields: [groupId], references: [id])
 }
 
 model Streak {
-    id   Int    @id @default(autoincrement())
-    user String
-    mode String
-    best Int    @default(0)
+    id          Int          @id @default(autoincrement())
+    user        String?
+    mode        String
+    best        Int          @default(0)
+    groupId     Int?
+    StreakGroup StreakGroup? @relation(fields: [groupId], references: [id])
 
     @@unique([user, mode])
+    @@unique([groupId, mode])
+}
+
+model GroupMember {
+    id          Int         @id @default(autoincrement())
+    username    String
+    groupId     Int
+    mode        String
+    StreakGroup StreakGroup @relation(fields: [groupId], references: [id])
+
+    @@unique([username, mode])
+}
+
+model GroupInvite {
+    id        Int      @id @default(autoincrement())
+    fromUser  String
+    toUser    String
+    groupId   Int
+    status    String   @default("pending")
+    createdAt DateTime @default(now())
+
+    group StreakGroup @relation(fields: [groupId], references: [id])
+
+    @@index([toUser])
+}
+
+model StreakGroup {
+    id          Int           @id @default(autoincrement())
+    mode        String
+    owner       String
+    createdAt   DateTime      @default(now())
+    GroupMember GroupMember[]
+    Match       Match[]
+    Streak      Streak[]
+    GroupInvite GroupInvite[]
 }

@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const authRoutes = require("./modules/auth/auth.routes");
 const survivorRoutes = require("./modules/survivors/survivors.routes");
+const groupRoutes = require("./modules/groups/groups.routes");
 const presetsRoutes = require("./modules/presets/presets.routes");
 const matchesRoutes = require('./modules/matches/matches.routes');
 const streakRoutes = require("./modules/streak/streak.routes");
@@ -19,6 +20,7 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/survivors", survivorRoutes);
+app.use("/api/groups", groupRoutes);
 app.use("/api/presets", presetsRoutes);
 app.use('/api/matches', matchesRoutes);
 app.use("/api/streak", streakRoutes);

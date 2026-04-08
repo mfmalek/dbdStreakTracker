@@ -1,9 +1,11 @@
-function initListeners({ui, saveConfigs, submitMatch, deleteTableMatch, clearTableMatches, resetBestStreak}) {
+function initListeners({ui, saveConfigs, submitMatch, deleteTableMatch, clearTableMatches, resetBestStreak, inviteUser, acceptInvite}) {
     setupSurvivorCustomization(ui, saveConfigs);
     bindSubmit(submitMatch);
     bindDelete(deleteTableMatch);
     bindClear(clearTableMatches);
     bindResetBest(resetBestStreak);
+    bindInvite(inviteUser);
+    bindAcceptInvite(acceptInvite, ui.renderInvites);
 }
 
 function setupSurvivorCustomization(ui, saveConfigs) {
@@ -82,6 +84,52 @@ function bindDelete(deleteTableMatch) {
 
 function bindResetBest(resetBestStreak) {
     document.getElementById("resetBestStreakButton")?.addEventListener("click", resetBestStreak);
+}
+
+function bindInvite(inviteUser) {
+    const btn = document.getElementById("inviteButton");
+
+    btn?.addEventListener("click", async () => {
+        const input = document.getElementById("inviteUsername");
+        const username = input.value.trim();
+
+        if (!username) {
+            alert("Enter a username");
+            return;
+        }
+
+        const groupId = window.currentGroupId;
+
+        await inviteUser(username, groupId);
+
+        input.value = "";
+        alert("Invite sent!");
+    });
+}
+
+function bindAcceptInvite(acceptInvite, refreshInvites) {
+    const container = document.getElementById("invitesContainer");
+    if (!container) return;
+
+    container.addEventListener("click", async (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+
+        const inviteId = btn.dataset.id;
+
+        try {
+            await acceptInvite(inviteId);
+
+            alert("Joined group!");
+
+            await refreshInvites();
+            location.reload()
+
+        } catch (err) {
+            console.error(err);
+            alert("Failed to accept invite");
+        }
+    });
 }
 
 export const dbdListeners = {

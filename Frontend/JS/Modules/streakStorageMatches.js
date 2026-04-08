@@ -14,7 +14,15 @@ function getAuthHeaders() {
 async function getMatches() {
     const mode = dbdCore.MODE;
 
-    const res = await fetch(`${API_MATCHES}?mode=${mode}`, {
+    const groupId = window.currentGroupId;
+
+    let url = `${API_MATCHES}?mode=${mode}`;
+
+    if (groupId) {
+        url += `&groupId=${groupId}`;
+    }
+
+    const res = await fetch(url, {
         headers: {
             Authorization: `Bearer ${auth.getToken()}`
         }
@@ -36,13 +44,15 @@ async function getMatches() {
 
 async function addMatch(match) {
     const mode = dbdCore.MODE;
+    const groupId = window.currentGroupId;
 
     await fetch(API_MATCHES, {
         method: "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify({
             mode,
-            ...match
+            ...match,
+            groupId
         })
     });
 
@@ -60,8 +70,14 @@ async function deleteMatch(id) {
 
 async function clearMatches() {
     const mode = dbdCore.MODE;
+    const groupId = window.currentGroupId;
+    let url = `${API_MATCHES}?mode=${mode}`;
 
-    await fetch(`${API_MATCHES}?mode=${mode}`, {
+    if (groupId) {
+        url += `&groupId=${groupId}`;
+    }
+
+    await fetch(url, {
         method: "DELETE",
         headers: {
             Authorization: `Bearer ${auth.getToken()}`

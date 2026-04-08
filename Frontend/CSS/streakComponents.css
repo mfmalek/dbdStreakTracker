@@ -214,6 +214,41 @@ input[type="checkbox"]:checked::before {
     display: block;
 }
 
+/* GROUPS */
+
+#groupSection {
+    padding: 20px;
+}
+
+.inviteControls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#inviteUsername {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--text-main);
+}
+
+#invitesContainer {
+    list-style: none;
+    padding: 0;
+}
+
+.inviteItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-card);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+
 /* TABLE */
 
 table {

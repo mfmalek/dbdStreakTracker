@@ -38,13 +38,14 @@ const createMatch = async (req, res) => {
 
 const deleteMatch = async (req, res) => {
     try {
-        const user = req.user.username;
+        const username = req.user.username;
         const { id } = req.params;
 
-        await matchesService.deleteMatch(id, user);
+        await matchesService.deleteMatch(id, username);
 
         res.json({ message: 'Deleted' });
     } catch (error) {
+        console.error("DELETE MATCH ERROR:", error);
         res.status(500).json({ error: 'Failed to delete match' });
     }
 };

@@ -6,8 +6,14 @@ const API_STREAK = `${API_URL}/streak`;
 
 async function getBestStreak() {
     const mode = dbdCore.MODE;
+    const groupId = window.currentGroupId;
+    let url = `${API_STREAK}?mode=${mode}`;
 
-    const res = await fetch(`${API_STREAK}?mode=${mode}`, {
+    if (groupId) {
+        url += `&groupId=${groupId}`;
+    }
+
+    const res = await fetch(url, {
         headers: {
             Authorization: `Bearer ${auth.getToken()}`
         }
@@ -24,12 +30,18 @@ async function getBestStreak() {
 
 async function resetBestStreak() {
     const mode = dbdCore.MODE;
+    const groupId = window.currentGroupId;
 
-    await fetch(`${API_STREAK}?mode=${mode}`, {
-        method: "DELETE",
+    await fetch(`${API_STREAK}/reset`, {
+        method: "POST",
         headers: {
+            "Content-Type": "application/json",
             Authorization: `Bearer ${auth.getToken()}`
-        }
+        },
+        body: JSON.stringify({
+            mode,
+            groupId
+        })
     });
 }
 

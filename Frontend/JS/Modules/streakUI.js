@@ -1,6 +1,7 @@
 import { dbdCore } from "./streakCore.js";
 import { dbdData } from "./streakData.js";
 import { dbdStorageSurvivors } from "./streakStorageSurvivors.js";
+import { dbdGroups } from "./streakGroups.js";
 
 async function initUI() {
     await renderTitle();
@@ -197,6 +198,32 @@ async function renderSurvivors() {
     }
 }
 
+async function renderInvites() {
+    const container = document.getElementById("invitesContainer");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    const invites = await dbdGroups.getInvites();
+
+    invites.forEach(invite => {
+        const li = document.createElement("li");
+        li.className = "inviteItem";
+
+        li.innerHTML = `
+            <span>${invite.fromUser} invited you (${invite.group.mode})</span>
+            <button data-id="${invite.id}">Accept</button>
+        `;
+
+        container.appendChild(li);
+    });
+
+    if (!invites.length) {
+        container.innerHTML = "<li>No pending invites</li>";
+        return;
+    }
+}
+
 async function createTableHeader() {
     const names = await getSurvivorNames();
     let html = "<tr><th>#</th>";
@@ -296,6 +323,7 @@ export const dbdUI = {
     initUI,
     renderNavbar,
     renderTitle,
+    renderInvites,
     renderTableHeader,
     renderTable,
     renderStats,

@@ -1,21 +1,32 @@
 const prisma = require('../../config/prisma');
 const { updateBestStreak } = require("../streak/streak.service");
 
-const getMatches = async (user, mode) => {
+function buildWhere(user, mode, groupId) {
+    return {
+        mode,
+        ...(groupId
+            ? { groupId: Number(groupId) }
+            : { user })
+    };
+}
+
+const getMatches = async (user, mode, groupId) => {
     return await prisma.match.findMany({
-        where: { user, mode },
+        where: buildWhere(user, mode, groupId),
         orderBy: { createdAt: "asc" }
     });
 };
 
 const createMatch = async (data) => {
-    const { user, mode, ...matchData } = data;
+    const { user, mode, groupId, ...matchData } = data;
 
     const result = calculateResult(matchData, mode);
 
     const newMatch = await prisma.match.create({
         data: {
-            user,
+            user: groupId ? null : user,
+            groupId: groupId || null,
+            createdBy: user,
             mode,
             result,
             data: matchData
@@ -24,7 +35,7 @@ const createMatch = async (data) => {
 
     if (result === "win") {
         const matches = await prisma.match.findMany({
-            where: { user, mode },
+            where: buildWhere(user, mode, groupId),
             orderBy: { id: "asc" }
         });
 
@@ -32,49 +43,73 @@ const createMatch = async (data) => {
             matches.map(m => ({ result: m.result }))
         );
 
-        await updateBestStreak(user, mode, currentStreak);
+        await updateBestStreak(user, mode, currentStreak, data.groupId);
     }
     return newMatch;
 };
 
 const deleteMatch = async (id, user) => {
-    const match = await prisma.match.findFirst({
-        where: {
-            id: Number(id),
-            user: user
-        }
+    const match = await prisma.match.findUnique({
+        where: { id: Number(id) }
     });
 
     if (!match) {
-        throw new Error("Match not found or not owned by user");
+        throw new Error("Match not found");
+    }
+
+    if (!match.groupId) {
+        if (match.user !== user) {
+            throw new Error("Unauthorized");
+        }
+    }
+
+    if (match.groupId) {
+        const member = await prisma.groupMember.findFirst({
+            where: {
+                groupId: match.groupId,
+                username: user
+            }
+        });
+
+        if (!member) {
+            throw new Error("Not part of group");
+        }
     }
 
     await prisma.match.delete({
         where: { id: Number(id) }
     });
 
-    const { mode } = match;
+    const { mode, groupId } = match;
 
     const matches = await prisma.match.findMany({
-        where: { user, mode },
+        where: buildWhere(user, mode, groupId),
         orderBy: { createdAt: "asc" }
     });
 
     const bestStreak = calculateBestStreak(matches);
 
     await prisma.streak.upsert({
-        where: {
-            user_mode: { user, mode }
-        },
+        where: groupId
+            ? { groupId_mode: { groupId, mode } }
+            : { user_mode: { user, mode } },
+
         update: { best: bestStreak },
-        create: { user, mode, best: bestStreak }
+
+        create: {
+            user: groupId ? null : user,
+            groupId: groupId || null,
+            mode,
+            best: bestStreak
+        }
     });
+
     return match;
 };
 
-const clearMatches = async (user, mode) => {
+const clearMatches = async (user, mode, groupId) => {
     return await prisma.match.deleteMany({
-        where: { user, mode }
+        where: buildWhere(user, mode, groupId)
     });
 };
 

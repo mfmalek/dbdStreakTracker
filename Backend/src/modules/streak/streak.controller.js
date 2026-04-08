@@ -3,9 +3,9 @@ const streakService = require("./streak.service");
 const getBestStreak = async (req, res) => {
     try {
         const user = req.user.username;
-        const { mode } = req.query;
+        const { mode, groupId } = req.query;
 
-        const bestStreak = await streakService.getBestStreak(user, mode);
+        const bestStreak = await streakService.getBestStreak(user, mode, groupId);
 
         res.json({ bestStreak });
     } catch (error) {
@@ -17,9 +17,9 @@ const getBestStreak = async (req, res) => {
 const resetBestStreak = async (req, res) => {
     try {
         const user = req.user.username;
-        const { mode } = req.query;
+        const { mode, groupId } = req.body;
 
-        await streakService.resetBestStreak(user, mode);
+        await streakService.resetBestStreak(user, mode, groupId);
 
         res.json({ success: true });
     } catch (error) {
