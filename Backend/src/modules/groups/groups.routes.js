@@ -10,12 +10,10 @@ const {
     getMyGroup
 } = require("./groups.controller");
 
-router.use(authMiddleware);
-
-router.post("/", createGroup);
-router.post("/invite", inviteUser);
-router.post("/accept", acceptInvite);
-router.get("/invites", getMyInvites);
-router.get("/me", getMyGroup);
+router.post("/", authMiddleware, createGroup);
+router.post("/invite", authMiddleware, inviteUser);
+router.post("/accept", authMiddleware, acceptInvite);
+router.get("/invites", authMiddleware, getMyInvites);
+router.get("/me", authMiddleware, getMyGroup);
 
 module.exports = router;

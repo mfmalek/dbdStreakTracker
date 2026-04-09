@@ -79,6 +79,7 @@ async function getMyGroup(req, res) {
 
         res.json(membership.StreakGroup);
     } catch (err) {
+        console.error("GET MY GROUP ERROR:", err);
         res.status(500).json({ error: "Failed to fetch group" });
     }
 }
