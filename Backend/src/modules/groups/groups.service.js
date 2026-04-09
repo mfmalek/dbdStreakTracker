@@ -42,8 +42,46 @@ const createGroup = async (username, mode) => {
 };
 
 const inviteUser = async (fromUser, toUser, groupId) => {
+    const userExists = await prisma.user.findUnique({
+        where: { username: toUser }
+    });
+
+    if (!userExists) {
+        throw new Error("User does not exist");
+    }
     if (fromUser === toUser) {
         throw new Error("You cannot invite yourself");
+    }
+    const group = await prisma.streakGroup.findUnique({
+        where: { id: groupId }
+    });
+    if (!group) {
+        throw new Error("Group not found");
+    }
+
+    const existingMember = await prisma.groupMember.findUnique({
+        where: {
+            username_mode: {
+                username: toUser,
+                mode: group.mode
+            }
+        }
+    });
+
+    if (existingMember) {
+        throw new Error("User already in a group");
+    }
+
+    const existingInvite = await prisma.groupInvite.findFirst({
+        where: {
+            toUser,
+            groupId,
+            status: "pending"
+        }
+    });
+
+    if (existingInvite) {
+        throw new Error("Invite already sent");
     }
 
     return prisma.groupInvite.create({

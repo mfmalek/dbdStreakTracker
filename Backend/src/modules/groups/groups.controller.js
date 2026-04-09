@@ -1,4 +1,5 @@
 const groupsService = require("./groups.service");
+const prisma = require("../../config/prisma");
 
 async function createGroup(req, res) {
     try {
@@ -77,7 +78,6 @@ async function getMyGroup(req, res) {
         }
 
         res.json(membership.StreakGroup);
-
     } catch (err) {
         res.status(500).json({ error: "Failed to fetch group" });
     }

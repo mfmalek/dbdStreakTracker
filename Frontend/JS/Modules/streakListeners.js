@@ -100,10 +100,14 @@ function bindInvite(inviteUser) {
 
         const groupId = window.currentGroupId;
 
-        await inviteUser(username, groupId);
-
-        input.value = "";
-        alert("Invite sent!");
+        try {
+            await inviteUser(username, groupId);
+            input.value = "";
+            alert("Invite sent!");
+        } catch (err) {
+            console.error(err);
+            alert("Failed to send invite");
+        }
     });
 }
 
@@ -115,7 +119,7 @@ function bindAcceptInvite(acceptInvite, refreshInvites) {
         const btn = e.target.closest("button");
         if (!btn) return;
 
-        const inviteId = btn.dataset.id;
+        const inviteId = Number(btn.dataset.id);
 
         try {
             await acceptInvite(inviteId);

@@ -17,6 +17,11 @@ async function inviteUser(toUser, groupId) {
         body: JSON.stringify({ toUser, groupId })
     });
 
+    if (!res.ok) {
+        const err = await res.text();
+        throw new Error(err);
+    }
+
     return res.json();
 }
 
@@ -40,9 +45,7 @@ async function acceptInvite(inviteId) {
 
 async function getMyGroup(mode) {
     const res = await fetch(`${API_GROUPS}/me?mode=${mode}`, {
-        headers: {
-            Authorization: `Bearer ${auth.getToken()}`
-        }
+        headers: getHeaders()
     });
 
     if (!res.ok) throw new Error("Failed to fetch group");
