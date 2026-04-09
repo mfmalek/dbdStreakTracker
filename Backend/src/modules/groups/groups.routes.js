@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require("../../middlewares/auth.middleware");
 
 const {
     createGroup,
@@ -8,6 +9,8 @@ const {
     getMyInvites,
     getMyGroup
 } = require("./groups.controller");
+
+router.use(authMiddleware);
 
 router.post("/", createGroup);
 router.post("/invite", inviteUser);
