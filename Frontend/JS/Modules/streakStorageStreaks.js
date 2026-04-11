@@ -40,8 +40,8 @@ async function resetBestStreak() {
     const mode = dbdCore.MODE;
     const groupId = window.currentGroupId;
 
-    const res = await fetch(`${API_STREAK}/reset`, {
-        method: "POST",
+    const res = await fetch(`${API_STREAK}`, {
+        method: "DELETE",
         headers: getAuthHeaders(),
         body: JSON.stringify({
             mode,
