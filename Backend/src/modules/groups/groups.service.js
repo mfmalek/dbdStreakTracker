@@ -41,7 +41,7 @@ const createGroup = async (username, mode) => {
     return group;
 };
 
-const inviteUser = async (fromUser, toUser, groupId) => {
+const inviteUser = async (fromUser, toUser, groupId, mode) => {
     const userExists = await prisma.user.findUnique({
         where: { username: toUser }
     });
@@ -49,14 +49,43 @@ const inviteUser = async (fromUser, toUser, groupId) => {
     if (!userExists) {
         throw new Error("User does not exist");
     }
+
     if (fromUser === toUser) {
         throw new Error("You cannot invite yourself");
     }
-    const group = await prisma.streakGroup.findUnique({
-        where: { id: groupId }
-    });
-    if (!group) {
-        throw new Error("Group not found");
+
+    if (!mode) {
+        throw new Error("Mode is required");
+    }
+
+    let group;
+
+    if (groupId) {
+        group = await prisma.streakGroup.findUnique({
+            where: { id: groupId }
+        });
+
+        if (!group) {
+            throw new Error("Group not found");
+        }
+    } else {
+        const existingMembership = await prisma.groupMember.findUnique({
+            where: {
+                username_mode: {
+                    username: fromUser,
+                    mode
+                }
+            },
+            include: {
+                StreakGroup: true
+            }
+        });
+
+        if (existingMembership) {
+            group = existingMembership.StreakGroup;
+        } else {
+            group = await createGroup(fromUser, mode);
+        }
     }
 
     const existingMember = await prisma.groupMember.findUnique({
@@ -75,7 +104,7 @@ const inviteUser = async (fromUser, toUser, groupId) => {
     const existingInvite = await prisma.groupInvite.findFirst({
         where: {
             toUser,
-            groupId,
+            groupId: group.id,
             status: "pending"
         }
     });
@@ -88,7 +117,7 @@ const inviteUser = async (fromUser, toUser, groupId) => {
         data: {
             fromUser,
             toUser,
-            groupId
+            groupId: group.id
         }
     });
 };

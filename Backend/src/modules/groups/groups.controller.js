@@ -18,9 +18,9 @@ async function createGroup(req, res) {
 async function inviteUser(req, res) {
     try {
         const fromUser = req.user.username;
-        const { toUser, groupId } = req.body;
+        const { toUser, groupId, mode } = req.body;
 
-        const invite = await groupsService.inviteUser(fromUser, toUser, groupId);
+        const invite = await groupsService.inviteUser(fromUser, toUser, groupId, mode);
 
         res.json(invite);
     } catch (error) {

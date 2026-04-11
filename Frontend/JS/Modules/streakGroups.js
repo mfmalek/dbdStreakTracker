@@ -1,11 +1,10 @@
 import { auth } from "./auth.js";
+import { dbdCore } from "./streakCore.js";
 
 const API_URL = "https://dbdstreaktracker.onrender.com/api";
 const API_GROUPS = `${API_URL}/groups`;
 
 function getAuthHeaders() {
-    console.log("TOKEN BEING USED:", auth.getToken());
-
     return {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${auth.getToken()}`
@@ -13,10 +12,12 @@ function getAuthHeaders() {
 }
 
 async function inviteUser(toUser, groupId) {
+    const mode = dbdCore.MODE;
+    
     const res = await fetch(`${API_GROUPS}/invite`, {
         method: "POST",
         headers: getAuthHeaders(),
-        body: JSON.stringify({ toUser, groupId })
+        body: JSON.stringify({ toUser, groupId, mode })
     });
 
     if (!res.ok) {

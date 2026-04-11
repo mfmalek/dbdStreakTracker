@@ -5,8 +5,6 @@ const API_URL = "https://dbdstreaktracker.onrender.com/api";
 const API_PRESETS = `${API_URL}/presets`;
 
 function getAuthHeaders() {
-    console.log("TOKEN BEING USED:", auth.getToken());
-
     return {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${auth.getToken()}`
