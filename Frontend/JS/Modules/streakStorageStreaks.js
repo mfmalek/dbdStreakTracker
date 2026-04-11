@@ -4,6 +4,13 @@ import { auth } from "./auth.js";
 const API_URL = "https://dbdstreaktracker.onrender.com/api";
 const API_STREAK = `${API_URL}/streak`;
 
+function getAuthHeaders() {
+    return {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${auth.getToken()}`
+    };
+}
+
 async function getBestStreak() {
     const mode = dbdCore.MODE;
     const groupId = window.currentGroupId;
@@ -14,14 +21,13 @@ async function getBestStreak() {
     }
 
     const res = await fetch(url, {
-        headers: {
-            Authorization: `Bearer ${auth.getToken()}`
-        }
+        headers: getAuthHeaders()
     });
 
     if (!res.ok) {
-        console.error("Failed to fetch best streak");
-        return 0;
+        const err = await res.text();
+        console.error("GET BEST STREAK ERROR:", err);
+        throw new Error(err);
     }
 
     const data = await res.json();
@@ -32,17 +38,20 @@ async function resetBestStreak() {
     const mode = dbdCore.MODE;
     const groupId = window.currentGroupId;
 
-    await fetch(`${API_STREAK}/reset`, {
+    const res = await fetch(`${API_STREAK}/reset`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${auth.getToken()}`
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify({
             mode,
             groupId
         })
     });
+
+    if (!res.ok) {
+        const err = await res.text();
+        console.error("RESET BEST STREAK ERROR:", err);
+        throw new Error(err);
+    }
 }
 
 export const dbdStorageStreaks = {

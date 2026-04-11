@@ -17,14 +17,13 @@ async function getPresets(survivor) {
     const res = await fetch(
         `${API_PRESETS}?mode=${mode}&survivor=${survivor}`,
         {
-            headers: {
-                Authorization: `Bearer ${auth.getToken()}`
-            }
+            headers: getAuthHeaders()
         }
     );
     if (!res.ok) {
-        console.error("Failed to fetch presets");
-        return [];
+        const err = await res.text();
+        console.error("GET PRESETS ERROR:", err);
+        throw new Error(err);
     }
     return await res.json();
 }
@@ -32,7 +31,7 @@ async function getPresets(survivor) {
 async function savePreset(survivor, name, perks) {
     const mode = dbdCore.MODE;
 
-    await fetch(API_PRESETS, {
+    const res = await fetch(API_PRESETS, {
         method: "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify({
@@ -42,15 +41,25 @@ async function savePreset(survivor, name, perks) {
             perks
         })
     });
+
+    if (!res.ok) {
+        const err = await res.text();
+        console.error("SAVE PRESET ERROR:", err);
+        throw new Error(err);
+    }
 }
 
 async function deletePreset(id) {
-    await fetch(`${API_PRESETS}/${id}`, {
+    const res = await fetch(`${API_PRESETS}/${id}`, {
         method: "DELETE",
-        headers: {
-            Authorization: `Bearer ${auth.getToken()}`
-        }
+        headers: getAuthHeaders()
     });
+
+    if (!res.ok) {
+        const err = await res.text();
+        console.error("DELETE PRESET ERROR:", err);
+        throw new Error(err);
+    }
 }
 
 export const dbdStoragePresets = {

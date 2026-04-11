@@ -3,7 +3,7 @@ import { auth } from "./auth.js";
 const API_URL = "https://dbdstreaktracker.onrender.com/api";
 const API_GROUPS = `${API_URL}/groups`;
 
-function getHeaders() {
+function getAuthHeaders() {
     return {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${auth.getToken()}`
@@ -13,12 +13,13 @@ function getHeaders() {
 async function inviteUser(toUser, groupId) {
     const res = await fetch(`${API_GROUPS}/invite`, {
         method: "POST",
-        headers: getHeaders(),
+        headers: getAuthHeaders(),
         body: JSON.stringify({ toUser, groupId })
     });
 
     if (!res.ok) {
         const err = await res.text();
+        console.error("INVITE API ERROR:", err);
         throw new Error(err);
     }
 
@@ -27,8 +28,14 @@ async function inviteUser(toUser, groupId) {
 
 async function getInvites() {
     const res = await fetch(`${API_GROUPS}/invites`, {
-        headers: getHeaders()
+        headers: getAuthHeaders()
     });
+
+    if (!res.ok) {
+        const err = await res.text();
+        console.error("GET INVITES ERROR:", err);
+        throw new Error(err);
+    }
 
     return res.json();
 }
@@ -36,19 +43,29 @@ async function getInvites() {
 async function acceptInvite(inviteId) {
     const res = await fetch(`${API_GROUPS}/accept`, {
         method: "POST",
-        headers: getHeaders(),
+        headers: getAuthHeaders(),
         body: JSON.stringify({ inviteId })
     });
+
+    if (!res.ok) {
+        const err = await res.text();
+        console.error("ACCEPT INVITE ERROR:", err);
+        throw new Error(err);
+    }
 
     return res.json();
 }
 
 async function getMyGroup(mode) {
     const res = await fetch(`${API_GROUPS}/me?mode=${mode}`, {
-        headers: getHeaders()
+        headers: getAuthHeaders()
     });
 
-    if (!res.ok) throw new Error("Failed to fetch group");
+    if (!res.ok) {
+        const err = await res.text();
+        console.error("GETTING GROUPS ERROR:", err);
+        throw new Error(err);
+    }
 
     return res.json();
 }

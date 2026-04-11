@@ -23,14 +23,13 @@ async function getMatches() {
     }
 
     const res = await fetch(url, {
-        headers: {
-            Authorization: `Bearer ${auth.getToken()}`
-        }
+        headers: getAuthHeaders()
     });
 
     if (!res.ok) {
-        console.error("API ERROR:", await res.text());
-        return [];
+        const err = await res.text();
+        console.error("GET MATCHES ERROR:", err);
+        throw new Error(err);
     }
 
     const matches = await res.json();
@@ -46,7 +45,7 @@ async function addMatch(match) {
     const mode = dbdCore.MODE;
     const groupId = window.currentGroupId;
 
-    await fetch(API_MATCHES, {
+    const res = await fetch(API_MATCHES, {
         method: "POST",
         headers: getAuthHeaders(),
         body: JSON.stringify({
@@ -56,16 +55,26 @@ async function addMatch(match) {
         })
     });
 
+    if (!res.ok) {
+        const err = await res.text();
+        console.error("ADD MATCH ERROR:", err);
+        throw new Error(err);
+    }
+
     return await getMatches();
 }
 
 async function deleteMatch(id) {
-    await fetch(`${API_MATCHES}/${id}`, {
+    const res = await fetch(`${API_MATCHES}/${id}`, {
         method: "DELETE",
-        headers: {
-            Authorization: `Bearer ${auth.getToken()}`
-        }
+        headers: getAuthHeaders()
     });
+
+    if (!res.ok) {
+        const err = await res.text();
+        console.error("DELETE MATCH ERROR:", err);
+        throw new Error(err);
+    }
 }
 
 async function clearMatches() {
@@ -77,12 +86,16 @@ async function clearMatches() {
         url += `&groupId=${groupId}`;
     }
 
-    await fetch(url, {
+    const res = await fetch(url, {
         method: "DELETE",
-        headers: {
-            Authorization: `Bearer ${auth.getToken()}`
-        }
+        headers: getAuthHeaders()
     });
+
+    if (!res.ok) {
+        const err = await res.text();
+        console.error("CLEAR MATCHES ERROR:", err);
+        throw new Error(err);
+    }
 }
 
 export const dbdStorageMatches = {

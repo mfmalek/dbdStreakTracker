@@ -3,14 +3,13 @@ const matchesService = require('./matches.service');
 const getMatches = async (req, res) => {
     try {
         const user = req.user.username;
-        const { mode } = req.query;
+        const { mode, groupId } = req.query;
 
-        const matches = await matchesService.getMatches(user, mode);
+        const matches = await matchesService.getMatches(user, mode, groupId);
 
         res.json(matches);
     } catch (error) {
         console.error("GET MATCHES ERROR:", error);
-
         res.status(500).json({
             error: "Failed to fetch matches",
             details: error.message
@@ -53,9 +52,9 @@ const deleteMatch = async (req, res) => {
 const clearMatches = async (req, res) => {
     try {
         const user = req.user.username;
-        const { mode } = req.query;
+        const { mode, groupId } = req.query;
 
-        await matchesService.clearMatches(user, mode);
+        await matchesService.clearMatches(user, mode, groupId);
 
         res.json({ message: "Cleared" });
     } catch (error) {
