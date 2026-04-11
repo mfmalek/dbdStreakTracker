@@ -106,18 +106,9 @@ function bindInvite(inviteUser) {
             alert("Invite sent!");
         } catch (err) {
             console.error(err);
-            alert("Failed to send invite" || err.message);
+            alert(err.message || "Failed to send invite");
         }
 
-        try {
-            await inviteUser(username, groupId || null);
-            input.value = "";
-            alert("Invite sent!");
-            location.reload();
-        } catch (err) {
-            console.error(err);
-            alert("Failed to send invite");
-        }
     });
 }
 

@@ -6,6 +6,7 @@ import { dbdGroups } from "./streakGroups.js";
 async function initUI() {
     await renderTitle();
     renderRules();
+    await renderInvites();
     await renderSurvivors();
     await renderTableHeader();
 }
