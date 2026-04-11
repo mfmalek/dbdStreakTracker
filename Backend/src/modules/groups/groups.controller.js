@@ -60,13 +60,17 @@ async function getMyGroup(req, res) {
     const username = req.user.username;
     const mode = req.query.mode;
 
+    console.log("GET MY GROUP DEBUG:", { username, mode });
+
+    if (!mode) {
+        return res.status(400).json({ error: "Mode is required" });
+    }
+
     try {
-        const membership = await prisma.groupMember.findUnique({
+        const membership = await prisma.groupMember.findFirst({
             where: {
-                username_mode: {
-                    username,
-                    mode
-                }
+                username,
+                mode
             },
             include: {
                 StreakGroup: true

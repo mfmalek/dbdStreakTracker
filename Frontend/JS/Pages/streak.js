@@ -22,6 +22,7 @@ async function initStreak() {
 
     try {
         group = await dbdGroups.getMyGroup(mode);
+        console.log("MODE BEING USED:", mode);
     } catch (err) {
         console.error("GROUP FETCH ERROR:", err);
     }
