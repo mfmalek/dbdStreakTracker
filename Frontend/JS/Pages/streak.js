@@ -32,7 +32,7 @@ async function initStreak() {
         dbdStorageMatches.getMatches()
     ]);
 
-    await dbdUI.initUI();
+    await dbdUI.initUI(group);
     dbdUI.renderTable(matches || []);
     await dbdController.handleRenderStats();
     dbdCore.initCore();

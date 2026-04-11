@@ -1,13 +1,14 @@
+import { auth } from "./auth.js";
 import { dbdCore } from "./streakCore.js";
 import { dbdData } from "./streakData.js";
 import { dbdStorageSurvivors } from "./streakStorageSurvivors.js";
 import { dbdGroups } from "./streakGroups.js";
 
-async function initUI() {
+async function initUI(group) {
     await renderTitle();
     renderRules();
     await renderInvites();
-    await renderGroupMembers();
+    await renderGroupMembers(group?.id, group);
     await renderSurvivors();
     await renderTableHeader();
 }
@@ -201,6 +202,9 @@ async function renderSurvivors() {
 }
 
 async function renderGroupMembers(groupId, group) {
+    groupId = groupId || window.currentGroupId;
+    group = group || window.currentGroup;
+
     const container = document.getElementById("groupMembersContainer");
     if (!container) return;
 
@@ -213,13 +217,12 @@ async function renderGroupMembers(groupId, group) {
 
     const members = await dbdGroups.getGroupMembers(groupId);
     const currentUser = auth.getUserFromToken()?.username;
-    const isOwner = group.owner === currentUser;
+    const isOwner = group?.owner === currentUser;
 
     members.forEach(member => {
         const li = document.createElement("li");
-
         const isSelf = member.username === currentUser;
-        const isGroupOwner = member.username === group.owner;
+        const isGroupOwner = member.username === group?.owner;
 
         li.innerHTML = `
             <span>
