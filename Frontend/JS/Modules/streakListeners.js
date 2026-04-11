@@ -100,6 +100,11 @@ function bindInvite(inviteUser) {
 
         const groupId = window.currentGroupId;
 
+        if (!groupId) {
+            alert("You must create a group first");
+            return;
+        }
+
         try {
             await inviteUser(username, groupId);
             input.value = "";
