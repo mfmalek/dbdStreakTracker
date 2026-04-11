@@ -100,15 +100,20 @@ function bindInvite(inviteUser) {
 
         const groupId = window.currentGroupId;
 
-        if (!groupId) {
-            alert("You must create a group first");
-            return;
+        try {
+            await inviteUser(username, groupId || null);
+            input.value = "";
+            alert("Invite sent!");
+        } catch (err) {
+            console.error(err);
+            alert("Failed to send invite" || err.message);
         }
 
         try {
-            await inviteUser(username, groupId);
+            await inviteUser(username, groupId || null);
             input.value = "";
             alert("Invite sent!");
+            location.reload();
         } catch (err) {
             console.error(err);
             alert("Failed to send invite");
