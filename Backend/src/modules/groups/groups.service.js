@@ -173,9 +173,69 @@ const acceptInvite = async (username, inviteId) => {
     return { success: true };
 };
 
+const getGroupMembers = async (groupId) => {
+    return prisma.groupMember.findMany({
+        where: { groupId },
+        select: {
+            username: true
+        }
+    });
+};
+
+const removeMember = async (owner, groupId, targetUser) => {
+    const group = await prisma.streakGroup.findUnique({
+        where: { id: groupId }
+    });
+
+    if (!group) throw new Error("Group not found");
+
+    if (group.owner !== owner) {
+        throw new Error("Only owner can remove members");
+    }
+
+    if (targetUser === owner) {
+        throw new Error("Owner cannot remove themselves");
+    }
+
+    await prisma.groupMember.delete({
+        where: {
+            username_mode: {
+                username: targetUser,
+                mode: group.mode
+            }
+        }
+    });
+    return { success: true };
+};
+
+const leaveGroup = async (username, groupId) => {
+    const group = await prisma.streakGroup.findUnique({
+        where: { id: groupId }
+    });
+
+    if (!group) throw new Error("Group not found");
+
+    if (group.owner === username) {
+        throw new Error("Owner cannot leave the group");
+    }
+
+    await prisma.groupMember.delete({
+        where: {
+            username_mode: {
+                username,
+                mode: group.mode
+            }
+        }
+    });
+    return { success: true };
+};
+
 module.exports = {
     createGroup,
     inviteUser,
     getMyInvites,
-    acceptInvite
+    acceptInvite,
+    getGroupMembers,
+    removeMember,
+    leaveGroup
 };

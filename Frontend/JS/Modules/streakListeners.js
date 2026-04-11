@@ -1,4 +1,4 @@
-function initListeners({ui, saveConfigs, submitMatch, deleteTableMatch, clearTableMatches, resetBestStreak, inviteUser, acceptInvite}) {
+function initListeners({ui, saveConfigs, submitMatch, deleteTableMatch, clearTableMatches, resetBestStreak, inviteUser, acceptInvite, removeMember, leaveGroup}) {
     setupSurvivorCustomization(ui, saveConfigs);
     bindSubmit(submitMatch);
     bindDelete(deleteTableMatch);
@@ -6,6 +6,7 @@ function initListeners({ui, saveConfigs, submitMatch, deleteTableMatch, clearTab
     bindResetBest(resetBestStreak);
     bindInvite(inviteUser);
     bindAcceptInvite(acceptInvite, ui.renderInvites);
+    bindMemberActions(removeMember, leaveGroup);
 }
 
 function setupSurvivorCustomization(ui, saveConfigs) {
@@ -133,6 +134,41 @@ function bindAcceptInvite(acceptInvite, refreshInvites) {
         } catch (err) {
             console.error(err);
             alert("Failed to accept invite");
+        }
+    });
+}
+
+function bindMemberActions(removeMember, leaveGroup) {
+    const container = document.getElementById("groupMembersContainer");
+    if (!container) return;
+
+    container.addEventListener("click", async (e) => {
+        const removeBtn = e.target.closest(".removeBtn");
+        const leaveBtn = e.target.closest(".leaveBtn");
+
+        const groupId = window.currentGroupId;
+
+        try {
+            if (removeBtn) {
+                const targetUser = removeBtn.dataset.user;
+
+                const confirmRemove = confirm(`Remove ${targetUser}?`);
+                if (!confirmRemove) return;
+
+                await removeMember(groupId, targetUser);
+                location.reload();
+            }
+
+            if (leaveBtn) {
+                const confirmLeave = confirm("Leave group?");
+                if (!confirmLeave) return;
+
+                await leaveGroup(groupId);
+                location.reload();
+            }
+        } catch (err) {
+            console.error(err);
+            alert(err.message || "Action failed");
         }
     });
 }

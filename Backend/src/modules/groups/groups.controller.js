@@ -89,10 +89,53 @@ async function getMyGroup(req, res) {
     }
 }
 
+async function getGroupMembers(req, res) {
+    try {
+        const { groupId } = req.params;
+        const members = await groupsService.getGroupMembers(Number(groupId));
+
+        res.json(members);
+    } catch (error) {
+        console.error("GET MEMBERS ERROR:", error);
+        res.status(400).json({ error: error.message });
+    }
+}
+
+async function removeMember(req, res) {
+    try {
+        const owner = req.user.username;
+        const { groupId, targetUser } = req.body;
+
+        const result = await groupsService.removeMember(owner, groupId, targetUser);
+
+        res.json(result);
+    } catch (error) {
+        console.error("REMOVE MEMBER ERROR:", error);
+        res.status(400).json({ error: error.message });
+    }
+}
+
+async function leaveGroup(req, res) {
+    try {
+        const username = req.user.username;
+        const { groupId } = req.body;
+
+        const result = await groupsService.leaveGroup(username, groupId);
+
+        res.json(result);
+    } catch (error) {
+        console.error("LEAVE GROUP ERROR:", error);
+        res.status(400).json({ error: error.message });
+    }
+}
+
 module.exports = {
     createGroup,
     inviteUser,
     getMyInvites,
     acceptInvite,
-    getMyGroup
+    getMyGroup,
+    getGroupMembers,
+    removeMember,
+    leaveGroup
 };

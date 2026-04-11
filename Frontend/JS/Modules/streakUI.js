@@ -7,6 +7,7 @@ async function initUI() {
     await renderTitle();
     renderRules();
     await renderInvites();
+    await renderGroupMembers();
     await renderSurvivors();
     await renderTableHeader();
 }
@@ -197,6 +198,49 @@ async function renderSurvivors() {
 
         applySelectedPortrait(grid, savedImage);
     }
+}
+
+async function renderGroupMembers(groupId, group) {
+    const container = document.getElementById("groupMembersContainer");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    if (!groupId) {
+        container.innerHTML = "<p>No group</p>";
+        return;
+    }
+
+    const members = await dbdGroups.getGroupMembers(groupId);
+    const currentUser = auth.getUserFromToken()?.username;
+    const isOwner = group.owner === currentUser;
+
+    members.forEach(member => {
+        const li = document.createElement("li");
+
+        const isSelf = member.username === currentUser;
+        const isGroupOwner = member.username === group.owner;
+
+        li.innerHTML = `
+            <span>
+                ${member.username}
+                ${isGroupOwner ? " 👑" : ""}
+            </span>
+
+            ${
+                isOwner && !isSelf
+                    ? `<button data-user="${member.username}" class="removeBtn">Remove</button>`
+                    : ""
+            }
+
+            ${
+                !isOwner && isSelf
+                    ? `<button class="leaveBtn">Leave</button>`
+                    : ""
+            }
+        `;
+        container.appendChild(li);
+    });
 }
 
 async function renderInvites() {

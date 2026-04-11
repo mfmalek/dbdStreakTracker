@@ -73,9 +73,56 @@ async function getMyGroup(mode) {
     return res.json();
 }
 
+async function getGroupMembers(groupId) {
+    const res = await fetch(`${API_GROUPS}/${groupId}/members`, {
+        headers: getAuthHeaders()
+    });
+
+    if (!res.ok) {
+        const err = await res.text();
+        console.error("GET MEMBERS ERROR:", err);
+        throw new Error(err);
+    }
+    return res.json();
+}
+
+async function removeMember(groupId, targetUser) {
+    const res = await fetch(`${API_GROUPS}/remove`, {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ groupId, targetUser })
+    });
+
+    if (!res.ok) {
+        const err = await res.text();
+        console.error("REMOVE MEMBER ERROR:", err);
+        throw new Error(err);
+    }
+    return res.json();
+}
+
+async function leaveGroup(groupId) {
+    const res = await fetch(`${API_GROUPS}/leave`, {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ groupId })
+    });
+
+    if (!res.ok) {
+        const err = await res.text();
+        console.error("LEAVE GROUP ERROR:", err);
+        throw new Error(err);
+    }
+
+    return res.json();
+}
+
 export const dbdGroups = {
     inviteUser,
     getInvites,
     acceptInvite,
-    getMyGroup
+    getMyGroup,
+    getGroupMembers,
+    removeMember,
+    leaveGroup
 };

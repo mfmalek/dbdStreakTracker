@@ -45,7 +45,9 @@ async function initStreak() {
         clearTableMatches,
         resetBestStreak: dbdController.handleResetBestStreak,
         inviteUser: dbdGroups.inviteUser,
-        acceptInvite: dbdGroups.acceptInvite
+        acceptInvite: dbdGroups.acceptInvite,
+        removeMember: dbdGroups.removeMember,
+        leaveGroup: dbdGroups.leaveGroup
     });
     loading.style.display = "none";
 }
