@@ -2,7 +2,7 @@ const survivorPerks = [
     "Ace in the Hole", "Adrenaline", "Aftercare", "Alert", "Any Means Necessary",
     "Apocalyptic Ingenuity", "Appraisal", "Autodidact", "Babysitter", "Background Player",
     "Bada Bada Boom", "Balanced Landing", "Bardic Inspiration", "Better Together", "Better than New",
-    "Bite the Bullet","Blast Mine", "Blood Pact", "Blood Rush", "Boil Over", "Bond",
+    "Bite the Bullet", "Blast Mine", "Blood Pact", "Blood Rush", "Boil Over", "Bond",
     "Boon: Circle of Healing", "Boon: Dark Theory", "Boon: Exponential", "Boon: Illumination",
     "Boon: Shadow Step", "Borrowed Time", "Botany Knowledge", "Breakdown", "Breakout", "Buckle Up",
     "Built to Last", "Calm Spirit", "Camaraderie", "Champion of Light", "Change of Plan", "Chemical Trap",

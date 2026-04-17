@@ -10,14 +10,13 @@ import { dbdController } from "../Modules/streakController.js";
 async function initStreak() {
     const loading = document.getElementById("loadingScreen");
     loading.style.display = "flex";
-
     const user = auth.requireAuth();
     if (!user) return;
-    
+
     auth.checkLoggedUser();
     setupNavbar();
 
-    const mode = document.body.dataset.mode;
+    const mode = dbdCore.MODE;
     let group = null;
 
     try {
@@ -27,7 +26,6 @@ async function initStreak() {
     }
 
     window.currentGroupId = group?.id || null;
-
     const [matches] = await Promise.all([
         dbdStorageMatches.getMatches()
     ]);
@@ -65,7 +63,7 @@ function setupNavbar() {
     });
 
     const user = auth.getUserFromToken();
-    const mode = document.body.dataset.mode;
+    const mode = dbdCore.MODE;
 
     dbdUI.renderNavbar({
         username: user?.username || "Unknown",
@@ -88,10 +86,10 @@ async function saveConfigs() {
 function getSurvivors() {
     const survivors = [];
 
-    for(let s = 1; s <= dbdCore.SURVIVOR_COUNT; s++) {
+    for (let s = 1; s <= dbdCore.SURVIVOR_COUNT; s++) {
         const perks = [];
 
-        for(let p = 1; p <= 4; p++) {
+        for (let p = 1; p <= 4; p++) {
             const select = document.getElementById(`perk${p}Surv${s}`);
 
             perks.push(select?.value || "");
@@ -111,11 +109,11 @@ async function submitMatch() {
     const mapName = document.getElementById("mapName").value;
     const killerName = document.getElementById("killerName").value;
     const killerPerks = [];
-    for(let p = 1; p <= 4; p++) {
+    for (let p = 1; p <= 4; p++) {
         killerPerks.push(document.getElementById(`killerPerk${p}`).value);
     }
 
-    if(!validateMatchInputs(mapName, killerName)) return;
+    if (!validateMatchInputs(mapName, killerName)) return;
 
     const match = {
         survivors,
@@ -129,11 +127,11 @@ async function submitMatch() {
 }
 
 function validateMatchInputs(mapName, killerName) {
-    if(!killerName) {
+    if (!killerName) {
         alert("Please select a killer.");
         return false;
     }
-    if(!mapName) {
+    if (!mapName) {
         alert("Please select a map.");
         return false;
     }
@@ -157,21 +155,17 @@ async function deleteTableMatch() {
     }
 
     const match = matches[index];
-
     const matchPreview = dbdUI.createMatchPreview(match);
-
     const confirmDelete = confirm(`Are you sure you want to delete match #${index + 1}?\n\n${matchPreview}`);
+
     if (!confirmDelete) return;
-
     await dbdController.handleDeleteMatch(match.id);
-
     input.value = "";
 }
 
 async function clearTableMatches() {
     const confirmClear = confirm("Are you sure you want to clear ALL matches?");
-    if(!confirmClear) return;
-    
+    if (!confirmClear) return;
     await dbdController.handleClearMatches();
 }
 
@@ -179,17 +173,16 @@ function resetForm() {
     const deleteMatchInput = document.getElementById("deleteMatchNumber");
 
     document.querySelectorAll('select').forEach(select => {
-        if(select.tomselect) {
+        if (select.tomselect) {
             select.tomselect.clear();
         } else {
             select.selectedIndex = 0;
         }
     });
 
-    for(let s = 1; s <= dbdCore.SURVIVOR_COUNT; s++) {
+    for (let s = 1; s <= dbdCore.SURVIVOR_COUNT; s++) {
         const checkbox = document.getElementById(`surv${s}Survived`);
-        
-        if(checkbox) checkbox.checked = false;
+        if (checkbox) checkbox.checked = false;
     }
 
     document.getElementById("killerImage").src = "../Images/Miscellaneous/Icon_Killer.png";

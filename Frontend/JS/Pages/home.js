@@ -4,7 +4,6 @@ function initHome() {
     const user = auth.requireAuth();
 
     if (!user) return;
-
     auth.checkLoggedUser();
 }
 

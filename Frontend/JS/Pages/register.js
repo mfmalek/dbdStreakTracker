@@ -7,7 +7,6 @@ function initRegister() {
         window.location.href = "/home";
         return;
     }
-    
     document.getElementById("registerButton")?.addEventListener("click", userRegister);
 }
 
@@ -15,7 +14,6 @@ function getCredentials() {
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
-
     return { username, password, confirmPassword };
 }
 
@@ -34,7 +32,6 @@ function validateCredentials(username, password, confirmPassword) {
         alert("Passwords do not match.");
         return false;
     }
-
     return true;
 }
 
@@ -42,7 +39,6 @@ async function userRegister() {
     const { username, password, confirmPassword } = getCredentials();
 
     if (!validateCredentials(username, password, confirmPassword)) return;
-
     if (password !== confirmPassword) {
         alert("Passwords do not match.");
         return;
@@ -55,7 +51,6 @@ async function userRegister() {
         },
         body: JSON.stringify({ username, password })
     });
-
     const data = await res.json();
 
     if (!res.ok) {
@@ -65,7 +60,6 @@ async function userRegister() {
 
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
-
     alert("Account created successfully!");
     window.location.href = "/login";
 }

@@ -29,7 +29,6 @@ async function getBestStreak() {
         console.error("GET BEST STREAK ERROR:", err);
         throw new Error(err);
     }
-
     const data = await res.json();
     return data.bestStreak || 0;
 }
@@ -37,7 +36,6 @@ async function getBestStreak() {
 async function resetBestStreak() {
     const mode = dbdCore.MODE;
     const groupId = window.currentGroupId;
-
     const res = await fetch(`${API_STREAK}`, {
         method: "DELETE",
         headers: getAuthHeaders(),

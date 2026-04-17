@@ -30,7 +30,7 @@ async function getSurvivorNames() {
     const configs = await dbdStorageSurvivors.getSurvivorConfigs();
     const names = [];
 
-    for(let i = 1; i <= dbdCore.SURVIVOR_COUNT; i++) {
+    for (let i = 1; i <= dbdCore.SURVIVOR_COUNT; i++) {
         const config = configs[i - 1];
         names.push(config?.name || `Surv${i}`);
     }
@@ -38,19 +38,16 @@ async function getSurvivorNames() {
 }
 
 function formatNamesForTitle(names) {
-    if(names.length === 1) return names[0];
-    if(names.length === 2) return names.join(" & ");
-
+    if (names.length === 1) return names[0];
+    if (names.length === 2) return names.join(" & ");
     return `${names.slice(0, -1).join(", ")} & ${names.at(-1)}`;
 }
 
 async function renderTitle() {
     const title = document.getElementById("streakTitle");
-    if(!title) return;
-
+    if (!title) return;
     const names = await getSurvivorNames();
     const formatted = formatNamesForTitle(names);
-
     title.textContent = `${formatted} - Escape Streak Tracker`;
 }
 
@@ -78,18 +75,15 @@ function getRulesByMode(mode) {
 
     return [
         modeSpecificRule[mode],
-        ...(mode === "solo"? generalRules.filter((_, i) => i !== 1): generalRules),
+        ...(mode === "solo" ? generalRules.filter((_, i) => i !== 1) : generalRules),
         extraRule[mode]
     ];
 }
 
 function renderRules() {
     const ruleset = document.getElementById("ruleset");
-
-    if(!ruleset) return;
-
+    if (!ruleset) return;
     const rules = getRulesByMode(dbdCore.MODE);
-
     ruleset.innerHTML = rules.map(rule => `<span class="streakRule">• ${rule}</span>`).join("");
 }
 
@@ -126,7 +120,7 @@ function createSurvivorColumn(index, config = {}) {
 }
 
 function createPerkSlots(index) {
-    return [1,2,3,4].map(p => `
+    return [1, 2, 3, 4].map(p => `
         <div class="perkSlot">
             <label class="perkNumberText">Perk ${p}:</label>
             <select id="perk${p}Surv${index}"></select>
@@ -160,8 +154,8 @@ function createPortraitGrid(index) {
 function createPortraitGridOptions() {
     const survivors = dbdData.names.survivor;
     const survivorNames = survivors.map(name =>
-    name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, "")
-);
+        name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, "")
+    );
 
     return survivorNames.map(name => `
         <img 
@@ -173,8 +167,7 @@ function createPortraitGridOptions() {
 }
 
 function applySelectedPortrait(grid, savedImage) {
-    if(!grid || !savedImage) return;
-
+    if (!grid || !savedImage) return;
     grid.querySelectorAll(".portraitOption").forEach(opt => {
         opt.classList.toggle("selected", opt.dataset.image === savedImage);
     });
@@ -182,12 +175,12 @@ function applySelectedPortrait(grid, savedImage) {
 
 async function renderSurvivors() {
     const container = document.getElementById("survivorContainer");
-    if(!container) return;
+    if (!container) return;
     container.innerHTML = "";
 
     const configs = await dbdStorageSurvivors.getSurvivorConfigs();
 
-    for(let i = 1; i <= dbdCore.SURVIVOR_COUNT; i++) {
+    for (let i = 1; i <= dbdCore.SURVIVOR_COUNT; i++) {
         const config = configs[i - 1];
 
         container.insertAdjacentHTML(
@@ -196,7 +189,6 @@ async function renderSurvivors() {
         );
         const grid = document.getElementById(`portraitGridSurv${i}`);
         const savedImage = config?.image || "Portrait_MegThomas.png";
-
         applySelectedPortrait(grid, savedImage);
     }
 }
@@ -206,8 +198,8 @@ async function renderGroupMembers(groupId, group) {
     group = group || window.currentGroup;
 
     const container = document.getElementById("groupMembersContainer");
-    if (!container) return;
 
+    if (!container) return;
     container.innerHTML = "";
 
     if (!groupId) {
@@ -230,16 +222,14 @@ async function renderGroupMembers(groupId, group) {
                 ${isGroupOwner ? " 👑" : ""}
             </span>
 
-            ${
-                isOwner && !isSelf
-                    ? `<button data-user="${member.username}" class="removeBtn">Remove</button>`
-                    : ""
+            ${isOwner && !isSelf
+                ? `<button data-user="${member.username}" class="removeBtn">Remove</button>`
+                : ""
             }
 
-            ${
-                !isOwner && isSelf
-                    ? `<button class="leaveBtn">Leave</button>`
-                    : ""
+            ${!isOwner && isSelf
+                ? `<button class="leaveBtn">Leave</button>`
+                : ""
             }
         `;
         container.appendChild(li);
@@ -249,20 +239,16 @@ async function renderGroupMembers(groupId, group) {
 async function renderInvites() {
     const container = document.getElementById("invitesContainer");
     if (!container) return;
-
     container.innerHTML = "";
-
     const invites = await dbdGroups.getInvites();
 
     invites.forEach(invite => {
         const li = document.createElement("li");
         li.className = "inviteItem";
-
         li.innerHTML = `
             <span>${invite.fromUser} invited you (${invite.group.mode})</span>
             <button data-id="${invite.id}">Accept</button>
         `;
-
         container.appendChild(li);
     });
 
@@ -293,9 +279,7 @@ async function createTableHeader() {
 
 async function renderTableHeader() {
     const thead = document.querySelector("#matchTable thead");
-
-    if(!thead) return;
-
+    if (!thead) return;
     thead.innerHTML = await createTableHeader();
 }
 
@@ -316,14 +300,12 @@ function createTableRow(match, displayNumber) {
         <td>${match.killerName || "Unknown Killer"}</td>
         <td>${match.killerPerks?.join(", ") || "N/A"}</td>
     </tr>`;
-
     return rowHTML;
 }
 
 function renderTable(matches) {
     const tableBody = document.getElementById("matchTableBody");
     if (!tableBody) return;
-
     const total = matches.length;
 
     tableBody.innerHTML = matches
@@ -336,18 +318,16 @@ function renderTable(matches) {
         .join("");
 }
 
-function renderStats({current, best}) {
+function renderStats({ current, best }) {
     const ongoingStreak = document.getElementById("currentStreak");
     const streakRecord = document.getElementById("bestStreak");
-
-    if(!ongoingStreak || !streakRecord) return;
-
+    if (!ongoingStreak || !streakRecord) return;
     ongoingStreak.textContent = current;
     streakRecord.textContent = best;
 }
 
 function createMatchPreview(match) {
-    if(!match) return "Match not found.";
+    if (!match) return "Match not found.";
     const names = getSurvivorNames();
     let preview = ``;
 
@@ -363,7 +343,6 @@ function createMatchPreview(match) {
     preview += `\nKiller: ${match.killerName || "Unknown"}`;
     preview += `\nPerks: ${match.killerPerks?.join(", ") || "N/A"}`;
     preview += `\n\nMap: ${match.mapName || "Unknown"}`;
-
     return preview;
 }
 

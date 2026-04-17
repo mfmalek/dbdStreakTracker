@@ -13,7 +13,6 @@ function getAuthHeaders() {
 
 async function inviteUser(toUser, groupId) {
     const mode = dbdCore.MODE;
-    
     const res = await fetch(`${API_GROUPS}/invite`, {
         method: "POST",
         headers: getAuthHeaders(),
@@ -25,7 +24,6 @@ async function inviteUser(toUser, groupId) {
         console.error("INVITE API ERROR:", err);
         throw new Error(err);
     }
-
     return res.json();
 }
 
@@ -39,7 +37,6 @@ async function getInvites() {
         console.error("GET INVITES ERROR:", err);
         throw new Error(err);
     }
-
     return res.json();
 }
 
@@ -55,7 +52,6 @@ async function acceptInvite(inviteId) {
         console.error("ACCEPT INVITE ERROR:", err);
         throw new Error(err);
     }
-
     return res.json();
 }
 
@@ -69,7 +65,6 @@ async function getMyGroup(mode) {
         console.error("GETTING GROUPS ERROR:", err);
         throw new Error(err);
     }
-
     return res.json();
 }
 
@@ -113,7 +108,6 @@ async function leaveGroup(groupId) {
         console.error("LEAVE GROUP ERROR:", err);
         throw new Error(err);
     }
-
     return res.json();
 }
 

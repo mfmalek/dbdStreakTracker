@@ -13,13 +13,13 @@ function getAuthHeaders() {
 
 async function getPresets(survivor) {
     const mode = dbdCore.MODE;
-
     const res = await fetch(
         `${API_PRESETS}?mode=${mode}&survivor=${survivor}`,
         {
             headers: getAuthHeaders()
         }
     );
+
     if (!res.ok) {
         const err = await res.text();
         console.error("GET PRESETS ERROR:", err);

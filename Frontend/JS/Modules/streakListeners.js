@@ -1,4 +1,4 @@
-function initListeners({ui, saveConfigs, submitMatch, deleteTableMatch, clearTableMatches, resetBestStreak, inviteUser, acceptInvite, removeMember, leaveGroup}) {
+function initListeners({ ui, saveConfigs, submitMatch, deleteTableMatch, clearTableMatches, resetBestStreak, inviteUser, acceptInvite, removeMember, leaveGroup }) {
     setupSurvivorCustomization(ui, saveConfigs);
     bindSubmit(submitMatch);
     bindDelete(deleteTableMatch);
@@ -11,29 +11,26 @@ function initListeners({ui, saveConfigs, submitMatch, deleteTableMatch, clearTab
 
 function setupSurvivorCustomization(ui, saveConfigs) {
     const container = document.getElementById("survivorContainer");
-    if(!container) return;
 
+    if (!container) return;
     container.addEventListener("click", (e) => {
         const name = e.target.closest(".nickname");
         const image = e.target.closest(".characterPortrait");
         const option = e.target.closest(".portraitOption");
 
-        if(name) {
+        if (name) {
             const index = name.dataset.index;
-
             const input = document.createElement("input");
+
             input.type = "text";
             input.value = name.textContent;
             input.className = "nicknameInput";
-
             name.replaceWith(input);
             input.focus();
-
             input.addEventListener("blur", () => {
                 const newName = input.value || `Surv${index}`;
                 name.textContent = newName;
                 input.replaceWith(name);
-
                 saveConfigs();
                 ui.renderTitle();
                 ui.renderTableHeader();
@@ -41,7 +38,7 @@ function setupSurvivorCustomization(ui, saveConfigs) {
             return;
         }
 
-        if(image) {
+        if (image) {
             const index = image.dataset.index;
             const grid = document.getElementById(`portraitGridSurv${index}`);
 
@@ -49,22 +46,19 @@ function setupSurvivorCustomization(ui, saveConfigs) {
             return;
         }
 
-        if(option) {
+        if (option) {
             const grid = option.closest(".portraitGrid");
-            if(!grid) return;
-
+            if (!grid) return;
             const index = grid.id.replace("portraitGridSurv", "");
             const imageEl = document.getElementById(`imageSurv${index}`);
 
             grid.querySelectorAll(".portraitOption").forEach(opt => {
                 opt.classList.remove("selected");
             });
-
             option.classList.add("selected");
 
             const img = option.dataset.image;
             imageEl.src = `../Images/Portraits/Survivors/${img}`;
-
             grid.classList.add("hidden");
             saveConfigs();
         }
@@ -98,7 +92,6 @@ function bindInvite(inviteUser) {
             alert("Enter a username");
             return;
         }
-
         const groupId = window.currentGroupId;
 
         try {
@@ -109,14 +102,13 @@ function bindInvite(inviteUser) {
             console.error(err);
             alert(err.message || "Failed to send invite");
         }
-
     });
 }
 
 function bindAcceptInvite(acceptInvite, refreshInvites) {
     const container = document.getElementById("invitesContainer");
-    if (!container) return;
 
+    if (!container) return;
     container.addEventListener("click", async (e) => {
         const btn = e.target.closest("button");
         if (!btn) return;
@@ -125,12 +117,9 @@ function bindAcceptInvite(acceptInvite, refreshInvites) {
 
         try {
             await acceptInvite(inviteId);
-
             alert("Joined group!");
-
             await refreshInvites();
             location.reload()
-
         } catch (err) {
             console.error(err);
             alert("Failed to accept invite");
@@ -140,29 +129,27 @@ function bindAcceptInvite(acceptInvite, refreshInvites) {
 
 function bindMemberActions(removeMember, leaveGroup) {
     const container = document.getElementById("groupMembersContainer");
-    if (!container) return;
 
+    if (!container) return;
     container.addEventListener("click", async (e) => {
         const removeBtn = e.target.closest(".removeBtn");
         const leaveBtn = e.target.closest(".leaveBtn");
-
         const groupId = window.currentGroupId;
 
         try {
             if (removeBtn) {
                 const targetUser = removeBtn.dataset.user;
-
                 const confirmRemove = confirm(`Remove ${targetUser}?`);
-                if (!confirmRemove) return;
 
+                if (!confirmRemove) return;
                 await removeMember(groupId, targetUser);
                 location.reload();
             }
 
             if (leaveBtn) {
                 const confirmLeave = confirm("Leave group?");
-                if (!confirmLeave) return;
 
+                if (!confirmLeave) return;
                 await leaveGroup(groupId);
                 location.reload();
             }

@@ -6,7 +6,6 @@ import { dbdUI } from "./streakUI.js";
 
 async function refreshUI() {
     const matches = await dbdStorageMatches.getMatches();
-
     dbdUI.renderTable(matches);
     handleRenderStats();
 }
@@ -29,14 +28,12 @@ async function handleDeleteMatch(matchId) {
 
 async function handleClearMatches() {
     await dbdStorageMatches.clearMatches();
-
     await refreshUI();
 }
 
 async function handleResetBestStreak() {
     const confirmReset = confirm("Are you sure you want to reset your Best Streak?");
     if (!confirmReset) return;
-
     await dbdStorageStreaks.resetBestStreak();
     await refreshUI();
 }
@@ -45,7 +42,6 @@ async function handleRenderStats() {
     const matches = await dbdStorageMatches.getMatches();
     const current = dbdCore.calculateCurrentStreak(matches);
     const best = await dbdStorageStreaks.getBestStreak();
-
     dbdUI.renderStats({ current, best });
 }
 

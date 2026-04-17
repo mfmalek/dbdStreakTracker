@@ -13,9 +13,7 @@ function getAuthHeaders() {
 
 async function getMatches() {
     const mode = dbdCore.MODE;
-
     const groupId = window.currentGroupId;
-
     let url = `${API_MATCHES}?mode=${mode}`;
 
     if (groupId) {
@@ -44,7 +42,6 @@ async function getMatches() {
 async function addMatch(match) {
     const mode = dbdCore.MODE;
     const groupId = window.currentGroupId;
-
     const res = await fetch(API_MATCHES, {
         method: "POST",
         headers: getAuthHeaders(),
@@ -60,7 +57,6 @@ async function addMatch(match) {
         console.error("ADD MATCH ERROR:", err);
         throw new Error(err);
     }
-
     return await getMatches();
 }
 

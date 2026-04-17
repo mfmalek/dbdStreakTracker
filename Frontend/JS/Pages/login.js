@@ -9,7 +9,6 @@ function initLogin() {
         window.location.href = "/home";
         return;
     }
-    
     document.getElementById("loginButton")?.addEventListener("click", userLogin);
 }
 
@@ -51,10 +50,8 @@ async function userLogin() {
         alert(data.error || "Login failed");
         return;
     }
-
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
-
     localStorage.setItem("token", data.token);
     window.location.href = "/home";
 }

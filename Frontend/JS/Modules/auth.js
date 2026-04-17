@@ -34,7 +34,6 @@ function checkLoggedUser() {
     const loggedMessage = document.getElementById("welcomeUser");
 
     if (!user) return;
-
     if (loggedMessage) {
         loggedMessage.textContent = `Logged in as: ${user.username}`;
     }

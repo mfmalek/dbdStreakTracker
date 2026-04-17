@@ -42,8 +42,8 @@ function createTomSelect(id, options, placeholder) {
 function setupSurvivorPerks() {
     const perks = createOptionsFromArray(dbdData.perks.survivor);
 
-    for(let s = 1; s <= SURVIVOR_COUNT; s++) {
-        for(let p = 1; p <= 4; p++) {
+    for (let s = 1; s <= SURVIVOR_COUNT; s++) {
+        for (let p = 1; p <= 4; p++) {
             createTomSelect(`perk${p}Surv${s}`, perks, "Select a perk");
         }
     }
@@ -52,14 +52,13 @@ function setupSurvivorPerks() {
 function setupKillerPerks() {
     const perks = createOptionsFromArray(dbdData.perks.killer);
 
-    for(let p = 1; p <= 4; p++) {
+    for (let p = 1; p <= 4; p++) {
         createTomSelect(`killerPerk${p}`, perks, "Select a perk");
     }
 }
 
 function setupKillerNames() {
     const options = createOptionsFromArray(dbdData.names.killer);
-
     createTomSelect("killerName", options, "Select Killer");
 }
 
@@ -67,17 +66,15 @@ function setupKillerImageOnChange() {
     const killerSelect = document.getElementById("killerName");
     const killerImage = document.getElementById("killerImage");
 
-    if(!killerSelect || !killerImage) return;
-
+    if (!killerSelect || !killerImage) return;
     killerSelect.addEventListener("change", () => {
         const selectedKiller = killerSelect.value;
         const killerName = selectedKiller.replace(/[^a-zA-Z0-9]/g, "");
 
-        if(!selectedKiller) {
+        if (!selectedKiller) {
             killerImage.src = "../Images/Miscellaneous/Icon_Killer.png";
             return;
         }
-
         killerImage.src = `../Images/Portraits/Killers/Portrait_${killerName}.png`;
         killerImage.alt = selectedKiller;
     });
@@ -85,7 +82,6 @@ function setupKillerImageOnChange() {
 
 function setupMaps() {
     const mapSelect = document.getElementById("mapName");
-
     const config = {
         create: false,
         maxItems: 1,
@@ -97,13 +93,13 @@ function setupMaps() {
         options: [],
         maxOptions: null,
         render: {
-            optgroup_header: function(data, escape) {
+            optgroup_header: function (data, escape) {
                 return `
                     <div class="tsOptgroupHeader">
                         ${escape(data.label)}
                     </div>`;
             },
-            option: function(data, escape) {
+            option: function (data, escape) {
                 return `
                     <div class="tsMapOption">
                         <span class="mapIcon">🗺️ </span>
@@ -138,19 +134,17 @@ function setupMapImageOnChange() {
     const mapSelect = document.getElementById("mapName");
     const mapImage = document.getElementById("mapImage");
 
-    if(!mapSelect || !mapImage) return;
-
+    if (!mapSelect || !mapImage) return;
     mapSelect.addEventListener("change", () => {
         const selectedMap = mapSelect.value;
         const baseMapName = selectedMap.replace(/\s+(I{1,3}|IV|V)$/, "");
         const mapName = baseMapName.replace(/[^a-zA-Z0-9]/g, "");
         const realmFolder = dbdData.maps.mapImageFolders[baseMapName];
 
-        if((!selectedMap) || (!realmFolder)) {
+        if ((!selectedMap) || (!realmFolder)) {
             mapImage.src = "../Images/Maps/Map_GenericMapBackground.png";
             return;
         }
-
         mapImage.src = `../Images/Maps/${realmFolder}/Map_${mapName}.png`;
         mapImage.alt = selectedMap;
     });

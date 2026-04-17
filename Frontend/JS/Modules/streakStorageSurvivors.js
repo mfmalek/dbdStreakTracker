@@ -13,7 +13,6 @@ function getAuthHeaders() {
 
 async function getSurvivorConfigs() {
     const mode = dbdCore.MODE;
-
     const res = await fetch(`${API_SURVIVORS}?mode=${mode}`, {
         headers: getAuthHeaders()
     });
@@ -23,7 +22,7 @@ async function getSurvivorConfigs() {
         console.error("GET SURVIVOR CONFIGS ERROR:", err);
         throw new Error(err);
     }
-    
+
     const data = await res.json();
 
     return data.map(c => ({
