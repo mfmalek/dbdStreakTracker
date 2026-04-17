@@ -249,6 +249,13 @@ input[type="checkbox"]:checked::before {
     margin-bottom: 8px;
 }
 
+/* GROUPS */
+
+#groupMemberName {
+    display: flex;
+    padding: 10px 0;
+}
+
 /* TABLE */
 
 table {

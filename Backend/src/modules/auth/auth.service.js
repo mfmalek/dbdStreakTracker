@@ -10,12 +10,22 @@ if (!JWT_SECRET) {
 const register = async (username, password) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    return await prisma.user.create({
-        data: {
-            username,
-            password: hashedPassword
+    try {
+        return await prisma.user.create({
+            data: {
+                username,
+                password: hashedPassword
+            }
+        });
+    } catch(err) {
+        console.error("REGISTER ERROR:", err);
+
+        if (err.code === "P2002") {
+            throw new Error(`Username "${username}" is already taken`);
         }
-    });
+
+        throw new Error("Failed to register user");
+    }
 };
 
 const login = async (username, password) => {

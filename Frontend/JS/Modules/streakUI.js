@@ -225,7 +225,7 @@ async function renderGroupMembers(groupId, group) {
         const isGroupOwner = member.username === group?.owner;
 
         li.innerHTML = `
-            <span>
+            <span id="groupMemberName">
                 ${member.username}
                 ${isGroupOwner ? " 👑" : ""}
             </span>

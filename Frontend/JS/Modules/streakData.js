@@ -37,7 +37,7 @@ const killerPerks = [
     "Coup de Grâce", "Cruel Limits", "Dark Arrogance", "Dark Devotion", "Darkness Reveal",
     "Dead Man's Switch", "Deadlock", "Deathbound", "Deerstalker", "Discordance", "Dissolution",
     "Distressing", "Dominance", "Dragon's Grip", "Dying Light", "Enduring", "Eruption", "Fire Up",
-    "Forced Hesitation", "Forced Penance", "Forever Entwined", "Franklin's Demise", "Friend 'till the End",
+    "Forced Hesitation", "Forced Penance", "Forever Entwined", "Franklin's Demise", "Friends 'till the End",
     "Furtive Chase", "Game Afoot", "Gearhead", "Genetic Limits", "Grim Embrace", "Haywire", "Help Wanted",
     "Hex: Blood Favour", "Hex: Crowd Control", "Hex: Devour Hope", "Hex: Face the Darkness",
     "Hex: Haunted Ground", "Hex: Hive Mind", "Hex: Huntress Lullaby", "Hex: No One Escapes Death", "Hex: Nothing but Misery",
