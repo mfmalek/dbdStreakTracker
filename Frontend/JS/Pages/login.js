@@ -47,7 +47,7 @@ async function userLogin() {
     const data = await res.json();
 
     if (!res.ok) {
-        alert(data.error || "Login failed");
+        alert(data.message || "Login failed");
         return;
     }
     document.getElementById("username").value = "";
