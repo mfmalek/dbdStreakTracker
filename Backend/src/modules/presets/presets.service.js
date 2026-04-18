@@ -26,12 +26,19 @@ const createPreset = async (data) => {
 };
 
 const deletePreset = async (id, user) => {
-    return await prisma.preset.deleteMany({
+    const deleted = await prisma.preset.deleteMany({
         where: {
             id: Number(id),
             user: user
         }
     });
+
+    if (deleted.count === 0) {
+        const err = new Error("Preset not found");
+        err.status = 404;
+        throw err;
+    }
+    return true;
 };
 
 module.exports = {
