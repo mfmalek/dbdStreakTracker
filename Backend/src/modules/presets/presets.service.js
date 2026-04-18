@@ -13,7 +13,6 @@ const getPresets = async (user, mode, survivor) => {
 
 const createPreset = async (data) => {
     const { user, mode, survivor, name, perks } = data;
-
     return await prisma.preset.create({
         data: {
             user,

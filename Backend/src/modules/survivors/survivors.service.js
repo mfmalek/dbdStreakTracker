@@ -11,7 +11,6 @@ const saveConfigs = async (user, mode, configs) => {
     await prisma.survivorConfig.deleteMany({
         where: { user, mode }
     });
-
     return await prisma.survivorConfig.createMany({
         data: configs.map((c, i) => ({
             user,

@@ -11,7 +11,9 @@ const createGroup = async (username, mode) => {
     });
 
     if (existing) {
-        throw new Error("User already in a group for this mode");
+        const err = new Error("User already in a group for this mode");
+        err.status = 400;
+        throw err;
     }
 
     const group = await prisma.streakGroup.create({
@@ -37,7 +39,6 @@ const createGroup = async (username, mode) => {
             best: 0
         }
     });
-
     return group;
 };
 
@@ -47,26 +48,33 @@ const inviteUser = async (fromUser, toUser, groupId, mode) => {
     });
 
     if (!userExists) {
-        throw new Error("User does not exist");
+        const err = new Error("User does not exist");
+        err.status = 404;
+        throw err;
     }
 
     if (fromUser === toUser) {
-        throw new Error("You cannot invite yourself");
+        const err = new Error("You cannot invite yourself");
+        err.status = 400;
+        throw err;
     }
 
     if (!mode) {
-        throw new Error("Mode is required");
+        const err = new Error("Mode is required");
+        err.status = 400;
+        throw err;
     }
 
     let group;
-
     if (groupId) {
         group = await prisma.streakGroup.findUnique({
             where: { id: groupId }
         });
 
         if (!group) {
-            throw new Error("Group not found");
+            const err = new Error("Group not found");
+            err.status = 404;
+            throw err;
         }
     } else {
         const existingMembership = await prisma.groupMember.findUnique({
@@ -98,7 +106,9 @@ const inviteUser = async (fromUser, toUser, groupId, mode) => {
     });
 
     if (existingMember) {
-        throw new Error("User already in a group");
+        const err = new Error("User already in a group");
+        err.status = 400;
+        throw err;
     }
 
     const existingInvite = await prisma.groupInvite.findFirst({
@@ -110,7 +120,9 @@ const inviteUser = async (fromUser, toUser, groupId, mode) => {
     });
 
     if (existingInvite) {
-        throw new Error("Invite already sent");
+        const err = new Error("Invite already sent");
+        err.status = 400;
+        throw err;
     }
 
     return prisma.groupInvite.create({
@@ -134,6 +146,29 @@ const getMyInvites = async (username) => {
     });
 };
 
+const getMyGroup = async (username, mode) => {
+    if (!mode) {
+        const err = new Error("Mode is required");
+        err.status = 400;
+        throw err;
+    }
+
+    const membership = await prisma.groupMember.findFirst({
+        where: {
+            username,
+            mode
+        },
+        include: {
+            StreakGroup: true
+        }
+    });
+
+    if (!membership) {
+        return null;
+    }
+    return membership.StreakGroup;
+};
+
 const acceptInvite = async (username, inviteId) => {
     const invite = await prisma.groupInvite.findUnique({
         where: { id: inviteId },
@@ -141,7 +176,9 @@ const acceptInvite = async (username, inviteId) => {
     });
 
     if (!invite || invite.toUser !== username) {
-        throw new Error("Invalid invite");
+        const err = new Error("Invalid invite");
+        err.status = 400;
+        throw err;
     }
 
     const existing = await prisma.groupMember.findUnique({
@@ -154,7 +191,9 @@ const acceptInvite = async (username, inviteId) => {
     });
 
     if (existing) {
-        throw new Error("Already in a group for this mode");
+        const err = new Error("Already in a group for this mode");
+        err.status = 400;
+        throw err;
     }
 
     await prisma.groupMember.create({
@@ -169,7 +208,6 @@ const acceptInvite = async (username, inviteId) => {
         where: { id: inviteId },
         data: { status: "accepted" }
     });
-
     return { success: true };
 };
 
@@ -187,14 +225,22 @@ const removeMember = async (owner, groupId, targetUser) => {
         where: { id: groupId }
     });
 
-    if (!group) throw new Error("Group not found");
+    if (!group) {
+        const err = new Error("Group not found");
+        err.status = 404;
+        throw err;
+    }
 
     if (group.owner !== owner) {
-        throw new Error("Only owner can remove members");
+        const err = new Error("Only owner can remove members");
+        err.status = 403;
+        throw err;
     }
 
     if (targetUser === owner) {
-        throw new Error("Owner cannot remove themselves");
+        const err = new Error("Owner cannot remove themselves");
+        err.status = 400;
+        throw err;
     }
 
     await prisma.groupMember.delete({
@@ -213,10 +259,16 @@ const leaveGroup = async (username, groupId) => {
         where: { id: groupId }
     });
 
-    if (!group) throw new Error("Group not found");
+    if (!group) {
+        const err = new Error("Group not found");
+        err.status = 404;
+        throw err;
+    }
 
     if (group.owner === username) {
-        throw new Error("Owner cannot leave the group");
+        const err = new Error("Owner cannot leave the group");
+        err.status = 403;
+        throw err;
     }
 
     await prisma.groupMember.delete({
@@ -234,6 +286,7 @@ module.exports = {
     createGroup,
     inviteUser,
     getMyInvites,
+    getMyGroup,
     acceptInvite,
     getGroupMembers,
     removeMember,

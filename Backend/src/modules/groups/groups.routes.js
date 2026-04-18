@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
+
 const authMiddleware = require("../../middlewares/auth.middleware");
+const asyncHandler = require("../../utils/asyncHandler");
 
 const {
     createGroup,
@@ -13,13 +15,13 @@ const {
     leaveGroup
 } = require("./groups.controller");
 
-router.post("/", authMiddleware, createGroup);
-router.post("/invite", authMiddleware, inviteUser);
-router.post("/accept", authMiddleware, acceptInvite);
-router.get("/invites", authMiddleware, getMyInvites);
-router.get("/me", authMiddleware, getMyGroup);
-router.get("/:groupId/members", authMiddleware, getGroupMembers);
-router.post("/remove", authMiddleware, removeMember);
-router.post("/leave", authMiddleware, leaveGroup);
+router.post("/", authMiddleware, asyncHandler(createGroup));
+router.post("/invite", authMiddleware, asyncHandler(inviteUser));
+router.post("/accept", authMiddleware, asyncHandler(acceptInvite));
+router.get("/invites", authMiddleware, asyncHandler(getMyInvites));
+router.get("/me", authMiddleware, asyncHandler(getMyGroup));
+router.get("/:groupId/members", authMiddleware, asyncHandler(getGroupMembers));
+router.post("/remove", authMiddleware, asyncHandler(removeMember));
+router.post("/leave", authMiddleware, asyncHandler(leaveGroup));
 
 module.exports = router;

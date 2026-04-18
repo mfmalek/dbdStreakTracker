@@ -19,9 +19,7 @@ const getMatches = async (user, mode, groupId) => {
 
 const createMatch = async (data) => {
     const { user, mode, groupId, ...matchData } = data;
-
     const result = calculateResult(matchData, mode);
-
     const newMatch = await prisma.match.create({
         data: {
             user: groupId ? null : user,
@@ -42,7 +40,6 @@ const createMatch = async (data) => {
         const currentStreak = calculateCurrentStreak(
             matches.map(m => ({ result: m.result }))
         );
-
         await updateBestStreak(user, mode, currentStreak, data.groupId);
     }
     return newMatch;
@@ -81,21 +78,17 @@ const deleteMatch = async (id, user) => {
     });
 
     const { mode, groupId } = match;
-
     const matches = await prisma.match.findMany({
         where: buildWhere(user, mode, groupId),
         orderBy: { createdAt: "asc" }
     });
-
     const bestStreak = calculateBestStreak(matches);
 
     await prisma.streak.upsert({
         where: groupId
             ? { groupId_mode: { groupId, mode } }
             : { user_mode: { user, mode } },
-
         update: { best: bestStreak },
-
         create: {
             user: groupId ? null : user,
             groupId: groupId || null,
@@ -103,7 +96,6 @@ const deleteMatch = async (id, user) => {
             best: bestStreak
         }
     });
-
     return match;
 };
 
@@ -115,7 +107,6 @@ const clearMatches = async (user, mode, groupId) => {
 
 function calculateResult(matchData, mode) {
     const survivors = matchData.survivors || [];
-
     const escapedCount = survivors.filter(s => s.survived).length;
 
     switch (mode) {
@@ -157,7 +148,6 @@ function calculateBestStreak(matches) {
             temp = 0;
         }
     }
-
     return best;
 }
 

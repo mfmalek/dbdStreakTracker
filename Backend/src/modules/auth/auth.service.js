@@ -18,13 +18,15 @@ const register = async (username, password) => {
             }
         });
     } catch(err) {
-        console.error("REGISTER ERROR:", err);
-
         if (err.code === "P2002") {
-            throw new Error(`Username "${username}" is already taken`);
+            const error = new Error(`Username "${username}" is already taken`);
+            error.status = 400;
+            throw error;
         }
 
-        throw new Error("Failed to register user");
+        const error = new Error("Failed to register user");
+        error.status = 500;
+        throw error;
     }
 };
 
@@ -33,10 +35,18 @@ const login = async (username, password) => {
         where: { username }
     });
 
-    if (!user) throw new Error("User not found");
+    if (!user) {
+        const err = new Error("User not found");
+        err.status = 404;
+        throw err;
+    }
 
     const valid = await bcrypt.compare(password, user.password);
-    if (!valid) throw new Error("Invalid password");
+    if (!valid) {
+        const err = new Error("Invalid password");
+        err.status = 401;
+        throw err;
+    }
 
     const token = jwt.sign(
         { userId: user.id, username: user.username },
