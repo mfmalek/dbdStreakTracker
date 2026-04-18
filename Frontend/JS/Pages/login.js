@@ -12,6 +12,22 @@ function initLogin() {
     document.getElementById("loginButton")?.addEventListener("click", userLogin);
 }
 
+async function handleResponse(res) {
+    let data;
+
+    try {
+        data = await res.json();
+    } catch {
+        data = null;
+    }
+
+    if (!res.ok) {
+        const message = data?.message || "Something went wrong";
+        throw new Error(message);
+    }
+    return data;
+}
+
 function getCredentials() {
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value;
@@ -36,24 +52,23 @@ async function userLogin() {
 
     if (!validateCredentials(username, password)) return;
 
-    const res = await fetch(`${API_URL}/auth/login`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username, password })
-    });
+    try {
+        const res = await fetch(`${API_URL}/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, password })
+        });
+        const data = await handleResponse(res);
 
-    const data = await res.json();
-
-    if (!res.ok) {
-        alert(data.message || "Login failed");
-        return;
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "";
+        localStorage.setItem("token", data.token);
+        window.location.href = "/home";
+    } catch (err) {
+        alert(err.message);
     }
-    document.getElementById("username").value = "";
-    document.getElementById("password").value = "";
-    localStorage.setItem("token", data.token);
-    window.location.href = "/home";
 }
 
 export const login = {

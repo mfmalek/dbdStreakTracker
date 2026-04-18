@@ -10,6 +10,22 @@ function initRegister() {
     document.getElementById("registerButton")?.addEventListener("click", userRegister);
 }
 
+async function handleResponse(res) {
+    let data;
+
+    try {
+        data = await res.json();
+    } catch {
+        data = null;
+    }
+
+    if (!res.ok) {
+        const message = data?.message || "Something went wrong";
+        throw new Error(message);
+    }
+    return data;
+}
+
 function getCredentials() {
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value;
@@ -44,24 +60,23 @@ async function userRegister() {
         return;
     }
 
-    const res = await fetch(`${API_URL}/auth/register`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username, password })
-    });
-    const data = await res.json();
+    try {
+        const res = await fetch(`${API_URL}/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, password })
+        });
+        const data = await handleResponse(res);
 
-    if (!res.ok) {
-        alert(data.message || "Register failed");
-        return;
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "";
+        alert("Account created successfully!");
+        window.location.href = "/login";
+    } catch (err) {
+        alert(err.message);
     }
-
-    document.getElementById("username").value = "";
-    document.getElementById("password").value = "";
-    alert("Account created successfully!");
-    window.location.href = "/login";
 }
 
 export const register = {
