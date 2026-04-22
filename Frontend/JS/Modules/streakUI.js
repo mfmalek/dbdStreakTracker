@@ -1,4 +1,4 @@
-import { auth } from "./auth.js";
+import { auth } from "../Auth/auth.js";
 import { dbdCore } from "./streakCore.js";
 import { dbdData } from "./streakData.js";
 import { dbdStorageSurvivors } from "./streakStorageSurvivors.js";
