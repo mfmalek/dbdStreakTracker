@@ -1,9 +1,9 @@
 import { http } from "./http.js";
-import { dbdCore } from "../Core/Survivor Streak/streakCore.js";
+import { streakCore } from "../Core/Survivor Streak/streakCore.js";
 
 function getContext() {
     return {
-        mode: dbdCore.MODE,
+        mode: streakCore.MODE,
         groupId: window.currentGroupId || null
     };
 }
@@ -22,7 +22,7 @@ async function resetBestStreak() {
     });
 }
 
-export const dbdStorageStreaks = {
+export const streaksApi = {
     getBestStreak,
     resetBestStreak
 };

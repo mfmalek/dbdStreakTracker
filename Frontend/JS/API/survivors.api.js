@@ -1,8 +1,8 @@
 import { http } from "./http.js";
-import { dbdCore } from "../Core/Survivor Streak/streakCore.js";
+import { streakCore } from "../Core/Survivor Streak/streakCore.js";
 
 function getMode() {
-    return dbdCore.MODE;
+    return streakCore.MODE;
 }
 
 async function getSurvivorConfigs() {
@@ -23,7 +23,7 @@ async function saveSurvivorConfigs(configs) {
     });
 }
 
-export const dbdStorageSurvivors = {
+export const survivorsApi = {
     getSurvivorConfigs,
     saveSurvivorConfigs
 };

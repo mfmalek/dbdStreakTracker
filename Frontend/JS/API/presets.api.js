@@ -1,8 +1,8 @@
 import { http } from "./http.js";
-import { dbdCore } from "../Core/Survivor Streak/streakCore.js";
+import { streakCore } from "../Core/Survivor Streak/streakCore.js";
 
 function getMode() {
-    return dbdCore.MODE;
+    return streakCore.MODE;
 }
 
 async function getPresets(survivor) {
@@ -25,7 +25,7 @@ async function deletePreset(id) {
     await http.del(`/presets/${id}`);
 }
 
-export const dbdStoragePresets = {
+export const presetsApi = {
     getPresets,
     savePreset,
     deletePreset

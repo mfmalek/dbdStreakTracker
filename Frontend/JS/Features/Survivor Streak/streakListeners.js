@@ -160,6 +160,6 @@ function bindMemberActions(removeMember, leaveGroup) {
     });
 }
 
-export const dbdListeners = {
+export const streakListeners = {
     initListeners
 }

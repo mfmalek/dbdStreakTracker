@@ -1,11 +1,11 @@
 import { auth } from "../Auth/auth.js";
-import { dbdCore } from "../Core/Survivor Streak/streakCore.js";
-import { dbdPresets } from "../Features/Survivor Streak/streakPresets.js";
+import { streakCore } from "../Core/Survivor Streak/streakCore.js";
+import { streakPresets } from "../Features/Survivor Streak/streakPresets.js";
 import { matchesApi } from "../API/matches.api.js";
-import { dbdGroups } from "../API/groups.api.js";
-import { dbdUI } from "../Features/Survivor Streak/streakUI.js";
-import { dbdListeners } from "../Features/Survivor Streak/streakListeners.js";
-import { dbdController } from "../Features/Survivor Streak/streakController.js";
+import { groupsApi } from "../API/groups.api.js";
+import { streakUI } from "../Features/Survivor Streak/streakUI.js";
+import { streakListeners } from "../Features/Survivor Streak/streakListeners.js";
+import { streakController } from "../Features/Survivor Streak/streakController.js";
 
 async function initStreak() {
     const loading = document.getElementById("loadingScreen");
@@ -16,11 +16,11 @@ async function initStreak() {
     auth.checkLoggedUser();
     setupNavbar();
 
-    const mode = dbdCore.MODE;
+    const mode = streakCore.MODE;
     let group = null;
 
     try {
-        group = await dbdGroups.getMyGroup(mode);
+        group = await groupsApi.getMyGroup(mode);
     } catch (err) {
         console.error("GROUP FETCH ERROR:", err);
     }
@@ -30,22 +30,22 @@ async function initStreak() {
         matchesApi.getMatches()
     ]);
 
-    await dbdUI.initUI(group);
-    dbdUI.renderTable(matches || []);
-    await dbdController.handleRenderStats();
-    dbdCore.initCore();
-    dbdPresets.initPresets();
-    dbdListeners.initListeners({
-        ui: dbdUI,
+    await streakUI.initUI(group);
+    streakUI.renderTable(matches || []);
+    await streakController.handleRenderStats();
+    streakCore.initCore();
+    streakPresets.initPresets();
+    streakListeners.initListeners({
+        ui: streakUI,
         saveConfigs,
         submitMatch,
         deleteTableMatch,
         clearTableMatches,
-        resetBestStreak: dbdController.handleResetBestStreak,
-        inviteUser: dbdGroups.inviteUser,
-        acceptInvite: dbdGroups.acceptInvite,
-        removeMember: dbdGroups.removeMember,
-        leaveGroup: dbdGroups.leaveGroup
+        resetBestStreak: streakController.handleResetBestStreak,
+        inviteUser: groupsApi.inviteUser,
+        acceptInvite: groupsApi.acceptInvite,
+        removeMember: groupsApi.removeMember,
+        leaveGroup: groupsApi.leaveGroup
     });
     loading.style.display = "none";
 }
@@ -63,9 +63,9 @@ function setupNavbar() {
     });
 
     const user = auth.getUserFromToken();
-    const mode = dbdCore.MODE;
+    const mode = streakCore.MODE;
 
-    dbdUI.renderNavbar({
+    streakUI.renderNavbar({
         username: user?.username || "Unknown",
         mode
     });
@@ -74,19 +74,19 @@ function setupNavbar() {
 async function saveConfigs() {
     const configs = [];
 
-    for (let i = 1; i <= dbdCore.SURVIVOR_COUNT; i++) {
+    for (let i = 1; i <= streakCore.SURVIVOR_COUNT; i++) {
         configs.push({
             name: document.getElementById(`nicknameSurv${i}`)?.textContent || `Surv${i}`,
             image: document.getElementById(`imageSurv${i}`)?.src.split("/").pop()
         });
     }
-    await dbdController.handleSaveConfigs(configs);
+    await streakController.handleSaveConfigs(configs);
 }
 
 function getSurvivors() {
     const survivors = [];
 
-    for (let s = 1; s <= dbdCore.SURVIVOR_COUNT; s++) {
+    for (let s = 1; s <= streakCore.SURVIVOR_COUNT; s++) {
         const perks = [];
 
         for (let p = 1; p <= 4; p++) {
@@ -122,7 +122,7 @@ async function submitMatch() {
         killerPerks
     };
 
-    await dbdController.handleSubmitMatch(match);
+    await streakController.handleSubmitMatch(match);
     resetForm();
 }
 
@@ -154,18 +154,18 @@ async function deleteTableMatch() {
     }
 
     const match = matches[index];
-    const matchPreview = dbdUI.createMatchPreview(match);
+    const matchPreview = streakUI.createMatchPreview(match);
     const confirmDelete = confirm(`Are you sure you want to delete match #${index + 1}?\n\n${matchPreview}`);
 
     if (!confirmDelete) return;
-    await dbdController.handleDeleteMatch(match.id);
+    await streakController.handleDeleteMatch(match.id);
     input.value = "";
 }
 
 async function clearTableMatches() {
     const confirmClear = confirm("Are you sure you want to clear ALL matches?");
     if (!confirmClear) return;
-    await dbdController.handleClearMatches();
+    await streakController.handleClearMatches();
 }
 
 function resetForm() {
@@ -179,7 +179,7 @@ function resetForm() {
         }
     });
 
-    for (let s = 1; s <= dbdCore.SURVIVOR_COUNT; s++) {
+    for (let s = 1; s <= streakCore.SURVIVOR_COUNT; s++) {
         const checkbox = document.getElementById(`surv${s}Survived`);
         if (checkbox) checkbox.checked = false;
     }

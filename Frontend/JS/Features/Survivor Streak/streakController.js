@@ -1,19 +1,19 @@
-import { dbdStorageSurvivors } from "../../API/survivors.api.js";
+import { survivorsApi } from "../../API/survivors.api.js";
 import { matchesApi } from "../../API/matches.api.js";
-import { dbdStorageStreaks } from "../../API/streak.api.js";
-import { dbdCore } from "../../Core/Survivor Streak/streakCore.js";
-import { dbdUI } from "./streakUI.js";
+import { streaksApi } from "../../API/streaks.api.js";
+import { streakCore } from "../../Core/Survivor Streak/streakCore.js";
+import { streakUI } from "./streakUI.js";
 
 async function refreshUI() {
     const matches = await matchesApi.getMatches();
-    dbdUI.renderTable(matches);
+    streakUI.renderTable(matches);
     handleRenderStats();
 }
 
 async function handleSaveConfigs(configs) {
-    await dbdStorageSurvivors.saveSurvivorConfigs(configs);
-    await dbdUI.renderTitle();
-    await dbdUI.renderTableHeader();
+    await survivorsApi.saveSurvivorConfigs(configs);
+    await streakUI.renderTitle();
+    await streakUI.renderTableHeader();
 }
 
 async function handleSubmitMatch(match) {
@@ -34,18 +34,18 @@ async function handleClearMatches() {
 async function handleResetBestStreak() {
     const confirmReset = confirm("Are you sure you want to reset your Best Streak?");
     if (!confirmReset) return;
-    await dbdStorageStreaks.resetBestStreak();
+    await streaksApi.resetBestStreak();
     await refreshUI();
 }
 
 async function handleRenderStats() {
     const matches = await matchesApi.getMatches();
-    const current = dbdCore.calculateCurrentStreak(matches);
-    const best = await dbdStorageStreaks.getBestStreak();
-    dbdUI.renderStats({ current, best });
+    const current = streakCore.calculateCurrentStreak(matches);
+    const best = await streaksApi.getBestStreak();
+    streakUI.renderStats({ current, best });
 }
 
-export const dbdController = {
+export const streakController = {
     refreshUI,
     handleSaveConfigs,
     handleSubmitMatch,

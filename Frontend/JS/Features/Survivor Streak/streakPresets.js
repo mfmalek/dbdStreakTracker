@@ -1,8 +1,8 @@
-import { dbdCore } from "../../Core/Survivor Streak/streakCore.js";
-import { dbdStoragePresets } from "../../API/presets.api.js";
+import { streakCore } from "../../Core/Survivor Streak/streakCore.js";
+import { presetsApi } from "../../API/presets.api.js";
 
 function initPresets() {
-    for (let s = 1; s <= dbdCore.SURVIVOR_COUNT; s++) {
+    for (let s = 1; s <= streakCore.SURVIVOR_COUNT; s++) {
         document.getElementById(`savePresetSurv${s}`)?.addEventListener("click", () => savePreset(s));
         document.getElementById(`presetListSurv${s}`)?.addEventListener("change", () => applyPreset(s));
         document.getElementById(`deletePresetSurv${s}`)?.addEventListener("click", () => deletePreset(s));
@@ -25,7 +25,7 @@ async function savePreset(survivor) {
         const select = document.getElementById(`perk${i}Surv${survivor}`);
         perks.push(select?.value || "");
     }
-    await dbdStoragePresets.savePreset(survivor, name, perks);
+    await presetsApi.savePreset(survivor, name, perks);
     nameInput.value = "";
     await loadPresets(survivor);
 
@@ -34,7 +34,7 @@ async function savePreset(survivor) {
 }
 
 async function loadPresets(survivor) {
-    const presets = await dbdStoragePresets.getPresets(survivor);
+    const presets = await presetsApi.getPresets(survivor);
     const select = document.getElementById(`presetListSurv${survivor}`);
 
     if (!select) return;
@@ -61,7 +61,7 @@ async function deletePreset(survivor) {
     const confirmDelete = confirm(`Delete preset: ${selectedOption.textContent}?`);
 
     if (!confirmDelete) return;
-    await dbdStoragePresets.deletePreset(id);
+    await presetsApi.deletePreset(id);
     await loadPresets(survivor);
 }
 
@@ -83,6 +83,6 @@ function applyPreset(survivor) {
     });
 }
 
-export const dbdPresets = {
+export const streakPresets = {
     initPresets
 }

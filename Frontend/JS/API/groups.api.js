@@ -1,8 +1,8 @@
 import { http } from "./http.js";
-import { dbdCore } from "../Core/Survivor Streak/streakCore.js";
+import { streakCore } from "../Core/Survivor Streak/streakCore.js";
 
 function getMode() {
-    return dbdCore.MODE;
+    return streakCore.MODE;
 }
 
 const inviteUser = (toUser, groupId) =>
@@ -29,7 +29,7 @@ const removeMember = (groupId, targetUser) =>
 const leaveGroup = (groupId) =>
     http.post("/groups/leave", { groupId });
 
-export const dbdGroups = {
+export const groupsApi = {
     inviteUser,
     getInvites,
     acceptInvite,

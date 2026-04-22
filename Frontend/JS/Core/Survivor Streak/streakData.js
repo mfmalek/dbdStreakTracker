@@ -201,7 +201,7 @@ const mapImageFolders = {
     "Sanctum of Wrath": "Yamaoka Estate"
 };
 
-export const dbdData = Object.freeze({
+export const streakData = Object.freeze({
     perks: {
         survivor: survivorPerks,
         killer: killerPerks

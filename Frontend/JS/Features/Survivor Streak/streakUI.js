@@ -1,8 +1,8 @@
 import { auth } from "../../Auth/auth.js";
-import { dbdCore } from "../../Core/Survivor Streak/streakCore.js";
-import { dbdData } from "../../Core/Survivor Streak/streakData.js";
-import { dbdStorageSurvivors } from "../../API/survivors.api.js";
-import { dbdGroups } from "../../API/groups.api.js";
+import { streakCore } from "../../Core/Survivor Streak/streakCore.js";
+import { streakData } from "../../Core/Survivor Streak/streakData.js";
+import { survivorsApi } from "../../API/survivors.api.js";
+import { groupsApi } from "../../API/groups.api.js";
 
 async function initUI(group) {
     await renderTitle();
@@ -27,10 +27,10 @@ function renderNavbar({ username, mode }) {
 }
 
 async function getSurvivorNames() {
-    const configs = await dbdStorageSurvivors.getSurvivorConfigs();
+    const configs = await survivorsApi.getSurvivorConfigs();
     const names = [];
 
-    for (let i = 1; i <= dbdCore.SURVIVOR_COUNT; i++) {
+    for (let i = 1; i <= streakCore.SURVIVOR_COUNT; i++) {
         const config = configs[i - 1];
         names.push(config?.name || `Surv${i}`);
     }
@@ -83,7 +83,7 @@ function getRulesByMode(mode) {
 function renderRules() {
     const ruleset = document.getElementById("ruleset");
     if (!ruleset) return;
-    const rules = getRulesByMode(dbdCore.MODE);
+    const rules = getRulesByMode(streakCore.MODE);
     ruleset.innerHTML = rules.map(rule => `<span class="streakRule">• ${rule}</span>`).join("");
 }
 
@@ -152,7 +152,7 @@ function createPortraitGrid(index) {
 }
 
 function createPortraitGridOptions() {
-    const survivors = dbdData.names.survivor;
+    const survivors = streakData.names.survivor;
     const survivorNames = survivors.map(name =>
         name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, "")
     );
@@ -178,9 +178,9 @@ async function renderSurvivors() {
     if (!container) return;
     container.innerHTML = "";
 
-    const configs = await dbdStorageSurvivors.getSurvivorConfigs();
+    const configs = await survivorsApi.getSurvivorConfigs();
 
-    for (let i = 1; i <= dbdCore.SURVIVOR_COUNT; i++) {
+    for (let i = 1; i <= streakCore.SURVIVOR_COUNT; i++) {
         const config = configs[i - 1];
 
         container.insertAdjacentHTML(
@@ -207,7 +207,7 @@ async function renderGroupMembers(groupId, group) {
         return;
     }
 
-    const members = await dbdGroups.getGroupMembers(groupId);
+    const members = await groupsApi.getGroupMembers(groupId);
     const currentUser = auth.getUserFromToken()?.username;
     const isOwner = group?.owner === currentUser;
 
@@ -240,7 +240,7 @@ async function renderInvites() {
     const container = document.getElementById("invitesContainer");
     if (!container) return;
     container.innerHTML = "";
-    const invites = await dbdGroups.getInvites();
+    const invites = await groupsApi.getInvites();
 
     invites.forEach(invite => {
         const li = document.createElement("li");
@@ -286,7 +286,7 @@ async function renderTableHeader() {
 function createTableRow(match, displayNumber) {
     let rowHTML = `<tr><td>${displayNumber}</td>`;
 
-    for (let i = 0; i < dbdCore.SURVIVOR_COUNT; i++) {
+    for (let i = 0; i < streakCore.SURVIVOR_COUNT; i++) {
         const survivor = match.survivors?.[i];
 
         rowHTML += `
@@ -346,7 +346,7 @@ function createMatchPreview(match) {
     return preview;
 }
 
-export const dbdUI = {
+export const streakUI = {
     initUI,
     renderNavbar,
     renderTitle,
