@@ -1,6 +1,6 @@
 import { auth } from "../Auth/auth.js";
-import { dbdCore } from "./streakCore.js";
-import { dbdData } from "./streakData.js";
+import { dbdCore } from "../Core/Survivor Streak/streakCore.js";
+import { dbdData } from "../Core/Survivor Streak/streakData.js";
 import { dbdStorageSurvivors } from "./streakStorageSurvivors.js";
 import { dbdGroups } from "./streakGroups.js";
 

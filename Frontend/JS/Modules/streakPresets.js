@@ -1,4 +1,4 @@
-import { dbdCore } from "./streakCore.js";
+import { dbdCore } from "../Core/Survivor Streak/streakCore.js";
 import { dbdStoragePresets } from "./streakStoragePresets.js";
 
 function initPresets() {

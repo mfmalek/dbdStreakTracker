@@ -1,4 +1,4 @@
-import { dbdCore } from "./streakCore.js";
+import { dbdCore } from "../Core/Survivor Streak/streakCore.js";
 import { auth } from "../Auth/auth.js";
 
 const API_URL = "https://dbdstreaktracker.onrender.com/api";
