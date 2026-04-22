@@ -1,7 +1,7 @@
-import { auth } from "../Modules/auth.js";
+import { auth } from "../Auth/auth.js";
 import { dbdCore } from "../Modules/streakCore.js";
 import { dbdPresets } from "../Modules/streakPresets.js";
-import { dbdStorageMatches } from "../Modules/streakStorageMatches.js";
+import { matchesApi } from "../API/matchesAPI.js";
 import { dbdGroups } from "../Modules/streakGroups.js";
 import { dbdUI } from "../Modules/streakUI.js";
 import { dbdListeners } from "../Modules/streakListeners.js";
@@ -27,7 +27,7 @@ async function initStreak() {
 
     window.currentGroupId = group?.id || null;
     const [matches] = await Promise.all([
-        dbdStorageMatches.getMatches()
+        matchesApi.getMatches()
     ]);
 
     await dbdUI.initUI(group);
@@ -141,8 +141,7 @@ function validateMatchInputs(mapName, killerName) {
 async function deleteTableMatch() {
     const input = document.getElementById("deleteMatchNumber");
     const index = parseInt(input?.value) - 1;
-
-    const matches = await dbdStorageMatches.getMatches();
+    const matches = await matchesApi.getMatches();
 
     if (isNaN(index)) {
         alert("Please enter a valid match number.");

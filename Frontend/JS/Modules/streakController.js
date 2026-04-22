@@ -1,11 +1,11 @@
 import { dbdStorageSurvivors } from "./streakStorageSurvivors.js";
-import { dbdStorageMatches } from "./streakStorageMatches.js";
+import { matchesApi } from "../API/matchesAPI.js";
 import { dbdStorageStreaks } from "./streakStorageStreaks.js";
 import { dbdCore } from "./streakCore.js";
 import { dbdUI } from "./streakUI.js";
 
 async function refreshUI() {
-    const matches = await dbdStorageMatches.getMatches();
+    const matches = await matchesApi.getMatches();
     dbdUI.renderTable(matches);
     handleRenderStats();
 }
@@ -17,17 +17,17 @@ async function handleSaveConfigs(configs) {
 }
 
 async function handleSubmitMatch(match) {
-    await dbdStorageMatches.addMatch(match);
+    await matchesApi.addMatch(match);
     await refreshUI();
 }
 
 async function handleDeleteMatch(matchId) {
-    await dbdStorageMatches.deleteMatch(matchId);
+    await matchesApi.deleteMatch(matchId);
     await refreshUI();
 }
 
 async function handleClearMatches() {
-    await dbdStorageMatches.clearMatches();
+    await matchesApi.clearMatches();
     await refreshUI();
 }
 
@@ -39,7 +39,7 @@ async function handleResetBestStreak() {
 }
 
 async function handleRenderStats() {
-    const matches = await dbdStorageMatches.getMatches();
+    const matches = await matchesApi.getMatches();
     const current = dbdCore.calculateCurrentStreak(matches);
     const best = await dbdStorageStreaks.getBestStreak();
     dbdUI.renderStats({ current, best });

@@ -1,4 +1,4 @@
-import { auth } from "../Modules/auth.js"
+import { auth } from "../Auth/auth.js"
 
 function initHome() {
     const user = auth.requireAuth();

@@ -1,4 +1,4 @@
-import { auth } from "../Modules/auth.js";
+import { auth } from "../Auth/auth.js";
 
 const API_URL = "https://dbdstreaktracker.onrender.com/api";
 
