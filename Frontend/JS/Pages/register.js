@@ -1,5 +1,5 @@
 import { auth } from "../Auth/auth.js";
-import { authApi } from "../api/auth.api.js";
+import { authApi } from "../API/auth.api.js";
 
 function initRegister() {
     if (auth.isLoggedIn()) {
