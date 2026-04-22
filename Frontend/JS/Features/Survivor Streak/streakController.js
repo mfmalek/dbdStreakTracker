@@ -1,7 +1,7 @@
-import { dbdStorageSurvivors } from "./streakStorageSurvivors.js";
-import { matchesApi } from "../API/matches.api.js";
-import { dbdStorageStreaks } from "./streakStorageStreaks.js";
-import { dbdCore } from "../Core/Survivor Streak/streakCore.js";
+import { dbdStorageSurvivors } from "../../Modules/streakStorageSurvivors.js";
+import { matchesApi } from "../../API/matches.api.js";
+import { dbdStorageStreaks } from "../../Modules/streakStorageStreaks.js";
+import { dbdCore } from "../../Core/Survivor Streak/streakCore.js";
 import { dbdUI } from "./streakUI.js";
 
 async function refreshUI() {

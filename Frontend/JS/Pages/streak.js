@@ -3,9 +3,9 @@ import { dbdCore } from "../Core/Survivor Streak/streakCore.js";
 import { dbdPresets } from "../Modules/streakPresets.js";
 import { matchesApi } from "../API/matches.api.js";
 import { dbdGroups } from "../Modules/streakGroups.js";
-import { dbdUI } from "../Modules/streakUI.js";
-import { dbdListeners } from "../Modules/streakListeners.js";
-import { dbdController } from "../Modules/streakController.js";
+import { dbdUI } from "../Features/Survivor Streak/streakUI.js";
+import { dbdListeners } from "../Features/Survivor Streak/streakListeners.js";
+import { dbdController } from "../Features/Survivor Streak/streakController.js";
 
 async function initStreak() {
     const loading = document.getElementById("loadingScreen");

@@ -1,5 +1,5 @@
 import { dbdCore } from "../Core/Survivor Streak/streakCore.js";
-import { dbdStoragePresets } from "./streakStoragePresets.js";
+import { dbdStoragePresets } from "../Features/Survivor Streak/streakPresets.js";
 
 function initPresets() {
     for (let s = 1; s <= dbdCore.SURVIVOR_COUNT; s++) {

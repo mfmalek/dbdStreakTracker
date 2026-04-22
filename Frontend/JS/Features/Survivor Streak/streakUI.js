@@ -1,8 +1,8 @@
-import { auth } from "../Auth/auth.js";
-import { dbdCore } from "../Core/Survivor Streak/streakCore.js";
-import { dbdData } from "../Core/Survivor Streak/streakData.js";
-import { dbdStorageSurvivors } from "./streakStorageSurvivors.js";
-import { dbdGroups } from "./streakGroups.js";
+import { auth } from "../../Auth/auth.js";
+import { dbdCore } from "../../Core/Survivor Streak/streakCore.js";
+import { dbdData } from "../../Core/Survivor Streak/streakData.js";
+import { dbdStorageSurvivors } from "../../Modules/streakStorageSurvivors.js";
+import { dbdGroups } from "../../Modules/streakGroups.js";
 
 async function initUI(group) {
     await renderTitle();
