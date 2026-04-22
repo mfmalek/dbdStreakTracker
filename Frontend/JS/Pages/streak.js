@@ -1,8 +1,8 @@
 import { auth } from "../Auth/auth.js";
 import { dbdCore } from "../Core/Survivor Streak/streakCore.js";
-import { dbdPresets } from "../Modules/streakPresets.js";
+import { dbdPresets } from "../Features/Survivor Streak/streakPresets.js";
 import { matchesApi } from "../API/matches.api.js";
-import { dbdGroups } from "../Modules/streakGroups.js";
+import { dbdGroups } from "../API/groups.api.js";
 import { dbdUI } from "../Features/Survivor Streak/streakUI.js";
 import { dbdListeners } from "../Features/Survivor Streak/streakListeners.js";
 import { dbdController } from "../Features/Survivor Streak/streakController.js";

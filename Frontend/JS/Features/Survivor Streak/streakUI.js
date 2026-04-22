@@ -1,8 +1,8 @@
 import { auth } from "../../Auth/auth.js";
 import { dbdCore } from "../../Core/Survivor Streak/streakCore.js";
 import { dbdData } from "../../Core/Survivor Streak/streakData.js";
-import { dbdStorageSurvivors } from "../../Modules/streakStorageSurvivors.js";
-import { dbdGroups } from "../../Modules/streakGroups.js";
+import { dbdStorageSurvivors } from "../../API/survivors.api.js";
+import { dbdGroups } from "../../API/groups.api.js";
 
 async function initUI(group) {
     await renderTitle();

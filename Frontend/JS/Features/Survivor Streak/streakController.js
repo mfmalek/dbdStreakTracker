@@ -1,6 +1,6 @@
-import { dbdStorageSurvivors } from "../../Modules/streakStorageSurvivors.js";
+import { dbdStorageSurvivors } from "../../API/survivors.api.js";
 import { matchesApi } from "../../API/matches.api.js";
-import { dbdStorageStreaks } from "../../Modules/streakStorageStreaks.js";
+import { dbdStorageStreaks } from "../../API/streak.api.js";
 import { dbdCore } from "../../Core/Survivor Streak/streakCore.js";
 import { dbdUI } from "./streakUI.js";
 

@@ -1,69 +1,88 @@
 import { dbdCore } from "../../Core/Survivor Streak/streakCore.js";
-import { auth } from "../../Auth/auth.js";
+import { dbdStoragePresets } from "../../API/presets.api.js";
 
-const API_URL = "https://dbdstreaktracker.onrender.com/api";
-const API_PRESETS = `${API_URL}/presets`;
-
-function getAuthHeaders() {
-    return {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${auth.getToken()}`
-    };
+function initPresets() {
+    for (let s = 1; s <= dbdCore.SURVIVOR_COUNT; s++) {
+        document.getElementById(`savePresetSurv${s}`)?.addEventListener("click", () => savePreset(s));
+        document.getElementById(`presetListSurv${s}`)?.addEventListener("change", () => applyPreset(s));
+        document.getElementById(`deletePresetSurv${s}`)?.addEventListener("click", () => deletePreset(s));
+        loadPresets(s);
+    }
 }
 
-async function getPresets(survivor) {
-    const mode = dbdCore.MODE;
-    const res = await fetch(
-        `${API_PRESETS}?mode=${mode}&survivor=${survivor}`,
-        {
-            headers: getAuthHeaders()
+async function savePreset(survivor) {
+    const nameInput = document.getElementById(`presetNameSurv${survivor}`);
+    const name = nameInput.value.trim();
+
+    if (!name) {
+        alert("Please enter a preset name.");
+        return;
+    }
+
+    const perks = [];
+
+    for (let i = 1; i <= 4; i++) {
+        const select = document.getElementById(`perk${i}Surv${survivor}`);
+        perks.push(select?.value || "");
+    }
+    await dbdStoragePresets.savePreset(survivor, name, perks);
+    nameInput.value = "";
+    await loadPresets(survivor);
+
+    const select = document.getElementById(`presetListSurv${survivor}`);
+    select.value = select.options[select.options.length - 1].value;
+}
+
+async function loadPresets(survivor) {
+    const presets = await dbdStoragePresets.getPresets(survivor);
+    const select = document.getElementById(`presetListSurv${survivor}`);
+
+    if (!select) return;
+    select.innerHTML = `<option value="">Load Preset</option>`;
+    presets.forEach(p => {
+        const option = document.createElement("option");
+        option.value = p.id;
+        option.textContent = p.name;
+        option.dataset.perks = JSON.stringify(p.perks);
+        select.appendChild(option);
+    });
+}
+
+async function deletePreset(survivor) {
+    const select = document.getElementById(`presetListSurv${survivor}`);
+    const id = select.value;
+    const selectedOption = select.options[select.selectedIndex];
+
+    if (!id) {
+        alert("Select a preset to delete.");
+        return;
+    }
+
+    const confirmDelete = confirm(`Delete preset: ${selectedOption.textContent}?`);
+
+    if (!confirmDelete) return;
+    await dbdStoragePresets.deletePreset(id);
+    await loadPresets(survivor);
+}
+
+function applyPreset(survivor) {
+    const select = document.getElementById(`presetListSurv${survivor}`);
+    const selected = select.options[select.selectedIndex];
+
+    if (!select || !selected || !selected.dataset.perks) return;
+    const perks = JSON.parse(selected.dataset.perks);
+
+    perks.forEach((perk, index) => {
+        const selectEl = document.getElementById(`perk${index + 1}Surv${survivor}`);
+
+        if (selectEl?.tomselect) {
+            selectEl.tomselect.setValue(perk);
+        } else {
+            selectEl.value = perk;
         }
-    );
-
-    if (!res.ok) {
-        const err = await res.text();
-        console.error("GET PRESETS ERROR:", err);
-        throw new Error(err);
-    }
-    return await res.json();
-}
-
-async function savePreset(survivor, name, perks) {
-    const mode = dbdCore.MODE;
-
-    const res = await fetch(API_PRESETS, {
-        method: "POST",
-        headers: getAuthHeaders(),
-        body: JSON.stringify({
-            mode,
-            survivor,
-            name,
-            perks
-        })
     });
-
-    if (!res.ok) {
-        const err = await res.text();
-        console.error("SAVE PRESET ERROR:", err);
-        throw new Error(err);
-    }
 }
 
-async function deletePreset(id) {
-    const res = await fetch(`${API_PRESETS}/${id}`, {
-        method: "DELETE",
-        headers: getAuthHeaders()
-    });
-
-    if (!res.ok) {
-        const err = await res.text();
-        console.error("DELETE PRESET ERROR:", err);
-        throw new Error(err);
-    }
+export const dbdPresets = {
+    initPresets
 }
-
-export const dbdStoragePresets = {
-    getPresets,
-    savePreset,
-    deletePreset
-};
