@@ -36,6 +36,7 @@ async function request(path, { method = "GET", body, query } = {}) {
 }
 
 export const http = {
+    API_URL,
     get: (path, query) => request(path, { query }),
     post: (path, body) => request(path, { method: "POST", body }),
     del: (path, query, body) => request(path, { method: "DELETE", query, body })
