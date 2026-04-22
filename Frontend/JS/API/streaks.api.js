@@ -16,7 +16,7 @@ async function getBestStreak() {
 async function resetBestStreak() {
     const { mode, groupId } = getContext();
 
-    await http.del("/streak", null, {
+    await http.del("/streak", {
         mode,
         groupId
     });

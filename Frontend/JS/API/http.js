@@ -12,7 +12,7 @@ function getHeaders() {
 function buildUrl(path, query = {}) {
     const url = new URL(API_URL + path);
 
-    Object.entries(query).forEach(([key, value]) => {
+    Object.entries(query || {}).forEach(([key, value]) => {
         if (value !== null && value !== undefined) {
             url.searchParams.append(key, value);
         }
