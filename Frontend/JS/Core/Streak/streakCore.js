@@ -1,4 +1,6 @@
-import { streakData } from "./streakData.js";
+import { coreData } from "../Data/coreData.js";
+import { survivorData } from "../Data/survivorData.js";
+import { killerData } from "../Data/killerData.js";
 
 const MODE = document.body.dataset.mode;
 const SURVIVOR_COUNT = {
@@ -40,7 +42,7 @@ function createTomSelect(id, options, placeholder) {
 }
 
 function setupSurvivorPerks() {
-    const perks = createOptionsFromArray(streakData.perks.survivor);
+    const perks = createOptionsFromArray(survivorData.perks);
 
     for (let s = 1; s <= SURVIVOR_COUNT; s++) {
         for (let p = 1; p <= 4; p++) {
@@ -50,7 +52,7 @@ function setupSurvivorPerks() {
 }
 
 function setupKillerPerks() {
-    const perks = createOptionsFromArray(streakData.perks.killer);
+    const perks = createOptionsFromArray(killerData.perks);
 
     for (let p = 1; p <= 4; p++) {
         createTomSelect(`killerPerk${p}`, perks, "Select a perk");
@@ -58,7 +60,7 @@ function setupKillerPerks() {
 }
 
 function setupKillerNames() {
-    const options = createOptionsFromArray(streakData.names.killer);
+    const options = createOptionsFromArray(killerData.names);
     createTomSelect("killerName", options, "Select Killer");
 }
 
@@ -110,7 +112,7 @@ function setupMaps() {
         }
     };
 
-    Object.entries(streakData.maps.mapGroups).forEach(([realm, maps], index) => {
+    Object.entries(coreData.maps.mapGroups).forEach(([realm, maps], index) => {
         const group = `group${index}`;
 
         config.optgroups.push({
@@ -139,7 +141,7 @@ function setupMapImageOnChange() {
         const selectedMap = mapSelect.value;
         const baseMapName = selectedMap.replace(/\s+(I{1,3}|IV|V)$/, "");
         const mapName = baseMapName.replace(/[^a-zA-Z0-9]/g, "");
-        const realmFolder = streakData.maps.mapImageFolders[baseMapName];
+        const realmFolder = coreData.maps.mapImageFolders[baseMapName];
 
         if ((!selectedMap) || (!realmFolder)) {
             mapImage.src = "../Images/Maps/Map_GenericMapBackground.png";

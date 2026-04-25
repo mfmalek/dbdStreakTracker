@@ -1,7 +1,7 @@
 import { survivorsApi } from "../../API/survivors.api.js";
 import { matchesApi } from "../../API/matches.api.js";
 import { streaksApi } from "../../API/streaks.api.js";
-import { streakCore } from "../../Core/Survivor Streak/streakCore.js";
+import { streakCore } from "../../Core/Streak/streakCore.js";
 import { streakUI } from "./streakUI.js";
 
 async function refreshUI() {

@@ -1,5 +1,5 @@
 import { http } from "./http.js";
-import { streakCore } from "../Core/Survivor Streak/streakCore.js";
+import { streakCore } from "../Core/Streak/streakCore.js";
 
 function getMode() {
     return streakCore.MODE;

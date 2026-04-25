@@ -1,6 +1,6 @@
 import { auth } from "../../Auth/auth.js";
-import { streakCore } from "../../Core/Survivor Streak/streakCore.js";
-import { streakData } from "../../Core/Survivor Streak/streakData.js";
+import { streakCore } from "../../Core/Streak/streakCore.js";
+import { survivorData } from "../../Core/Data/survivorData.js";
 import { survivorsApi } from "../../API/survivors.api.js";
 import { groupsApi } from "../../API/groups.api.js";
 
@@ -152,7 +152,7 @@ function createPortraitGrid(index) {
 }
 
 function createPortraitGridOptions() {
-    const survivors = streakData.names.survivor;
+    const survivors = survivorData.names;
     const survivorNames = survivors.map(name =>
         name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, "")
     );

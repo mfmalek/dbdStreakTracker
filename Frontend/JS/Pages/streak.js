@@ -1,5 +1,5 @@
 import { auth } from "../Auth/auth.js";
-import { streakCore } from "../Core/Survivor Streak/streakCore.js";
+import { streakCore } from "../Core/Streak/streakCore.js";
 import { streakPresets } from "../Features/Survivor Streak/streakPresets.js";
 import { matchesApi } from "../API/matches.api.js";
 import { groupsApi } from "../API/groups.api.js";
