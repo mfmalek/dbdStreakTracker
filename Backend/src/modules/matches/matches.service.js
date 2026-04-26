@@ -1,31 +1,56 @@
 const prisma = require('../../config/prisma');
 const { updateBestStreak } = require("../streak/streak.service");
 
-function buildWhere(user, mode, groupId) {
+function buildWhere(user, mode, groupId, role, killerName) {
+    if (role === "killer" && !killerName) {
+        throw new Error("killerName is required for killer matches");
+    }
+
     return {
         mode,
+        role,
+        ...(role === "killer" ? { killerName } : {}),
         ...(groupId
             ? { groupId: Number(groupId) }
             : { user })
     };
 }
 
-const getMatches = async (user, mode, groupId) => {
+const getMatches = async (user, mode, role, killerName, groupId) => {
+    if (role === "killer" && !killerName) {
+        throw new Error("killerName is required for getting matches");
+    }
+
+    if (!role) {
+        throw new Error("role is required for getting matches");
+    }
+
     return await prisma.match.findMany({
-        where: buildWhere(user, mode, groupId),
+        where: buildWhere(user, mode, groupId, role, killerName),
         orderBy: { createdAt: "asc" }
     });
 };
 
 const createMatch = async (data) => {
-    const { user, mode, groupId, ...matchData } = data;
-    const result = calculateResult(matchData, mode);
+    const { user, mode, role, killerName, groupId, ...matchData } = data;
+
+    if (role === "killer" && !killerName) {
+        throw new Error("killerName is required for creating killer matches");
+    }
+
+    if (!role) {
+        throw new Error("role is required for creating matches");
+    }
+
+    const result = calculateResult(matchData, mode, role);
     const newMatch = await prisma.match.create({
         data: {
             user: groupId ? null : user,
             groupId: groupId || null,
             createdBy: user,
             mode,
+            role,
+            killerName: role === "killer" ? killerName : null,
             result,
             data: matchData
         }
@@ -33,14 +58,14 @@ const createMatch = async (data) => {
 
     if (result === "win") {
         const matches = await prisma.match.findMany({
-            where: buildWhere(user, mode, groupId),
+            where: buildWhere(user, mode, groupId, role, killerName),
             orderBy: { id: "asc" }
         });
 
         const currentStreak = calculateCurrentStreak(
             matches.map(m => ({ result: m.result }))
         );
-        await updateBestStreak(user, mode, currentStreak, data.groupId);
+        await updateBestStreak(user, mode, role, killerName, currentStreak, groupId);
     }
     return newMatch;
 };
@@ -77,49 +102,65 @@ const deleteMatch = async (id, user) => {
         where: { id: Number(id) }
     });
 
-    const { mode, groupId } = match;
+    const { mode, groupId, role, killerName } = match;
     const matches = await prisma.match.findMany({
-        where: buildWhere(user, mode, groupId),
+        where: buildWhere(user, mode, groupId, role, killerName),
         orderBy: { createdAt: "asc" }
     });
     const bestStreak = calculateBestStreak(matches);
 
     await prisma.streak.upsert({
         where: groupId
-            ? { groupId_mode: { groupId, mode } }
-            : { user_mode: { user, mode } },
+            ? {
+                groupId_mode_role_killerName: {
+                    groupId,
+                    mode,
+                    role,
+                    killerName: role === "killer" ? killerName : null
+                }
+            }
+            : {
+                user_mode_role_killerName: {
+                    user,
+                    mode,
+                    role,
+                    killerName: role === "killer" ? killerName : null
+                }
+            },
         update: { best: bestStreak },
         create: {
             user: groupId ? null : user,
             groupId: groupId || null,
             mode,
+            role,
+            killerName: role === "killer" ? killerName : null,
             best: bestStreak
         }
     });
     return match;
 };
 
-const clearMatches = async (user, mode, groupId) => {
+const clearMatches = async (user, mode, role, killerName, groupId) => {
     return await prisma.match.deleteMany({
-        where: buildWhere(user, mode, groupId)
+        where: buildWhere(user, mode, groupId, role, killerName)
     });
 };
 
-function calculateResult(matchData, mode) {
+function calculateResult(matchData, mode, role) {
+    if (role === "killer") {
+        const kills = matchData.kills || 0;
+        return kills >= 3 ? "win" : "loss";
+    }
+
     const survivors = matchData.survivors || [];
     const escapedCount = survivors.filter(s => s.survived).length;
 
     switch (mode) {
-        case "solo":
-            return escapedCount === 1 ? "win" : "loss";
-        case "duo":
-            return escapedCount >= 1 ? "win" : "loss";
-        case "trio":
-            return escapedCount >= 2 ? "win" : "loss";
-        case "squad":
-            return escapedCount >= 3 ? "win" : "loss";
-        default:
-            return "loss";
+        case "solo": return escapedCount === 1 ? "win" : "loss";
+        case "duo": return escapedCount >= 1 ? "win" : "loss";
+        case "trio": return escapedCount >= 2 ? "win" : "loss";
+        case "squad": return escapedCount >= 3 ? "win" : "loss";
+        default: return "loss";
     }
 }
 

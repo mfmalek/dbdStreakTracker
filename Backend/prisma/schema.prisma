@@ -24,39 +24,49 @@ model SurvivorConfig {
 }
 
 model Preset {
-    id        Int      @id @default(autoincrement())
-    user      String
-    mode      String
-    survivor  Int
-    name      String
-    perks     Json
-    createdAt DateTime @default(now())
+    id          Int      @id @default(autoincrement())
+    user        String
+    mode        String
+    role        String
+    killerName  String?
+    survivor    Int?
+    name        String
+    perks       Json
+    createdAt   DateTime @default(now())
 
-    @@index([user, mode, survivor])
+    @@index([user, mode, role, killerName])
+    @@index([user, mode, role, survivor])
 }
 
 model Match {
     id          Int          @id @default(autoincrement())
     user        String?
     mode        String
+    role        String
+    killerName  String?
     result      String
     data        Json
     createdAt   DateTime     @default(now())
     createdBy   String?
     groupId     Int?
     StreakGroup StreakGroup? @relation(fields: [groupId], references: [id])
+
+    @@index([user, mode, role, killerName, createdAt])
+    @@index([groupId, mode, role, killerName, createdAt])
 }
 
 model Streak {
     id          Int          @id @default(autoincrement())
     user        String?
     mode        String
+    role        String
+    killerName  String?
     best        Int          @default(0)
     groupId     Int?
     StreakGroup StreakGroup? @relation(fields: [groupId], references: [id])
 
-    @@unique([user, mode])
-    @@unique([groupId, mode])
+    @@unique([user, mode, role, killerName])
+    @@unique([groupId, mode, role, killerName])
 }
 
 model GroupMember {
