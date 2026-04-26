@@ -1,20 +1,30 @@
 import { http } from "./http.js";
 import { streakCore } from "../Core/Streak/streakCore.js";
 
-function getMode() {
-    return streakCore.MODE;
+function getContext() {
+    return {
+        mode: streakCore.MODE,
+        role: "survivor",
+        killerName: null
+    };
 }
 
 async function getPresets(survivor) {
+    const { mode, role, killerName } = getContext();
     return http.get("/presets", {
-        mode: getMode(),
+        mode,
+        role,
+        killerName,
         survivor
     });
 }
 
 async function savePreset(survivor, name, perks) {
+    const { mode, role, killerName } = getContext();
     await http.post("/presets", {
-        mode: getMode(),
+        mode,
+        role,
+        killerName,
         survivor,
         name,
         perks

@@ -4,14 +4,18 @@ import { streakCore } from "../Core/Streak/streakCore.js";
 function getContext() {
     return {
         mode: streakCore.MODE,
+        role: "survivor",
+        killerName: null,
         groupId: window.currentGroupId || null
     };
 }
 
 async function getMatches() {
-    const { mode, groupId } = getContext();
+    const { mode, role, killerName, groupId } = getContext();
     const matches = await http.get("/matches", {
         mode,
+        role,
+        killerName,
         groupId
     });
 
@@ -23,9 +27,11 @@ async function getMatches() {
 }
 
 async function addMatch(match) {
-    const { mode, groupId } = getContext();
+    const { mode, role, killerName, groupId } = getContext();
     await http.post("/matches", {
         mode,
+        role,
+        killerName,
         groupId,
         ...match
     });
@@ -37,8 +43,8 @@ async function deleteMatch(id) {
 }
 
 async function clearMatches() {
-    const { mode, groupId } = getContext();
-    await http.del("/matches", { mode, groupId });
+    const { mode, role, killerName, groupId } = getContext();
+    await http.del("/matches", { mode, role, killerName, groupId });
 }
 
 export const matchesApi = {

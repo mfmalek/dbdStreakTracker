@@ -4,6 +4,8 @@ import { streakCore } from "../Core/Streak/streakCore.js";
 function getContext() {
     return {
         mode: streakCore.MODE,
+        role: "survivor",
+        killerName: null,
         groupId: window.currentGroupId || null
     };
 }
@@ -14,9 +16,11 @@ async function getBestStreak() {
 }
 
 async function resetBestStreak() {
-    const { mode, groupId } = getContext();
+    const { mode, role, killerName, groupId } = getContext();
     await http.del("/streak", null, {
         mode,
+        role,
+        killerName,
         groupId
     });
 }
