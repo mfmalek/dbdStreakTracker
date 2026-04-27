@@ -1,6 +1,12 @@
 const prisma = require("../../config/prisma");
 
+function getSafeKiller(role, killerName) {
+    return role === "killer" ? killerName : "__survivor__";
+}
+
 function buildWhere(user, mode, role, killerName, survivor) {
+    const safeKiller = getSafeKiller(role, killerName);
+
     if (!role) {
         throw new Error("role is required for presets");
     }
@@ -17,9 +23,10 @@ function buildWhere(user, mode, role, killerName, survivor) {
         user,
         mode,
         role,
-        ...(role === "killer"
-            ? { killerName }
-            : { survivor: Number(survivor) })
+        killerName: safeKiller,
+        ...(role === "survivor"
+            ? { survivor: Number(survivor) }
+            : {})
     };
 }
 
@@ -32,6 +39,7 @@ const getPresets = async (user, mode, role, killerName, survivor) => {
 
 const createPreset = async (data) => {
     const { user, mode, role, killerName, survivor, name, perks } = data;
+    const safeKiller = getSafeKiller(role, killerName);
 
     if (!role) {
         throw new Error("role is required for creating presets");
@@ -50,7 +58,7 @@ const createPreset = async (data) => {
             user,
             mode,
             role,
-            killerName: role === "killer" ? killerName : null,
+            killerName: safeKiller,
             survivor: role === "survivor" ? Number(survivor) : null,
             name,
             perks

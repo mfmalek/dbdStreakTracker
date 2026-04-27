@@ -1,6 +1,12 @@
 const prisma = require("../../config/prisma");
 
+function getSafeKiller(role, killerName) {
+    return role === "killer" ? killerName : "__survivor__";
+}
+
 function buildWhere(user, mode, groupId, role, killerName) {
+    const safeKiller = getSafeKiller(role, killerName);
+
     if (role === "killer" && !killerName) {
         throw new Error("killerName is required for killer streaks");
     }
@@ -8,7 +14,7 @@ function buildWhere(user, mode, groupId, role, killerName) {
     return {
         mode,
         role,
-        ...(role === "killer" ? { killerName } : {}),
+        killerName: safeKiller,
         ...(groupId
             ? { groupId: Number(groupId) }
             : { user })
@@ -16,13 +22,14 @@ function buildWhere(user, mode, groupId, role, killerName) {
 }
 
 const getBestStreak = async (user, mode, role, killerName, groupId) => {
+    const safeKiller = getSafeKiller(role, killerName);
     const where = groupId
         ? {
             groupId_mode_role_killerName: {
-                groupId: Number(groupId),
+                groupId: Number(groupId) || null,
                 mode,
                 role,
-                killerName: role === "killer" ? killerName : null
+                killerName: safeKiller
             }
         }
         : {
@@ -30,7 +37,7 @@ const getBestStreak = async (user, mode, role, killerName, groupId) => {
                 user,
                 mode,
                 role,
-                killerName: role === "killer" ? killerName : null
+                killerName: safeKiller
             }
         };
 
@@ -39,13 +46,14 @@ const getBestStreak = async (user, mode, role, killerName, groupId) => {
 };
 
 const updateBestStreak = async (user, mode, role, killerName, currentStreak, groupId) => {
+    const safeKiller = getSafeKiller(role, killerName);
     const where = groupId
         ? {
             groupId_mode_role_killerName: {
-                groupId,
+                groupId: Number(groupId) || null,
                 mode,
                 role,
-                killerName: role === "killer" ? killerName : null
+                killerName: safeKiller
             }
         }
         : {
@@ -53,7 +61,7 @@ const updateBestStreak = async (user, mode, role, killerName, currentStreak, gro
                 user,
                 mode,
                 role,
-                killerName: role === "killer" ? killerName : null
+                killerName: safeKiller
             }
         };
 
@@ -69,13 +77,14 @@ const updateBestStreak = async (user, mode, role, killerName, currentStreak, gro
             groupId: Number(groupId) || null,
             mode,
             role,
-            killerName: role === "killer" ? killerName : null,
+            killerName: safeKiller,
             best: newBest
         }
     });
 };
 
 const resetBestStreak = async (user, mode, role, killerName, groupId) => {
+    const safeKiller = getSafeKiller(role, killerName);
     const matches = await prisma.match.findMany({
         where: buildWhere(user, mode, groupId, role, killerName),
         orderBy: { createdAt: "asc" }
@@ -97,7 +106,7 @@ const resetBestStreak = async (user, mode, role, killerName, groupId) => {
                 groupId: Number(groupId),
                 mode,
                 role,
-                killerName: role === "killer" ? killerName : null
+                killerName: safeKiller
             }
         }
         : {
@@ -105,7 +114,7 @@ const resetBestStreak = async (user, mode, role, killerName, groupId) => {
                 user,
                 mode,
                 role,
-                killerName: role === "killer" ? killerName : null
+                killerName: safeKiller
             }
         };
 
@@ -117,7 +126,7 @@ const resetBestStreak = async (user, mode, role, killerName, groupId) => {
             groupId: groupId ? Number(groupId) : null,
             mode,
             role,
-            killerName: role === "killer" ? killerName : null,
+            killerName: safeKiller,
             best: currentStreak
         }
     });

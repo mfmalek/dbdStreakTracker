@@ -1,7 +1,13 @@
 const prisma = require('../../config/prisma');
 const { updateBestStreak } = require("../streak/streak.service");
 
+function getSafeKiller(role, killerName) {
+    return role === "killer" ? killerName : "__survivor__";
+}
+
 function buildWhere(user, mode, groupId, role, killerName) {
+    const safeKiller = getSafeKiller(role, killerName);
+
     if (role === "killer" && !killerName) {
         throw new Error("killerName is required for killer matches");
     }
@@ -9,7 +15,7 @@ function buildWhere(user, mode, groupId, role, killerName) {
     return {
         mode,
         role,
-        ...(role === "killer" ? { killerName } : {}),
+        killerName: safeKiller,
         ...(groupId
             ? { groupId: Number(groupId) }
             : { user })
@@ -33,6 +39,7 @@ const getMatches = async (user, mode, role, killerName, groupId) => {
 
 const createMatch = async (data) => {
     const { user, mode, role, killerName, groupId, ...matchData } = data;
+    const safeKiller = getSafeKiller(role, killerName);
 
     if (role === "killer" && !killerName) {
         throw new Error("killerName is required for creating killer matches");
@@ -50,7 +57,7 @@ const createMatch = async (data) => {
             createdBy: user,
             mode,
             role,
-            killerName: role === "killer" ? killerName : null,
+            killerName: safeKiller,
             result,
             data: matchData
         }
@@ -103,6 +110,7 @@ const deleteMatch = async (id, user) => {
     });
 
     const { mode, groupId, role, killerName } = match;
+    const safeKiller = getSafeKiller(role, killerName);
     const matches = await prisma.match.findMany({
         where: buildWhere(user, mode, groupId, role, killerName),
         orderBy: { createdAt: "asc" }
@@ -116,7 +124,7 @@ const deleteMatch = async (id, user) => {
                     groupId,
                     mode,
                     role,
-                    killerName: role === "killer" ? killerName : null
+                    killerName: safeKiller
                 }
             }
             : {
@@ -124,7 +132,7 @@ const deleteMatch = async (id, user) => {
                     user,
                     mode,
                     role,
-                    killerName: role === "killer" ? killerName : null
+                    killerName: safeKiller
                 }
             },
         update: { best: bestStreak },
@@ -133,7 +141,7 @@ const deleteMatch = async (id, user) => {
             groupId: groupId || null,
             mode,
             role,
-            killerName: role === "killer" ? killerName : null,
+            killerName: safeKiller,
             best: bestStreak
         }
     });
