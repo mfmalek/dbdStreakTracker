@@ -12,6 +12,10 @@ body {
     padding-top: 60px;
 }
 
+.hidden {
+    display: none;
+}
+
 h1 {
     font-size: 2.8rem;
     letter-spacing: 2px;
@@ -65,4 +69,39 @@ h1 {
 .streakButton:hover {
     transform: rotate(45deg) scale(1.05);
     box-shadow: 0 0 20px rgba(94, 42, 108, 0.7);
+}
+
+#roleContainer {
+    height: 100%;
+    align-content: center;
+}
+
+#roleTitle {
+    display: flex;
+    justify-content: center;
+}
+
+.roleSelection {
+    display: block;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.roleButton {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.roleButton:hover {
+    background: rgba(94, 42, 108, 0.8);
+}
+
+#killerModeButton {
+    transform: scale(2) rotate(45deg);
 }

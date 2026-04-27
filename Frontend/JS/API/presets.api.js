@@ -1,11 +1,14 @@
 import { http } from "./http.js";
-import { streakCore } from "../Core/Streak/streakCore.js";
+import { sharedCore } from "../Core/Streak/sharedCore.js";
+import { streakContext } from "../Core/Utils/streakContext.js";
 
 function getContext() {
+    const { role, killerName } = streakContext.getContext();
+
     return {
-        mode: streakCore.MODE,
-        role: "survivor",
-        killerName: "__survivor__"
+        mode: sharedCore.MODE,
+        role,
+        killerName
     };
 }
 

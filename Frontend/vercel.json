@@ -17,6 +17,10 @@
             "dest": "/Pages/home.html"
         },
         {
+            "src": "/killerSelection",
+            "dest": "/Pages/killerSelection.html"
+        },
+        {
             "src": "/streakSolo",
             "dest": "/Pages/streakSolo.html"
         },

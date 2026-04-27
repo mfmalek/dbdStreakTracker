@@ -1,8 +1,8 @@
-import { streakCore } from "../../Core/Streak/streakCore.js";
+import { survivorCore } from "../../Core/Streak/survivorCore.js";
 import { presetsApi } from "../../API/presets.api.js";
 
 function initPresets() {
-    for (let s = 1; s <= streakCore.SURVIVOR_COUNT; s++) {
+    for (let s = 1; s <= survivorCore.SURVIVOR_COUNT; s++) {
         document.getElementById(`savePresetSurv${s}`)?.addEventListener("click", () => savePreset(s));
         document.getElementById(`presetListSurv${s}`)?.addEventListener("change", () => applyPreset(s));
         document.getElementById(`deletePresetSurv${s}`)?.addEventListener("click", () => deletePreset(s));

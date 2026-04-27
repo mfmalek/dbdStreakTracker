@@ -1,6 +1,7 @@
 import { login } from "./Pages/login.js";
 import { register } from "./Pages/register.js";
 import { home } from "./Pages/home.js";
+import { killerSelection } from "./Pages/killerSelection.js";
 import { streak } from "./Pages/streak.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -15,6 +16,9 @@ document.addEventListener("DOMContentLoaded", async () => {
             break;
         case "home":
             home.initHome();
+            break;
+        case "killerSelection":
+            killerSelection.initKillerSelection();
             break;
         case "streak":
             await streak.initStreak();

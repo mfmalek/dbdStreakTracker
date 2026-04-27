@@ -1,7 +1,7 @@
 import { survivorsApi } from "../../API/survivors.api.js";
 import { matchesApi } from "../../API/matches.api.js";
 import { streaksApi } from "../../API/streaks.api.js";
-import { streakCore } from "../../Core/Streak/streakCore.js";
+import { sharedCore } from "../../Core/Streak/sharedCore.js";
 import { streakUI } from "./streakUI.js";
 
 async function refreshUI() {
@@ -40,7 +40,7 @@ async function handleResetBestStreak() {
 
 async function handleRenderStats() {
     const matches = await matchesApi.getMatches();
-    const current = streakCore.calculateCurrentStreak(matches);
+    const current = sharedCore.calculateCurrentStreak(matches);
     const best = await streaksApi.getBestStreak();
     streakUI.renderStats({ current, best });
 }

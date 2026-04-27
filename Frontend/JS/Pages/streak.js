@@ -1,8 +1,11 @@
 import { auth } from "../Auth/auth.js";
-import { streakCore } from "../Core/Streak/streakCore.js";
-import { streakPresets } from "../Features/Survivor Streak/streakPresets.js";
+import { sharedCore } from "../Core/Streak/sharedCore.js";
+import { survivorCore } from "../Core/Streak/survivorCore.js";
+import { killerCore } from "../Core/Streak/killerCore.js";
+import { streakContext } from "../Core/Utils/streakContext.js";
 import { matchesApi } from "../API/matches.api.js";
 import { groupsApi } from "../API/groups.api.js";
+import { streakPresets } from "../Features/Survivor Streak/streakPresets.js";
 import { streakUI } from "../Features/Survivor Streak/streakUI.js";
 import { streakListeners } from "../Features/Survivor Streak/streakListeners.js";
 import { streakController } from "../Features/Survivor Streak/streakController.js";
@@ -13,10 +16,17 @@ async function initStreak() {
     const user = auth.requireAuth();
     if (!user) return;
 
+    try {
+        streakContext.getContext();
+    } catch {
+        window.location.href = "/home";
+        return;
+    }
+
     auth.checkLoggedUser();
     setupNavbar();
 
-    const mode = streakCore.MODE;
+    const mode = sharedCore.MODE;
     let group = null;
 
     try {
@@ -33,7 +43,10 @@ async function initStreak() {
     await streakUI.initUI(group);
     streakUI.renderTable(matches || []);
     await streakController.handleRenderStats();
-    streakCore.initCore();
+    sharedCore.setupMaps();
+    sharedCore.setupMapImageOnChange();
+    survivorCore.initSurvivorCore();
+    killerCore.initKillerCore();
     streakPresets.initPresets();
     streakListeners.initListeners({
         ui: streakUI,
@@ -63,7 +76,7 @@ function setupNavbar() {
     });
 
     const user = auth.getUserFromToken();
-    const mode = streakCore.MODE;
+    const mode = sharedCore.MODE;
 
     streakUI.renderNavbar({
         username: user?.username || "Unknown",
@@ -74,7 +87,7 @@ function setupNavbar() {
 async function saveConfigs() {
     const configs = [];
 
-    for (let i = 1; i <= streakCore.SURVIVOR_COUNT; i++) {
+    for (let i = 1; i <= survivorCore.SURVIVOR_COUNT; i++) {
         configs.push({
             name: document.getElementById(`nicknameSurv${i}`)?.textContent || `Surv${i}`,
             image: document.getElementById(`imageSurv${i}`)?.src.split("/").pop()
@@ -86,7 +99,7 @@ async function saveConfigs() {
 function getSurvivors() {
     const survivors = [];
 
-    for (let s = 1; s <= streakCore.SURVIVOR_COUNT; s++) {
+    for (let s = 1; s <= survivorCore.SURVIVOR_COUNT; s++) {
         const perks = [];
 
         for (let p = 1; p <= 4; p++) {
@@ -179,7 +192,7 @@ function resetForm() {
         }
     });
 
-    for (let s = 1; s <= streakCore.SURVIVOR_COUNT; s++) {
+    for (let s = 1; s <= survivorCore.SURVIVOR_COUNT; s++) {
         const checkbox = document.getElementById(`surv${s}Survived`);
         if (checkbox) checkbox.checked = false;
     }

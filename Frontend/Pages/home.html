@@ -13,27 +13,46 @@
     <h1>Dead by Daylight Streak Tracker</h1>
     <h4 id="welcomeUser"></h4>
 
-    <div class="perkGrid">
-        <div class="row center">
-            <a href="/streakSolo" class="streakButton">
-                <img src="/Images/Miscellaneous/Perk_Overcome.png" title="Solo" />
-            </a>
+    <div id="roleContainer">
+        <h2 id="roleTitle">Select Role</h2>
+
+        <div class="roleSelection">
+            <button class="roleButton" data-role="survivor">Survivor</button>
+            <button class="roleButton" data-role="killer">Killer</button>
+        </div>
+    </div>
+
+    <div id="modeContainer" class="hidden">
+        <h2 id="modeTitle">Select Mode</h2>
+
+        <div class="perkGrid" id="survivorModes">
+            <div class="row center">
+                <button class="streakButton" data-mode="solo">
+                    <img src="/Images/Miscellaneous/Perk_Overcome.png" />
+                </button>
+            </div>
+
+            <div class="row spread">
+                <button class="streakButton" data-mode="duo">
+                    <img src="/Images/Miscellaneous/Perk_TeamworkCollectiveStealth.png" />
+                </button>
+
+                <button class="streakButton" data-mode="trio">
+                    <img src="/Images/Miscellaneous/Perk_BloodEcho.png" />
+                </button>
+            </div>
+
+            <div class="row center">
+                <button class="streakButton" data-mode="squad">
+                    <img src="/Images/Miscellaneous/Perk_ProveThyself.png" />
+                </button>
+            </div>
         </div>
 
-        <div class="row spread">
-            <a href="/streakDuo" class="streakButton">
-                <img src="/Images/Miscellaneous/Perk_TeamworkCollectiveStealth.png" title="Duo" />
-            </a>
-            
-            <a href="/streakTrio" class="streakButton">
-                <img src="/Images/Miscellaneous/Perk_BloodEcho.png" title="Trio" />
-            </a>
-        </div>
-
-        <div class="row center">
-            <a href="/streakSquad" class="streakButton">
-                <img src="/Images/Miscellaneous/Perk_ProveThyself.png" title="Squad" />
-            </a>
+        <div class="perkGrid hidden" id="killerMode">
+            <button class="killerButton">
+                    <img src="/Images/Miscellaneous/Perk_NoOneEscapesDeath.png" />
+            </button>
         </div>
     </div>
 

@@ -1,8 +1,8 @@
 import { http } from "./http.js";
-import { streakCore } from "../Core/Streak/streakCore.js";
+import { sharedCore } from "../Core/Streak/sharedCore.js";
 
 function getMode() {
-    return streakCore.MODE;
+    return sharedCore.MODE;
 }
 
 const inviteUser = (toUser, groupId) =>

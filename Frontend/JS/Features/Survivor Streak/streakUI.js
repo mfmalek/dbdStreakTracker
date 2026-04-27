@@ -1,5 +1,6 @@
 import { auth } from "../../Auth/auth.js";
-import { streakCore } from "../../Core/Streak/streakCore.js";
+import { sharedCore } from "../../Core/Streak/sharedCore.js";
+import { survivorCore } from "../../Core/Streak/survivorCore.js";
 import { survivorData } from "../../Core/Data/survivorData.js";
 import { survivorsApi } from "../../API/survivors.api.js";
 import { groupsApi } from "../../API/groups.api.js";
@@ -30,7 +31,7 @@ async function getSurvivorNames() {
     const configs = await survivorsApi.getSurvivorConfigs();
     const names = [];
 
-    for (let i = 1; i <= streakCore.SURVIVOR_COUNT; i++) {
+    for (let i = 1; i <= survivorCore.SURVIVOR_COUNT; i++) {
         const config = configs[i - 1];
         names.push(config?.name || `Surv${i}`);
     }
@@ -83,7 +84,7 @@ function getRulesByMode(mode) {
 function renderRules() {
     const ruleset = document.getElementById("ruleset");
     if (!ruleset) return;
-    const rules = getRulesByMode(streakCore.MODE);
+    const rules = getRulesByMode(sharedCore.MODE);
     ruleset.innerHTML = rules.map(rule => `<span class="streakRule">• ${rule}</span>`).join("");
 }
 
@@ -180,7 +181,7 @@ async function renderSurvivors() {
 
     const configs = await survivorsApi.getSurvivorConfigs();
 
-    for (let i = 1; i <= streakCore.SURVIVOR_COUNT; i++) {
+    for (let i = 1; i <= survivorCore.SURVIVOR_COUNT; i++) {
         const config = configs[i - 1];
 
         container.insertAdjacentHTML(
@@ -286,7 +287,7 @@ async function renderTableHeader() {
 function createTableRow(match, displayNumber) {
     let rowHTML = `<tr><td>${displayNumber}</td>`;
 
-    for (let i = 0; i < streakCore.SURVIVOR_COUNT; i++) {
+    for (let i = 0; i < survivorCore.SURVIVOR_COUNT; i++) {
         const survivor = match.survivors?.[i];
 
         rowHTML += `
