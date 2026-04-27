@@ -5,7 +5,7 @@ function getContext() {
     return {
         mode: streakCore.MODE,
         role: "survivor",
-        killerName: null,
+        killerName: "__survivor__",
         groupId: window.currentGroupId || null
     };
 }
