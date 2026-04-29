@@ -6,7 +6,10 @@ function createOptionsFromArray(array) {
 }
 
 function createTomSelect(id, options, placeholder) {
-    new TomSelect(`#${id}`, {
+    const el = document.getElementById(id);
+
+    if (!el) return;
+    new TomSelect(el, {
         options,
         valueField: "value",
         labelField: "text",
