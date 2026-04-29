@@ -1,4 +1,4 @@
-import { killerData } from "../Data/killerData.js";
+import { killerData } from "../Core/Data/killerData.js";
 import { streakContext } from "../Core/Utils/streakContext.js";
 
 function initKillerSelection() {
