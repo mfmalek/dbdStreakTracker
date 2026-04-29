@@ -1,4 +1,4 @@
-import { coreData } from "../Data/coreData";
+import { coreData } from "../Data/coreData.js";
 
 const MODE = document.body.dataset.mode;
 
