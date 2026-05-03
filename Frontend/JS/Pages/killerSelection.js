@@ -9,11 +9,17 @@ function renderKillers() {
     const container = document.getElementById("killerList");
 
     killerData.names.forEach(killer => {
-        const btn = document.createElement("button");
+        const card = document.createElement("div");
+        card.className = "killerCard";
+        const clean = killer.replace(/[^a-zA-Z0-9]/g, "");
 
-        btn.textContent = killer;
-        btn.addEventListener("click", () => selectKiller(killer));
-        container.appendChild(btn);
+        card.innerHTML = `
+            <img src="../Images/Portraits/Killers/Portrait_${clean}.png" alt="${killer}">
+            <span>${killer}</span>
+        `;
+
+        card.addEventListener("click", () => selectKiller(killer));
+        container.appendChild(card);
     });
 }
 

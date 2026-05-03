@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+    background: url('../Images/Miscellaneous/Background_Foggy.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 8px #000;
+}
+
+#killerList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 25px;
+    width: 80%;
+    max-width: 900px;
+}
+
+.killerCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+
+.killerCard:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(94, 42, 108, 0.7);
+}
+
+.killerCard img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.killerCard span {
+    font-size: 0.9rem;
+    text-align: center;
+}
