@@ -45,13 +45,14 @@ async function initStreak() {
     await streakController.handleRenderStats();
     sharedCore.setupMaps();
     sharedCore.setupMapImageOnChange();
+    killerCore.initKillerSharedUI();
 
     const { role } = streakContext.getContext();
 
     if (role === "survivor") {
         survivorCore.initSurvivorCore();
     } else {
-        killerCore.initKillerCore();
+        killerCore.initKillerOnlyUI();
     }
 
     streakPresets.initPresets();

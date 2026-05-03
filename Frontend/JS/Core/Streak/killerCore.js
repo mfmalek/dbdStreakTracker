@@ -1,11 +1,14 @@
 import { killerData } from "../Data/killerData.js";
 import { uiHelpers } from "../Utils/uiHelpers.js";
 
-function initKillerCore() {
+function initKillerSharedUI() {
     setupKillerPerks();
-    setupKillerAddons();
     setupKillerNames();
     setupKillerDynamicBehavior();
+}
+
+function initKillerOnlyUI() {
+    setupKillerAddons();
 }
 
 function setupKillerPerks() {
@@ -65,5 +68,6 @@ function setupKillerDynamicBehavior() {
 }
 
 export const killerCore = {
-    initKillerCore
+    initKillerSharedUI,
+    initKillerOnlyUI
 };
