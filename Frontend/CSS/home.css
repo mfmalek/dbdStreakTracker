@@ -13,7 +13,7 @@ body {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 h1 {
@@ -21,6 +21,18 @@ h1 {
     letter-spacing: 2px;
     margin-bottom: 40px;
     text-shadow: 2px 2px 8px #000;
+}
+
+#modeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+#modeContent {
+    position: relative;
 }
 
 .perkGrid {

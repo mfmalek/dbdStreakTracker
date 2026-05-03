@@ -17,17 +17,19 @@ function setupRoleSelection() {
     const modeContainer = document.getElementById("modeContainer");
     const survivorModes = document.getElementById("survivorModes");
     const killerMode = document.getElementById("killerMode");
+    const roleContainer = document.getElementById("roleContainer");
 
     roleButtons.forEach(btn => {
         btn.addEventListener("click", () => {
             selectedRole = btn.dataset.role;
+            roleContainer.classList.add("hidden");
             modeContainer.classList.remove("hidden");
+            survivorModes.classList.add("hidden");
+            killerMode.classList.add("hidden");
 
             if (selectedRole === "survivor") {
                 survivorModes.classList.remove("hidden");
-                killerMode.classList.add("hidden");
             } else {
-                survivorModes.classList.add("hidden");
                 killerMode.classList.remove("hidden");
             }
         });
