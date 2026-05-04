@@ -64,16 +64,6 @@ function renderTable(matches) {
         .join("");
 }
 
-function renderStats({ current, best }) {
-    const currentEl = document.getElementById("currentStreak");
-    const bestEl = document.getElementById("bestStreak");
-
-    if (!currentEl || !bestEl) return;
-
-    currentEl.textContent = current;
-    bestEl.textContent = best;
-}
-
 function applyKillerToUI(killerName) {
     const image = document.getElementById("killerImage");
     const nameEl = document.querySelector("#killerInfo .nickname");
@@ -88,9 +78,22 @@ function applyKillerToUI(killerName) {
     }
 }
 
+function createMatchPreview(match) {
+    if (!match) return "Match not found.";
+
+    return `
+        Killer: ${match.killerName || "Unknown"}
+        Perks: ${match.killerPerks?.join(", ") || "N/A"}
+        Add-ons: ${match.killerAddons?.join(", ") || "N/A"}
+
+        Map: ${match.mapName || "Unknown"}
+        Kills: ${match.kills ?? 0}
+    `;
+}
+
 export const killerUI = {
     initUI,
     renderTable,
-    renderStats,
-    applyKillerToUI
+    applyKillerToUI,
+    createMatchPreview
 };

@@ -14,19 +14,6 @@ async function initUI(group) {
     await renderTableHeader();
 }
 
-function renderNavbar({ username, mode }) {
-    const userText = document.getElementById("welcomeUserNav");
-    const modeText = document.getElementById("modeIndicator");
-
-    if (userText) {
-        userText.textContent = username;
-    }
-
-    if (modeText) {
-        modeText.innerHTML = `Mode: <span id="modeType">${mode.toUpperCase()}</span>`;
-    }
-}
-
 async function getSurvivorNames() {
     const configs = await survivorsApi.getSurvivorConfigs();
     const names = [];
@@ -319,14 +306,6 @@ function renderTable(matches) {
         .join("");
 }
 
-function renderStats({ current, best }) {
-    const ongoingStreak = document.getElementById("currentStreak");
-    const streakRecord = document.getElementById("bestStreak");
-    if (!ongoingStreak || !streakRecord) return;
-    ongoingStreak.textContent = current;
-    streakRecord.textContent = best;
-}
-
 function createMatchPreview(match) {
     if (!match) return "Match not found.";
     const names = getSurvivorNames();
@@ -347,13 +326,11 @@ function createMatchPreview(match) {
     return preview;
 }
 
-export const streakUI = {
+export const survivorUI = {
     initUI,
-    renderNavbar,
     renderTitle,
     renderInvites,
     renderTableHeader,
     renderTable,
-    renderStats,
     createMatchPreview
 }

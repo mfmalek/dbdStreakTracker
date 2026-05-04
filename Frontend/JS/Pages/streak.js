@@ -6,9 +6,11 @@ import { streakContext } from "../Core/Utils/streakContext.js";
 import { matchesApi } from "../API/matches.api.js";
 import { groupsApi } from "../API/groups.api.js";
 import { streakPresets } from "../Features/Survivor Streak/streakPresets.js";
-import { streakUI } from "../Features/Survivor Streak/streakUI.js";
+import { survivorUI } from "../Features/Survivor Streak/survivorUI.js";
 import { killerUI } from "../Features/Killer Streak/killerUI.js";
-import { streakListeners } from "../Features/Survivor Streak/streakListeners.js";
+import { sharedUI } from "../Features/Core Streak/sharedUI.js";
+import { survivorListeners } from "../Features/Survivor Streak/survivorListeners.js";
+import { killerListeners } from "../Features/Killer Streak/killerListeners.js";
 import { survivorController } from "../Features/Survivor Streak/survivorController.js";
 import { killerController } from "../Features/Killer Streak/killerController.js";
 
@@ -48,13 +50,13 @@ async function initStreak() {
     killerCore.initKillerSharedUI();
 
     if (role === "survivor") {
-        await streakUI.initUI(group);
-        streakUI.renderTable(matches || []);
+        await survivorUI.initUI(group);
+        survivorUI.renderTable(matches || []);
         await survivorController.handleRenderStats();
         survivorCore.initSurvivorCore();
         streakPresets.initPresets();
-        streakListeners.initListeners({
-            ui: streakUI,
+        survivorListeners.initListeners({
+            ui: survivorUI,
             saveConfigs,
             submitMatch,
             deleteTableMatch,
@@ -78,10 +80,12 @@ async function initStreak() {
             killerCore.updateKillerAddons(killerName);
         }
 
-        document.getElementById("submitMatchButton")?.addEventListener("click", submitKillerMatch);
-        document.getElementById("clearMatchesButton")?.addEventListener("click", killerController.handleClearMatches);
-        document.getElementById("deleteMatchButton")?.addEventListener("click", deleteTableMatch);
-        document.getElementById("resetBestStreakButton")?.addEventListener("click", killerController.handleResetBestStreak);
+        killerListeners.initListeners({
+            submitMatch: submitKillerMatch,
+            deleteTableMatch,
+            clearTableMatches: killerController.handleClearMatches,
+            resetBestStreak: killerController.handleResetBestStreak
+        });
     }
     loading.style.display = "none";
 }
@@ -101,7 +105,7 @@ function setupNavbar() {
     const user = auth.getUserFromToken();
     const mode = sharedCore.MODE;
 
-    streakUI.renderNavbar({
+    sharedUI.renderNavbar({
         username: user?.username || "Unknown",
         mode
     });
@@ -264,6 +268,7 @@ async function deleteTableMatch() {
     const input = document.getElementById("deleteMatchNumber");
     const index = parseInt(input?.value) - 1;
     const matches = await matchesApi.getMatches();
+    const { role } = streakContext.getContext();
 
     if (isNaN(index)) {
         alert("Please enter a valid match number.");
@@ -276,18 +281,17 @@ async function deleteTableMatch() {
     }
 
     const match = matches[index];
-    const matchPreview = streakUI.createMatchPreview(match);
-    const confirmDelete = confirm(`Are you sure you want to delete match #${index + 1}?\n\n${matchPreview}`);
+    const ui = role === "killer" ? killerUI : survivorUI;
+    const controller = role === "killer" ? killerController : survivorController;
+    const preview = ui.createMatchPreview(match);
+
+    const confirmDelete = confirm(
+        `Are you sure you want to delete match #${index + 1}?\n\n${preview}`
+    );
 
     if (!confirmDelete) return;
 
-    const { role } = streakContext.getContext();
-
-    if (role === "survivor") {
-        await survivorController.handleDeleteMatch(match.id);
-    } else {
-        await killerController.handleDeleteMatch(match.id);
-    }
+    await controller.handleDeleteMatch(match.id);
     input.value = "";
 }
 
