@@ -28,8 +28,11 @@ function selectKiller(killerName) {
         role: "killer",
         killerName
     });
-    const mode = sessionStorage.getItem("selectedMode") || "solo";
-    window.location.href = `/streak${capitalize(mode)}`;
+
+    const mode = "killer";
+    const encoded = encodeURIComponent(killerName);
+
+    window.location.href = `/streakKiller?killer=${encoded}`;
 }
 
 function capitalize(str) {

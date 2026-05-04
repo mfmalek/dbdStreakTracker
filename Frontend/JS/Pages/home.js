@@ -51,7 +51,6 @@ function setupNavigation() {
 
     document.querySelector(".killerButton")?.addEventListener("click", () => {
         if (selectedRole !== "killer") return;
-        sessionStorage.setItem("selectedMode", "standard");
         window.location.href = "/killerSelection";
     });
 }

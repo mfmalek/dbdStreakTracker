@@ -35,6 +35,10 @@
         {
             "src": "/streakSquad",
             "dest": "/Pages/streakSquad.html"
+        },
+        {
+            "src": "/streakKiller",
+            "dest": "/Pages/streakKiller.html"
         }
     ]
 }

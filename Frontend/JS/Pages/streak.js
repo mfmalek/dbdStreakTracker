@@ -25,7 +25,8 @@ async function initStreak() {
 
     auth.checkLoggedUser();
     setupNavbar();
-
+    syncKillerFromUrl();
+    const { role } = streakContext.getContext();
     const mode = sharedCore.MODE;
     let group = null;
 
@@ -47,27 +48,28 @@ async function initStreak() {
     sharedCore.setupMapImageOnChange();
     killerCore.initKillerSharedUI();
 
-    const { role } = streakContext.getContext();
-
     if (role === "survivor") {
         survivorCore.initSurvivorCore();
-    } else {
+        streakPresets.initPresets();
+        streakListeners.initListeners({
+            ui: streakUI,
+            saveConfigs,
+            submitMatch,
+            deleteTableMatch,
+            clearTableMatches,
+            resetBestStreak: streakController.handleResetBestStreak,
+            inviteUser: groupsApi.inviteUser,
+            acceptInvite: groupsApi.acceptInvite,
+            removeMember: groupsApi.removeMember,
+            leaveGroup: groupsApi.leaveGroup
+        });
+    } else if (role === "killer") {
         killerCore.initKillerOnlyUI();
-    }
 
-    streakPresets.initPresets();
-    streakListeners.initListeners({
-        ui: streakUI,
-        saveConfigs,
-        submitMatch,
-        deleteTableMatch,
-        clearTableMatches,
-        resetBestStreak: streakController.handleResetBestStreak,
-        inviteUser: groupsApi.inviteUser,
-        acceptInvite: groupsApi.acceptInvite,
-        removeMember: groupsApi.removeMember,
-        leaveGroup: groupsApi.leaveGroup
-    });
+        document.getElementById("submitMatchButton")?.addEventListener("click", submitMatch);
+        document.getElementById("clearMatchesButton")?.addEventListener("click", clearTableMatches);
+        document.getElementById("deleteMatchButton")?.addEventListener("click", deleteTableMatch);
+    }
     loading.style.display = "none";
 }
 
@@ -90,6 +92,29 @@ function setupNavbar() {
         username: user?.username || "Unknown",
         mode
     });
+}
+
+function syncKillerFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const killer = params.get("killer");
+
+    if (!killer) return;
+
+    try {
+        const current = streakContext.getContext();
+
+        if (current.role === "killer") {
+            streakContext.setContext({
+                role: "killer",
+                killerName: killer
+            });
+        }
+    } catch {
+        streakContext.setContext({
+            role: "killer",
+            killerName: killer
+        });
+    }
 }
 
 async function saveConfigs() {
