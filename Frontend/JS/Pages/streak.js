@@ -9,7 +9,8 @@ import { streakPresets } from "../Features/Survivor Streak/streakPresets.js";
 import { streakUI } from "../Features/Survivor Streak/streakUI.js";
 import { killerUI } from "../Features/Killer Streak/killerUI.js";
 import { streakListeners } from "../Features/Survivor Streak/streakListeners.js";
-import { streakController } from "../Features/Survivor Streak/streakController.js";
+import { survivorController } from "../Features/Survivor Streak/survivorController.js";
+import { killerController } from "../Features/Killer Streak/killerController.js";
 
 async function initStreak() {
     const loading = document.getElementById("loadingScreen");
@@ -49,7 +50,7 @@ async function initStreak() {
     if (role === "survivor") {
         await streakUI.initUI(group);
         streakUI.renderTable(matches || []);
-        await streakController.handleRenderStats();
+        await survivorController.handleRenderStats();
         survivorCore.initSurvivorCore();
         streakPresets.initPresets();
         streakListeners.initListeners({
@@ -58,7 +59,7 @@ async function initStreak() {
             submitMatch,
             deleteTableMatch,
             clearTableMatches,
-            resetBestStreak: streakController.handleResetBestStreak,
+            resetBestStreak: survivorController.handleResetBestStreak,
             inviteUser: groupsApi.inviteUser,
             acceptInvite: groupsApi.acceptInvite,
             removeMember: groupsApi.removeMember,
@@ -69,7 +70,7 @@ async function initStreak() {
 
         await killerUI.initUI(group);
         killerUI.renderTable(matches || []);
-        await streakController.handleRenderStats();
+        await killerController.handleRenderStats();
         killerCore.initKillerOnlyUI();
 
         if (killerName) {
@@ -77,9 +78,10 @@ async function initStreak() {
             killerCore.updateKillerAddons(killerName);
         }
 
-        document.getElementById("submitMatchButton")?.addEventListener("click", submitMatch);
-        document.getElementById("clearMatchesButton")?.addEventListener("click", clearTableMatches);
+        document.getElementById("submitMatchButton")?.addEventListener("click", submitKillerMatch);
+        document.getElementById("clearMatchesButton")?.addEventListener("click", killerController.handleClearMatches);
         document.getElementById("deleteMatchButton")?.addEventListener("click", deleteTableMatch);
+        document.getElementById("resetBestStreakButton")?.addEventListener("click", killerController.handleResetBestStreak);
     }
     loading.style.display = "none";
 }
@@ -137,7 +139,7 @@ async function saveConfigs() {
             image: document.getElementById(`imageSurv${i}`)?.src.split("/").pop()
         });
     }
-    await streakController.handleSaveConfigs(configs);
+    await survivorController.handleSaveConfigs(configs);
 }
 
 function getSurvivors() {
@@ -191,7 +193,7 @@ async function submitSurvivorMatch() {
         killerPerks
     };
 
-    await streakController.handleSubmitMatch(match);
+    await survivorController.handleSubmitMatch(match);
     resetForm();
 }
 
@@ -214,14 +216,13 @@ async function submitKillerMatch() {
     if (!validateKillerMatchInputs(mapName, killerName)) return;
 
     const match = {
-        killerName,
         mapName,
         killerPerks,
         killerAddons,
         kills
     };
 
-    await streakController.handleSubmitMatch(match);
+    await killerController.handleSubmitMatch(match);
     if (killsInput) killsInput.value = "";
     resetForm();
 
@@ -279,14 +280,28 @@ async function deleteTableMatch() {
     const confirmDelete = confirm(`Are you sure you want to delete match #${index + 1}?\n\n${matchPreview}`);
 
     if (!confirmDelete) return;
-    await streakController.handleDeleteMatch(match.id);
+
+    const { role } = streakContext.getContext();
+
+    if (role === "survivor") {
+        await survivorController.handleDeleteMatch(match.id);
+    } else {
+        await killerController.handleDeleteMatch(match.id);
+    }
     input.value = "";
 }
 
 async function clearTableMatches() {
     const confirmClear = confirm("Are you sure you want to clear ALL matches?");
     if (!confirmClear) return;
-    await streakController.handleClearMatches();
+
+    const { role } = streakContext.getContext();
+
+    if (role === "survivor") {
+        await survivorController.handleClearMatches();
+    } else {
+        await killerController.handleClearMatches();
+    }
 }
 
 function resetForm() {
