@@ -32,14 +32,20 @@ async function getMatches() {
 
 async function addMatch(match) {
     const { mode, role, killerName, groupId } = getContext();
-    await http.post("/matches", {
+    const created = await http.post("/matches", {
         mode,
         role,
         killerName,
         groupId,
         ...match
     });
-    return getMatches();
+
+    return {
+        id: created.id,
+        result: created.result,
+        killerName: created.killerName,
+        ...(created.data || {})
+    };
 }
 
 async function deleteMatch(id) {
