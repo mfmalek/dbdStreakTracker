@@ -50,7 +50,12 @@ async function initStreak() {
     killerCore.initKillerSharedUI();
 
     if (role === "survivor") {
-        await survivorUI.initUI(group);
+        survivorUI.initUI();
+        await survivorController.handleRenderTitle();
+        await survivorController.handleRenderInvites();
+        await survivorController.handleRenderGroupMembers(group);
+        await survivorController.handleRenderSurvivors();
+        await survivorController.handleRenderTableHeader();
         survivorUI.renderTable(matches || []);
         await survivorController.handleRenderStats();
         survivorCore.initSurvivorCore();
@@ -283,7 +288,7 @@ async function deleteTableMatch() {
     const match = matches[index];
     const ui = role === "killer" ? killerUI : survivorUI;
     const controller = role === "killer" ? killerController : survivorController;
-    const preview = ui.createMatchPreview(match);
+    const preview = await controller.handleCreateMatchPreview(match);
 
     const confirmDelete = confirm(
         `Are you sure you want to delete match #${index + 1}?\n\n${preview}`

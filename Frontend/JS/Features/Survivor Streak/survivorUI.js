@@ -2,27 +2,9 @@ import { auth } from "../../Auth/auth.js";
 import { sharedCore } from "../../Core/Streak/sharedCore.js";
 import { survivorCore } from "../../Core/Streak/survivorCore.js";
 import { survivorData } from "../../Core/Data/survivorData.js";
-import { survivorsApi } from "../../API/survivors.api.js";
-import { groupsApi } from "../../API/groups.api.js";
 
-async function initUI(group) {
-    await renderTitle();
+async function initUI() {
     renderRules();
-    await renderInvites();
-    await renderGroupMembers(group?.id, group);
-    await renderSurvivors();
-    await renderTableHeader();
-}
-
-async function getSurvivorNames() {
-    const configs = await survivorsApi.getSurvivorConfigs();
-    const names = [];
-
-    for (let i = 1; i <= survivorCore.SURVIVOR_COUNT; i++) {
-        const config = configs[i - 1];
-        names.push(config?.name || `Surv${i}`);
-    }
-    return names;
 }
 
 function formatNamesForTitle(names) {
@@ -31,10 +13,9 @@ function formatNamesForTitle(names) {
     return `${names.slice(0, -1).join(", ")} & ${names.at(-1)}`;
 }
 
-async function renderTitle() {
+function renderTitle(names) {
     const title = document.getElementById("streakTitle");
     if (!title) return;
-    const names = await getSurvivorNames();
     const formatted = formatNamesForTitle(names);
     title.textContent = `${formatted} - Escape Streak Tracker`;
 }
@@ -161,12 +142,10 @@ function applySelectedPortrait(grid, savedImage) {
     });
 }
 
-async function renderSurvivors() {
+function renderSurvivors(configs) {
     const container = document.getElementById("survivorContainer");
     if (!container) return;
     container.innerHTML = "";
-
-    const configs = await survivorsApi.getSurvivorConfigs();
 
     for (let i = 1; i <= survivorCore.SURVIVOR_COUNT; i++) {
         const config = configs[i - 1];
@@ -181,22 +160,16 @@ async function renderSurvivors() {
     }
 }
 
-async function renderGroupMembers(groupId, group) {
-    groupId = groupId || window.currentGroupId;
-    group = group || window.currentGroup;
-
+function renderGroupMembers(members, group, currentUser) {
     const container = document.getElementById("groupMembersContainer");
-
     if (!container) return;
     container.innerHTML = "";
 
-    if (!groupId) {
+    if (!members || !members.length) {
         container.innerHTML = "<p>No group</p>";
         return;
     }
 
-    const members = await groupsApi.getGroupMembers(groupId);
-    const currentUser = auth.getUserFromToken()?.username;
     const isOwner = group?.owner === currentUser;
 
     members.forEach(member => {
@@ -224,11 +197,10 @@ async function renderGroupMembers(groupId, group) {
     });
 }
 
-async function renderInvites() {
+function renderInvites(invites) {
     const container = document.getElementById("invitesContainer");
     if (!container) return;
     container.innerHTML = "";
-    const invites = await groupsApi.getInvites();
 
     invites.forEach(invite => {
         const li = document.createElement("li");
@@ -242,12 +214,13 @@ async function renderInvites() {
 
     if (!invites.length) {
         container.innerHTML = "<li>No pending invites</li>";
-        return;
     }
 }
 
-async function createTableHeader() {
-    const names = await getSurvivorNames();
+function renderTableHeader(names) {
+    const thead = document.querySelector("#matchTable thead");
+    if (!thead) return;
+
     let html = "<tr><th>#</th>";
 
     names.forEach(name => {
@@ -262,13 +235,8 @@ async function createTableHeader() {
         <th>Killer</th>
         <th>Killer Perks</th>
     </tr>`;
-    return html;
-}
 
-async function renderTableHeader() {
-    const thead = document.querySelector("#matchTable thead");
-    if (!thead) return;
-    thead.innerHTML = await createTableHeader();
+    thead.innerHTML = html;
 }
 
 function createTableRow(match, displayNumber) {
@@ -306,9 +274,9 @@ function renderTable(matches) {
         .join("");
 }
 
-function createMatchPreview(match) {
+function createMatchPreview(match, names) {
     if (!match) return "Match not found.";
-    const names = getSurvivorNames();
+
     let preview = ``;
 
     match.survivors?.forEach((surv, i) => {
@@ -316,9 +284,7 @@ function createMatchPreview(match) {
         const perks = surv.perks?.join(", ") || "No perks";
         const status = surv.survived ? "[✅]" : "[☠️]";
 
-        preview += `${status} `;
-        preview += `${name}: `;
-        preview += `  ${perks}\n`;
+        preview += `${status} ${name}: ${perks}\n`;
     });
     preview += `\nKiller: ${match.killerName || "Unknown"}`;
     preview += `\nPerks: ${match.killerPerks?.join(", ") || "N/A"}`;

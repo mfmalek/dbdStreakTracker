@@ -1,7 +1,10 @@
+import { survivorCore } from "../../Core/Streak/survivorCore.js";
+import { auth } from "../../Auth/auth.js";
 import { createBaseController } from "../Core Streak/baseController.js";
 import { sharedUI } from "../Core Streak/sharedUI.js";
 import { survivorUI } from "./survivorUI.js";
 import { survivorsApi } from "../../API/survivors.api.js";
+import { groupsApi } from "../../API/groups.api.js";
 
 const base = createBaseController({
     renderTable: survivorUI.renderTable,
@@ -10,8 +13,27 @@ const base = createBaseController({
 
 async function handleSaveConfigs(configs) {
     await survivorsApi.saveSurvivorConfigs(configs);
-    await survivorUI.renderTitle();
-    await survivorUI.renderTableHeader();
+    const names = await getSurvivorNames();
+    survivorUI.renderTitle(names);
+    survivorUI.renderTableHeader(names);
+}
+
+async function getSurvivorNames() {
+    const configs = await survivorsApi.getSurvivorConfigs();
+
+    return Array.from({ length: survivorCore.SURVIVOR_COUNT }, (_, i) =>
+        configs[i]?.name || `Surv${i + 1}`
+    );
+}
+
+async function handleRenderTitle() {
+    const names = await getSurvivorNames();
+    survivorUI.renderTitle(names);
+}
+
+async function handleRenderSurvivors() {
+    const configs = await survivorsApi.getSurvivorConfigs();
+    survivorUI.renderSurvivors(configs);
 }
 
 async function handleRenderInvites() {
@@ -19,7 +41,36 @@ async function handleRenderInvites() {
     survivorUI.renderInvites(invites);
 }
 
+async function handleRenderGroupMembers(group) {
+    if (!group?.id) {
+        survivorUI.renderGroupMembers([], group, null);
+        return;
+    }
+
+    const members = await groupsApi.getGroupMembers(group.id);
+    const currentUser = auth.getUserFromToken()?.username;
+
+    survivorUI.renderGroupMembers(members, group, currentUser);
+}
+
+async function handleRenderTableHeader() {
+    const names = await getSurvivorNames();
+    survivorUI.renderTableHeader(names);
+}
+
+async function handleCreateMatchPreview(match) {
+    const names = await getSurvivorNames();
+    return survivorUI.createMatchPreview(match, names);
+}
+
 export const survivorController = {
     ...base,
-    handleSaveConfigs
+    handleSaveConfigs,
+    getSurvivorNames,
+    handleRenderTitle,
+    handleRenderSurvivors,
+    handleRenderInvites,
+    handleRenderGroupMembers,
+    handleRenderTableHeader,
+    handleCreateMatchPreview
 };
