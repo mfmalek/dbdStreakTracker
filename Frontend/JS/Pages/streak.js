@@ -74,6 +74,7 @@ async function initStreak() {
 
         if (killerName) {
             killerUI.applyKillerToUI(killerName);
+            killerCore.updateKillerAddons(killerName);
         }
 
         document.getElementById("submitMatchButton")?.addEventListener("click", submitMatch);
@@ -197,6 +198,7 @@ async function submitSurvivorMatch() {
 async function submitKillerMatch() {
     const { killerName } = streakContext.getContext();
     const mapName = document.getElementById("mapName").value;
+    const kills = Number(document.getElementById("kills")?.value || 0);
 
     const killerPerks = [];
     for (let p = 1; p <= 4; p++) {
@@ -214,7 +216,8 @@ async function submitKillerMatch() {
         killerName,
         mapName,
         killerPerks,
-        killerAddons
+        killerAddons,
+        kills
     };
 
     await streakController.handleSubmitMatch(match);

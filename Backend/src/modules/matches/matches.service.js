@@ -154,12 +154,12 @@ const clearMatches = async (user, mode, role, killerName, groupId) => {
     });
 };
 
-function calculateResult(matchData, mode, role) {
-    if (role === "killer") {
-        const kills = matchData.kills || 0;
-        return kills >= 3 ? "win" : "loss";
-    }
+function calculateKillerResult(matchData) {
+    const kills = matchData.kills || 0;
+    return kills >= 3 ? "win" : "loss";
+}
 
+function calculateSurvivorResult(matchData, mode) {
     const survivors = matchData.survivors || [];
     const escapedCount = survivors.filter(s => s.survived).length;
 
@@ -170,6 +170,13 @@ function calculateResult(matchData, mode, role) {
         case "squad": return escapedCount >= 3 ? "win" : "loss";
         default: return "loss";
     }
+}
+
+function calculateResult(matchData, mode, role) {
+    if (role === "killer") {
+        return calculateKillerResult(matchData);
+    }
+    return calculateSurvivorResult(matchData, mode);
 }
 
 function calculateCurrentStreak(matches) {

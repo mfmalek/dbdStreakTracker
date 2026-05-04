@@ -69,5 +69,6 @@ function setupKillerDynamicBehavior() {
 
 export const killerCore = {
     initKillerSharedUI,
-    initKillerOnlyUI
+    initKillerOnlyUI,
+    updateKillerAddons
 };

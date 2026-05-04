@@ -81,7 +81,7 @@
     cursor: pointer;
 }
 
-/* PERKS */
+/* PERKS, ADDONS AND KILLS */
 
 .perkSlots {
     width: 100%;
@@ -101,10 +101,15 @@
     text-align: center;
 }
 
-.perkNumberText {
+.perkNumberText, .addonNumberText, .killsText {
     font-family: Copperplate, fantasy;
     font-size: 18px;
     color: var(--border);
+}
+
+#killsCountText {
+    margin-top: 0;
+    color: var(--bg-light);
 }
 
 /* PRESETS */
@@ -212,6 +217,15 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked::before {
     display: block;
+}
+
+/* NUMBERS */
+
+input[type="number"] {
+    border: 2px solid var(--border-light);
+    border-radius: 4px;
+    width: 30px;
+    height: 20px;
 }
 
 /* GROUPS */
