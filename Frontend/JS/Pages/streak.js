@@ -65,10 +65,16 @@ async function initStreak() {
             leaveGroup: groupsApi.leaveGroup
         });
     } else if (role === "killer") {
+        const { killerName } = streakContext.getContext();
+
         await killerUI.initUI(group);
         killerUI.renderTable(matches || []);
         await streakController.handleRenderStats();
         killerCore.initKillerOnlyUI();
+
+        if (killerName) {
+            killerUI.applyKillerToUI(killerName);
+        }
 
         document.getElementById("submitMatchButton")?.addEventListener("click", submitMatch);
         document.getElementById("clearMatchesButton")?.addEventListener("click", clearTableMatches);
@@ -155,6 +161,18 @@ function getSurvivors() {
 }
 
 async function submitMatch() {
+    const { role } = streakContext.getContext();
+
+    if (role === "survivor") {
+        return submitSurvivorMatch();
+    }
+
+    if (role === "killer") {
+        return submitKillerMatch();
+    }
+}
+
+async function submitSurvivorMatch() {
     const survivors = getSurvivors();
     const mapName = document.getElementById("mapName").value;
     const killerName = document.getElementById("killerName").value;
@@ -176,6 +194,33 @@ async function submitMatch() {
     resetForm();
 }
 
+async function submitKillerMatch() {
+    const { killerName } = streakContext.getContext();
+    const mapName = document.getElementById("mapName").value;
+
+    const killerPerks = [];
+    for (let p = 1; p <= 4; p++) {
+        killerPerks.push(document.getElementById(`killerPerk${p}`).value);
+    }
+
+    const killerAddons = [];
+    for (let a = 1; a <= 2; a++) {
+        killerAddons.push(document.getElementById(`killerAddon${a}`)?.value || "");
+    }
+
+    if (!validateKillerMatchInputs(mapName, killerName)) return;
+
+    const match = {
+        killerName,
+        mapName,
+        killerPerks,
+        killerAddons
+    };
+
+    await streakController.handleSubmitMatch(match);
+    resetForm();
+}
+
 function validateMatchInputs(mapName, killerName) {
     if (!killerName) {
         alert("Please select a killer.");
@@ -185,6 +230,20 @@ function validateMatchInputs(mapName, killerName) {
         alert("Please select a map.");
         return false;
     }
+    return true;
+}
+
+function validateKillerMatchInputs(mapName, killerName) {
+    if (!killerName) {
+        alert("Killer not defined.");
+        return false;
+    }
+
+    if (!mapName) {
+        alert("Please select a map.");
+        return false;
+    }
+
     return true;
 }
 

@@ -74,8 +74,23 @@ function renderStats({ current, best }) {
     bestEl.textContent = best;
 }
 
+function applyKillerToUI(killerName) {
+    const image = document.getElementById("killerImage");
+    const nameEl = document.querySelector("#killerInfo .nickname");
+    const clean = killerName.replace(/[^a-zA-Z0-9]/g, "");
+
+    if (image) {
+        image.src = `../Images/Portraits/Killers/Portrait_${clean}.png`;
+    }
+
+    if (nameEl) {
+        nameEl.textContent = killerName;
+    }
+}
+
 export const killerUI = {
     initUI,
     renderTable,
-    renderStats
+    renderStats,
+    applyKillerToUI
 };
