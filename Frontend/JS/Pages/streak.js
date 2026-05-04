@@ -7,6 +7,7 @@ import { matchesApi } from "../API/matches.api.js";
 import { groupsApi } from "../API/groups.api.js";
 import { streakPresets } from "../Features/Survivor Streak/streakPresets.js";
 import { streakUI } from "../Features/Survivor Streak/streakUI.js";
+import { killerUI } from "../Features/Killer Streak/killerUI.js";
 import { streakListeners } from "../Features/Survivor Streak/streakListeners.js";
 import { streakController } from "../Features/Survivor Streak/streakController.js";
 
@@ -41,14 +42,14 @@ async function initStreak() {
         matchesApi.getMatches()
     ]);
 
-    await streakUI.initUI(group);
-    streakUI.renderTable(matches || []);
-    await streakController.handleRenderStats();
     sharedCore.setupMaps();
     sharedCore.setupMapImageOnChange();
     killerCore.initKillerSharedUI();
 
     if (role === "survivor") {
+        await streakUI.initUI(group);
+        streakUI.renderTable(matches || []);
+        await streakController.handleRenderStats();
         survivorCore.initSurvivorCore();
         streakPresets.initPresets();
         streakListeners.initListeners({
@@ -64,6 +65,9 @@ async function initStreak() {
             leaveGroup: groupsApi.leaveGroup
         });
     } else if (role === "killer") {
+        await killerUI.initUI(group);
+        killerUI.renderTable(matches || []);
+        await streakController.handleRenderStats();
         killerCore.initKillerOnlyUI();
 
         document.getElementById("submitMatchButton")?.addEventListener("click", submitMatch);
