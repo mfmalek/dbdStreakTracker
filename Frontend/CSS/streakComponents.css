@@ -107,6 +107,12 @@
     color: var(--border);
 }
 
+#killsSection {
+    display: flex;
+    margin-top: 15px;
+    gap: 10px;
+}
+
 #killsCountText {
     margin-top: 0;
     color: var(--bg-light);
@@ -224,7 +230,7 @@ input[type="checkbox"]:checked::before {
 input[type="number"] {
     border: 2px solid var(--border-light);
     border-radius: 4px;
-    width: 30px;
+    width: 50px;
     height: 20px;
 }
 

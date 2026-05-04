@@ -199,6 +199,7 @@ async function submitKillerMatch() {
     const { killerName } = streakContext.getContext();
     const mapName = document.getElementById("mapName").value;
     const kills = Number(document.getElementById("kills")?.value || 0);
+    const killsInput = document.getElementById("kills");
 
     const killerPerks = [];
     for (let p = 1; p <= 4; p++) {
@@ -221,7 +222,15 @@ async function submitKillerMatch() {
     };
 
     await streakController.handleSubmitMatch(match);
+    if (killsInput) killsInput.value = "";
     resetForm();
+
+    if (killerName) {
+        const clean = killerName.replace(/[^a-zA-Z0-9]/g, "");
+        document.getElementById("killerImage").src = `../Images/Portraits/Killers/Portrait_${clean}.png`;
+    } else {
+        document.getElementById("killerImage").src = "../Images/Miscellaneous/Icon_Killer.png";
+    }
 }
 
 function validateMatchInputs(mapName, killerName) {

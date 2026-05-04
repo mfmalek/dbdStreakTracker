@@ -25,6 +25,7 @@ async function getMatches() {
     return matches.map(m => ({
         id: m.id,
         result: m.result,
+        killerName: m.killerName,
         ...(m.data || {})
     }));
 }
