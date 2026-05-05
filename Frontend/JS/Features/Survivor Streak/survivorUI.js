@@ -295,6 +295,7 @@ function createMatchPreview(match, names) {
 export const survivorUI = {
     initUI,
     renderTitle,
+    renderSurvivors,
     renderGroupMembers,
     renderInvites,
     renderTableHeader,
