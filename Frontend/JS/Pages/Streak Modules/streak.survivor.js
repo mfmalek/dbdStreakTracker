@@ -21,6 +21,7 @@ export async function initSurvivorStreak({ group, matches, actions }) {
     streakPresets.initPresets();
 
     survivorListeners.initListeners({
+        ui: survivorUI,
         ...actions,
         inviteUser: groupsApi.inviteUser,
         acceptInvite: groupsApi.acceptInvite,
