@@ -38,10 +38,18 @@ const getMatches = async (user, mode, role, killerName, groupId) => {
 };
 
 const createMatch = async (data) => {
-    const { user, mode, role, killerName: contextKillerName, groupId, ...matchData } = data;
+    const {
+        user,
+        mode,
+        role,
+        killerName: contextKillerName,
+        groupId,
+        ...matchData
+    } = data;
+
     const safeKiller = getSafeKiller(role, contextKillerName);
 
-    if (role === "killer" && !killerName) {
+    if (role === "killer" && !contextKillerName) {
         throw new Error("killerName is required for creating killer matches");
     }
 
@@ -65,14 +73,28 @@ const createMatch = async (data) => {
 
     if (result === "win") {
         const matches = await prisma.match.findMany({
-            where: buildWhere(user, mode, groupId, role, killerName),
+            where: buildWhere(
+                user,
+                mode,
+                groupId,
+                role,
+                contextKillerName
+            ),
             orderBy: { id: "asc" }
         });
 
         const currentStreak = calculateCurrentStreak(
             matches.map(m => ({ result: m.result }))
         );
-        await updateBestStreak(user, mode, role, killerName, currentStreak, groupId);
+
+        await updateBestStreak(
+            user,
+            mode,
+            role,
+            contextKillerName,
+            currentStreak,
+            groupId
+        );
     }
     return newMatch;
 };
