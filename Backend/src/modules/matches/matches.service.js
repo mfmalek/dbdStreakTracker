@@ -39,7 +39,7 @@ const getMatches = async (user, mode, role, killerName, groupId) => {
 
 const createMatch = async (data) => {
     const { user, mode, role, killerName, groupId, ...matchData } = data;
-    const safeKiller = getSafeKiller(role, killerName);
+    const streakKiller = getSafeKiller(role, killerName);
 
     if (role === "killer" && !killerName) {
         throw new Error("killerName is required for creating killer matches");
@@ -57,7 +57,7 @@ const createMatch = async (data) => {
             createdBy: user,
             mode,
             role,
-            killerName: safeKiller,
+            killerName: matchData.killerName || killerName || null,
             result,
             data: matchData
         }
