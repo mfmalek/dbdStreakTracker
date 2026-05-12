@@ -47,6 +47,10 @@ const createMatch = async (data) => {
         ...matchData
     } = data;
 
+    if (role === "survivor") {
+        matchData.killerName = data.killerName;
+    }
+
     const safeKiller = getSafeKiller(role, contextKillerName);
 
     if (role === "killer" && !contextKillerName) {
