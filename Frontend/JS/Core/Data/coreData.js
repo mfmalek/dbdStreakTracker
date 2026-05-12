@@ -115,9 +115,71 @@ const mapImageFolders = {
     "Sanctum of Wrath": "Yamaoka Estate"
 };
 
+const mapImageNames = {
+    "Azarov's Resting Place": "Map_AzarovsRestingPlace.png",
+    "Blood Lodge": "Map_BloodLodge.png",
+    "Gas Heaven": "Map_GasHeaven.png",
+    "Wreckers' Yard": "Map_WreckersYard.png",
+    "Wretched Shop": "Map_WretchedShop.png",
+    "Grim Pantry": "Map_GrimPantry.png",
+    "Pale Rose": "Map_PaleRose.png",
+    "Fractured Cowshed": "Map_FracturedCowshed.png",
+    "Rancid Abattoir": "Map_RancidAbattoir.png",
+    "Rotten Fields": "Map_RottenFields.png",
+    "Thompson House": "Map_ThompsonHouse.png",
+    "Torment Creek": "Map_TormentCreek.png",
+    "Disturbed Ward": "Map_DisturbedWard.png",
+    "Father Campbell's Chapel": "Map_FatherCampbellsChapel.png",
+    "Forgotten Ruins": "Map_ForgottenRuins.png",
+    "The Shattered Square": "Map_TheShatteredSquare.png",
+    "Nostromo Wreckage": "Map_NostromoWreckage.png",
+    "Toba Landing": "Map_TobaLanding.png",
+    "Dead Sands": "Map_DeadSands.png",
+    "Eyrie of Crows": "Map_EyrieOfCrows.png",
+    "The Game": "Map_TheGame.png",
+    "Dead Dawg Saloon": "Map_DeadDawgSaloon.png",
+    "Lampkin Lane": "Map_LampkinLane.png",
+    "The Underground Complex": "Map_TheUndergroundComplex.png",
+    "Treatment Theatre": "Map_TreatmentTheatre.png",
+    "Coal Tower I": "Map_CoalTower.png",
+    "Coal Tower II": "Map_CoalTower.png",
+    "Groaning Storehouse I": "Map_GroaningStorehouse.png",
+    "Groaning Storehouse II": "Map_GroaningStorehouse.png",
+    "Ironworks of Misery I": "Map_IronworksOfMisery.png",
+    "Ironworks of Misery II": "Map_IronworksOfMisery.png",
+    "Shelter Woods I": "Map_ShelterWoods.png",
+    "Shelter Woods II": "Map_ShelterWoods.png",
+    "Suffocation Pit I": "Map_SuffocationPit.png",
+    "Suffocation Pit II": "Map_SuffocationPit.png",
+    "Mount Ormond Resort I": "Map_MountOrmondResort.png",
+    "Mount Ormond Resort II": "Map_MountOrmondResort.png",
+    "Mount Ormond Resort III": "Map_MountOrmondResort.png",
+    "Ormond Lake Mine": "Map_OrmondLakeMine.png",
+    "RPD East Wing": "Map_RpdEastWing.png",
+    "RPD West Wing": "Map_RpdWestWing.png",
+    "Mother's Dwelling": "Map_MothersDwelling.png",
+    "Temple of Purgation": "Map_TempleOfPurgation.png",
+    "Midwich Elementary School": "Map_MidwichElementarySchool.png",
+    "Trickster's Delusion": "Map_TrickstersDelusion.png",
+    "Badham Preschool I": "Map_BadhamPreschool.png",
+    "Badham Preschool II": "Map_BadhamPreschool.png",
+    "Badham Preschool III": "Map_BadhamPreschool.png",
+    "Badham Preschool IV": "Map_BadhamPreschool.png",
+    "Badham Preschool V": "Map_BadhamPreschool.png",
+    "Fallen Refuge": "Map_FallenRefuge.png",
+    "Freddy Fazbear's Pizza": "Map_FreddyFazbearsPizza.png",
+    "Garden of Joy": "Map_GardenOfJoy.png",
+    "Greenville Square": "Map_GreenvilleSquare.png",
+    "Family Residence I": "Map_FamilyResidence.png",
+    "Family Residence II": "Map_FamilyResidence.png",
+    "Sanctum of Wrath I": "Map_SanctumOfWrath.png",
+    "Sanctum of Wrath II": "Map_SanctumOfWrath.png"
+};
+
 export const coreData = Object.freeze({
     maps: {
         mapGroups,
-        mapImageFolders
+        mapImageFolders,
+        mapImageNames
     }
 });

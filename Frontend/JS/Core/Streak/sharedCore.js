@@ -84,15 +84,18 @@ function setupMapImageOnChange() {
     if (!mapSelect || !mapImage) return;
     mapSelect.addEventListener("change", () => {
         const selectedMap = mapSelect.value;
-        const baseMapName = selectedMap.replace(/\s+(I{1,3}|IV|V)$/, "");
-        const mapName = baseMapName.replace(/[^a-zA-Z0-9]/g, "");
-        const realmFolder = coreData.maps.mapImageFolders[baseMapName];
+        const realmFolder =
+            coreData.maps.mapImageFolders[
+                selectedMap.replace(/\s+(I{1,3}|IV|V)$/, "")
+            ];
+        const fileName = coreData.maps.mapImageNames[selectedMap];
+
 
         if ((!selectedMap) || (!realmFolder)) {
             mapImage.src = "../Images/Maps/Map_GenericMapBackground.png";
             return;
         }
-        mapImage.src = `../Images/Maps/${realmFolder}/Map_${mapName}.png`;
+        mapImage.src = `../Images/Maps/${realmFolder}/${fileName}`;
         mapImage.alt = selectedMap;
     });
 }
