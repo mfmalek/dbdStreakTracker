@@ -1,8 +1,11 @@
+import { auth } from "../Auth/auth.js";
 import { killerData } from "../Core/Data/killerData.js";
 import { streakContext } from "../Core/Utils/streakContext.js";
+import { navbar } from "../Layout/navbar.js";
 
 function initKillerSelection() {
     renderKillers();
+    navbar.renderNavbar({ mode: "Killer Selection" });
 }
 
 function renderKillers() {
@@ -33,10 +36,6 @@ function selectKiller(killerName) {
     const encoded = encodeURIComponent(killerName);
 
     window.location.href = `/streakKiller?killer=${encoded}`;
-}
-
-function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 export const killerSelection = {

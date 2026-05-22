@@ -5,6 +5,7 @@ import { streakContext } from "../Core/Utils/streakContext.js";
 import { initSurvivorStreak } from "./Streak Modules/streak.survivor.js";
 import { initKillerStreak } from "./Streak Modules/streak.killer.js";
 import { streakShared } from "./Streak Modules/streak.shared.js";
+import { navbar } from "../Layout/navbar.js";
 import { matchesApi } from "../API/matches.api.js";
 import { groupsApi } from "../API/groups.api.js";
 import { streakActions } from "./Streak Modules/streak.actions.js";
@@ -26,7 +27,7 @@ async function initStreak() {
     }
 
     auth.checkLoggedUser();
-    streakShared.setupNavbar();
+    navbar.renderNavbar({ mode: sharedCore.MODE });
     streakShared.syncKillerFromUrl();
     const { role } = streakContext.getContext();
     const mode = sharedCore.MODE;

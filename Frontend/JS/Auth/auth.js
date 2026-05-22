@@ -35,7 +35,7 @@ function checkLoggedUser() {
 
     if (!user) return;
     if (loggedMessage) {
-        loggedMessage.textContent = `Logged in as: ${user.username}`;
+        loggedMessage.textContent = `Logged as: ${user.username}`;
     }
 }
 

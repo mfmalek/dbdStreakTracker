@@ -1,27 +1,4 @@
-import { auth } from "../../Auth/auth.js";
-import { sharedCore } from "../../Core/Streak/sharedCore.js";
-import { sharedUI } from "../../Features/Core Streak/sharedUI.js";
 import { streakContext } from "../../Core/Utils/streakContext.js";
-
-function setupNavbar() {
-    const homeBtn = document.getElementById("homeButton");
-    const logoutBtn = document.getElementById("logoutButton");
-
-    homeBtn?.addEventListener("click", () => {
-        window.location.href = "/home";
-    });
-
-    logoutBtn?.addEventListener("click", () => {
-        auth.logout();
-    });
-
-    const user = auth.getUserFromToken();
-
-    sharedUI.renderNavbar({
-        username: user?.username || "Unknown",
-        mode: sharedCore.MODE
-    });
-}
 
 function syncKillerFromUrl() {
     const params = new URLSearchParams(window.location.search);
@@ -47,6 +24,5 @@ function syncKillerFromUrl() {
 }
 
 export const streakShared = {
-    setupNavbar,
     syncKillerFromUrl
 };
