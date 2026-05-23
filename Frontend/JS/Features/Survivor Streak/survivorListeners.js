@@ -1,5 +1,23 @@
-function initListeners({ ui, saveConfigs, submitMatch, deleteTableMatch, clearTableMatches, resetBestStreak, inviteUser, acceptInvite, removeMember, leaveGroup }) {
-    setupSurvivorCustomization(ui, saveConfigs);
+function initListeners({
+    ui,
+    saveConfigs,
+    submitMatch,
+    deleteTableMatch,
+    clearTableMatches,
+    resetBestStreak,
+    inviteUser,
+    acceptInvite,
+    removeMember,
+    leaveGroup,
+    renderTitle,
+    renderTableHeader
+}) {
+    setupSurvivorCustomization(
+        ui,
+        saveConfigs,
+        renderTitle,
+        renderTableHeader
+    );
     bindSubmit(submitMatch);
     bindDelete(deleteTableMatch);
     bindClear(clearTableMatches);
@@ -9,11 +27,11 @@ function initListeners({ ui, saveConfigs, submitMatch, deleteTableMatch, clearTa
     bindMemberActions(removeMember, leaveGroup);
 }
 
-function setupSurvivorCustomization(ui, saveConfigs) {
+function setupSurvivorCustomization(ui, saveConfigs, renderTitle, renderTableHeader) {
     const container = document.getElementById("survivorContainer");
 
     if (!container) return;
-    container.addEventListener("click", (e) => {
+    container.addEventListener("click", async (e) => {
         const name = e.target.closest(".nickname");
         const image = e.target.closest(".characterPortrait");
         const option = e.target.closest(".portraitOption");
@@ -27,13 +45,13 @@ function setupSurvivorCustomization(ui, saveConfigs) {
             input.className = "nicknameInput";
             name.replaceWith(input);
             input.focus();
-            input.addEventListener("blur", () => {
+            input.addEventListener("blur", async () => {
                 const newName = input.value || `Surv${index}`;
                 name.textContent = newName;
                 input.replaceWith(name);
-                saveConfigs();
-                ui.renderTitle();
-                ui.renderTableHeader();
+                await saveConfigs();
+                await renderTitle();
+                await renderTableHeader();
             });
             return;
         }
