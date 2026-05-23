@@ -1,3 +1,6 @@
+import { sharedUI } from "../Core Streak/sharedUI.js";
+import { streakActions } from "../../Pages/Streak Modules/streak.actions.js";
+
 function initUI() {
     renderTitle();
     renderRules();
@@ -53,9 +56,17 @@ function renderTable(matches) {
 
             return `
                 <tr>
-                    <td>${displayNumber}</td>
+                    <td class="matchNumberCell">
+                        <span class="matchNumber">${displayNumber}</span>
+                        <button
+                            class="deleteMatchHoverBtn"
+                            data-match-id="${match.id}"
+                            title="Delete Match">
+                            🗑️
+                        </button>
+                    </td>
                     <td>
-                        ${match.kills}K - 
+                        ${match.kills ?? "N/A"}K - 
                         ${match.result === "win" ? "✅" : "☠️"}
                     </td>
                     <td>${match.killerPerks?.join(", ") || "N/A"}</td>
@@ -65,6 +76,10 @@ function renderTable(matches) {
             `;
         })
         .join("");
+
+    sharedUI.setupHoverDeleteButtons(async (matchId) => {
+        await streakActions.deleteMatchById(matchId);
+    });
 }
 
 function applyKillerToUI(killerName) {
@@ -85,7 +100,7 @@ function createMatchPreview(match) {
     if (!match) return "Match not found.";
 
     return `
-        Kills: ${match.kills}
+        Kills: ${match.kills ?? "N/A"}
         Perks: ${match.killerPerks?.join(", ") || "N/A"}
         Add-ons: ${match.killerAddons?.join(", ") || "N/A"}
         Map: ${match.mapName || "Unknown"}

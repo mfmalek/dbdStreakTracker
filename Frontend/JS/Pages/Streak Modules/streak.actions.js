@@ -194,6 +194,37 @@ async function deleteTableMatch() {
     input.value = "";
 }
 
+async function deleteMatchById(matchId) {
+    const matches = await matchesApi.getMatches();
+    const match = matches.find(m => m.id === matchId);
+    const matchNumber = matches.findIndex(m => m.id === matchId) + 1;
+
+    if (!match) {
+        alert("Match not found.");
+        return;
+    }
+
+    const { role } = streakContext.getContext();
+
+    const controller =
+        role === "killer"
+            ? killerController
+            : survivorController;
+
+    const preview =
+        role === "killer"
+            ? killerUI.createMatchPreview(match)
+            : await survivorController.handleCreateMatchPreview(match);
+
+    const confirmDelete = confirm(
+        `Are you sure you want to delete match #${matchNumber}?\n\n${preview}`
+    );
+
+    if (!confirmDelete) return;
+
+    await controller.handleDeleteMatch(match.id);
+}
+
 async function clearTableMatches() {
     const confirmClear = confirm(
         "Are you sure you want to clear ALL matches?"
@@ -243,5 +274,6 @@ function resetForm() {
 export const streakActions = {
     submitMatch,
     deleteTableMatch,
+    deleteMatchById,
     clearTableMatches
 };

@@ -2,6 +2,8 @@ import { auth } from "../../Auth/auth.js";
 import { sharedCore } from "../../Core/Streak/sharedCore.js";
 import { survivorCore } from "../../Core/Streak/survivorCore.js";
 import { survivorData } from "../../Core/Data/survivorData.js";
+import { sharedUI } from "../Core Streak/sharedUI.js";
+import { streakActions } from "../../Pages/Streak Modules/streak.actions.js";
 
 async function initUI() {
     renderRules();
@@ -240,7 +242,18 @@ function renderTableHeader(names) {
 }
 
 function createTableRow(match, displayNumber) {
-    let rowHTML = `<tr><td>${displayNumber}</td>`;
+    let rowHTML = `
+        <tr>
+            <td class="matchNumberCell">
+                <span class="matchNumber">${displayNumber}</span>
+                <button
+                    class="deleteMatchHoverBtn"
+                    data-match-id="${match.id}"
+                    title="Delete Match">
+                    🗑️
+                </button>
+            </td>
+        `;
 
     for (let i = 0; i < survivorCore.SURVIVOR_COUNT; i++) {
         const survivor = match.survivors?.[i];
@@ -272,6 +285,10 @@ function renderTable(matches) {
             return createTableRow(match, displayNumber);
         })
         .join("");
+
+    sharedUI.setupHoverDeleteButtons(async (matchId) => {
+        await streakActions.deleteMatchById(matchId);
+    });
 }
 
 function createMatchPreview(match, names) {
