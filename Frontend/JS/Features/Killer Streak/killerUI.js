@@ -55,7 +55,7 @@ function renderTable(matches) {
                 <tr>
                     <td>${displayNumber}</td>
                     <td>
-                        ${match.kills || "N/A"}K - 
+                        ${match.kills}K - 
                         ${match.result === "win" ? "✅" : "☠️"}
                     </td>
                     <td>${match.killerPerks?.join(", ") || "N/A"}</td>
@@ -85,7 +85,7 @@ function createMatchPreview(match) {
     if (!match) return "Match not found.";
 
     return `
-        Kills: ${match.kills || "N/A"}
+        Kills: ${match.kills}
         Perks: ${match.killerPerks?.join(", ") || "N/A"}
         Add-ons: ${match.killerAddons?.join(", ") || "N/A"}
         Map: ${match.mapName || "Unknown"}
