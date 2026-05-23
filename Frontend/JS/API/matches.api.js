@@ -48,6 +48,17 @@ async function addMatch(match) {
     };
 }
 
+async function updateMatch(id, match) {
+    const updated = await http.put(`/matches/${id}`, match);
+
+    return {
+        id: updated.id,
+        result: updated.result,
+        killerName: updated.killerName,
+        ...(updated.data || {})
+    };
+}
+
 async function deleteMatch(id) {
     await http.del(`/matches/${id}`);
 }
@@ -60,6 +71,7 @@ async function clearMatches() {
 export const matchesApi = {
     getMatches,
     addMatch,
+    updateMatch,
     deleteMatch,
     clearMatches
 };

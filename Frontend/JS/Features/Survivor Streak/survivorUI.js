@@ -244,12 +244,22 @@ function createTableRow(match, displayNumber) {
         <tr>
             <td class="matchNumberCell">
                 <span class="matchNumber">${displayNumber}</span>
-                <button
-                    class="deleteMatchHoverBtn"
-                    data-match-id="${match.id}"
-                    title="Delete Match">
-                    🗑️
-                </button>
+
+                <div class="matchHoverActions">
+                    <button
+                        class="editMatchHoverBtn"
+                        data-match-id="${match.id}"
+                        title="Edit Match">
+                        ✏️
+                    </button>
+
+                    <button
+                        class="deleteMatchHoverBtn"
+                        data-match-id="${match.id}"
+                        title="Delete Match">
+                        🗑️
+                    </button>
+                </div>
             </td>
         `;
 

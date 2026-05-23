@@ -39,5 +39,6 @@ export const http = {
     API_URL,
     get: (path, query) => request(path, { query }),
     post: (path, body) => request(path, { method: "POST", body }),
+    put: (path, body) => request(path, { method: "PUT", body }),
     del: (path, query, body) => request(path, { method: "DELETE", query, body })
 };
