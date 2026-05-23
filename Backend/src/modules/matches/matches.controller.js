@@ -21,6 +21,19 @@ const createMatch = async (req, res) => {
     res.json(newMatch);
 };
 
+const updateMatch = async (req, res) => {
+    const user = req.user.username;
+    const { id } = req.params;
+
+    const updatedMatch = await matchesService.updateMatch(
+        id,
+        user,
+        req.body
+    );
+
+    res.json(updatedMatch);
+};
+
 const deleteMatch = async (req, res) => {
     const username = req.user.username;
     const { id } = req.params;
@@ -38,6 +51,7 @@ const clearMatches = async (req, res) => {
 module.exports = {
     getMatches,
     createMatch,
+    updateMatch,
     deleteMatch,
     clearMatches
 };

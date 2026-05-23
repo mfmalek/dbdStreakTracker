@@ -103,6 +103,97 @@ const createMatch = async (data) => {
     return newMatch;
 };
 
+const updateMatch = async (id, user, matchData) => {
+    const existingMatch = await prisma.match.findUnique({
+        where: { id: Number(id) }
+    });
+
+    if (!existingMatch) {
+        throw new Error("Match not found");
+    }
+
+    if (!existingMatch.groupId) {
+        if (existingMatch.user !== user) {
+            throw new Error("Unauthorized");
+        }
+    }
+
+    if (existingMatch.groupId) {
+        const member = await prisma.groupMember.findFirst({
+            where: {
+                groupId: existingMatch.groupId,
+                username: user
+            }
+        });
+
+        if (!member) {
+            throw new Error("Not part of group");
+        }
+    }
+
+    const result = calculateResult(
+        matchData,
+        existingMatch.mode,
+        existingMatch.role
+    );
+
+    const updatedMatch = await prisma.match.update({
+        where: { id: Number(id) },
+        data: {
+            result,
+            data: matchData
+        }
+    });
+
+    const matches = await prisma.match.findMany({
+        where: buildWhere(
+            user,
+            existingMatch.mode,
+            existingMatch.groupId,
+            existingMatch.role,
+            existingMatch.killerName
+        ),
+        orderBy: { createdAt: "asc" }
+    });
+
+    const bestStreak = calculateBestStreak(matches);
+
+    await prisma.streak.upsert({
+        where: existingMatch.groupId
+            ? {
+                groupId_mode_role_killerName: {
+                    groupId: existingMatch.groupId,
+                    mode: existingMatch.mode,
+                    role: existingMatch.role,
+                    killerName: existingMatch.killerName
+                }
+            }
+            : {
+                user_mode_role_killerName: {
+                    user,
+                    mode: existingMatch.mode,
+                    role: existingMatch.role,
+                    killerName: existingMatch.killerName
+                }
+            },
+
+        update: {
+            best: bestStreak
+        },
+
+        create: {
+            user: existingMatch.groupId ? null : user,
+            groupId: existingMatch.groupId || null,
+            mode: existingMatch.mode,
+            role: existingMatch.role,
+            killerName: existingMatch.killerName,
+            best: bestStreak
+        }
+    });
+
+    return updatedMatch;
+};
+
 const deleteMatch = async (id, user) => {
     const match = await prisma.match.findUnique({
         where: { id: Number(id) }
@@ -236,6 +327,7 @@ function calculateBestStreak(matches) {
 module.exports = {
     getMatches,
     createMatch,
+    updateMatch,
     deleteMatch,
     clearMatches,
     calculateResult

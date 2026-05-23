@@ -6,6 +6,7 @@ const asyncHandler = require("../../utils/asyncHandler");
 
 router.get('/', authMiddleware, asyncHandler(matchesController.getMatches));
 router.post('/', authMiddleware, asyncHandler(matchesController.createMatch));
+router.put('/:id', authMiddleware, asyncHandler(matchesController.updateMatch));
 router.delete('/:id', authMiddleware, asyncHandler(matchesController.deleteMatch));
 router.delete("/", authMiddleware, asyncHandler(matchesController.clearMatches));
 
