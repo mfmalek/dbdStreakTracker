@@ -71,10 +71,7 @@ async function submitKillerMatch() {
     const { killerName } = streakContext.getContext();
 
     const mapName = document.getElementById("mapName").value;
-    const kills = Number(
-        document.getElementById("kills")?.value || 0
-    );
-
+    const kills = Number(document.getElementById("kills").value);
     const killsInput = document.getElementById("kills");
 
     const killerPerks = [];
@@ -93,7 +90,7 @@ async function submitKillerMatch() {
         );
     }
 
-    if (!validateKillerMatchInputs(mapName, killerName)) return;
+    if (!validateKillerMatchInputs(mapName, killerName, kills)) return;
 
     const match = {
         mapName,
@@ -135,7 +132,7 @@ function validateMatchInputs(mapName, killerName) {
     return true;
 }
 
-function validateKillerMatchInputs(mapName, killerName) {
+function validateKillerMatchInputs(mapName, killerName, kills) {
     if (!killerName) {
         alert("Killer not defined.");
         return false;
@@ -143,6 +140,11 @@ function validateKillerMatchInputs(mapName, killerName) {
 
     if (!mapName) {
         alert("Please select a map.");
+        return false;
+    }
+
+    if (!kills) {
+        alert("Please enter the number of kills.");
         return false;
     }
 
