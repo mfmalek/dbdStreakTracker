@@ -2,7 +2,7 @@ import { survivorUI } from "../../Features/Survivor Streak/survivorUI.js";
 import { survivorController } from "../../Features/Survivor Streak/survivorController.js";
 import { survivorCore } from "../../Core/Streak/survivorCore.js";
 import { survivorListeners } from "../../Features/Survivor Streak/survivorListeners.js";
-import { streakPresets } from "../../Features/Survivor Streak/streakPresets.js";
+import { survivorPresets } from "../../Features/Survivor Streak/survivorPresets.js";
 import { groupsApi } from "../../API/groups.api.js";
 
 export async function initSurvivorStreak({ group, matches, actions }) {
@@ -18,7 +18,7 @@ export async function initSurvivorStreak({ group, matches, actions }) {
     await survivorController.handleRenderStats();
 
     survivorCore.initSurvivorCore();
-    streakPresets.initPresets();
+    survivorPresets.initPresets();
 
     survivorListeners.initListeners({
         ui: survivorUI,

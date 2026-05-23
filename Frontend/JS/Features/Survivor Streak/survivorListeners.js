@@ -3,6 +3,7 @@ function initListeners({
     saveConfigs,
     submitMatch,
     deleteTableMatch,
+    deleteMatchById,
     clearTableMatches,
     resetBestStreak,
     inviteUser,
@@ -20,6 +21,7 @@ function initListeners({
     );
     bindSubmit(submitMatch);
     bindDelete(deleteTableMatch);
+    bindDeleteById(deleteMatchById);
     bindClear(clearTableMatches);
     bindResetBest(resetBestStreak);
     bindInvite(inviteUser);
@@ -93,6 +95,22 @@ function bindClear(clearTableMatches) {
 
 function bindDelete(deleteTableMatch) {
     document.getElementById("deleteMatchButton")?.addEventListener("click", deleteTableMatch);
+}
+
+function bindDeleteById(deleteMatchById) {
+    const table = document.getElementById("matchTableBody");
+
+    if (!table) return;
+
+    table.addEventListener("click", async (e) => {
+        const btn = e.target.closest(".deleteMatchHoverBtn");
+
+        if (!btn) return;
+
+        const matchId = Number(btn.dataset.matchId);
+
+        await deleteMatchById(matchId);
+    });
 }
 
 function bindResetBest(resetBestStreak) {

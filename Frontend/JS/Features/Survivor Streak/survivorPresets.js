@@ -83,6 +83,6 @@ function applyPreset(survivor) {
     });
 }
 
-export const streakPresets = {
+export const survivorPresets = {
     initPresets
 }

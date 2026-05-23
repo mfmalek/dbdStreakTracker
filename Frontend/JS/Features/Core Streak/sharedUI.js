@@ -6,19 +6,6 @@ function renderStats({ current, best }) {
     streakRecord.textContent = best;
 }
 
-function setupHoverDeleteButtons(onDelete) {
-    const buttons = document.querySelectorAll(".deleteMatchHoverBtn");
-
-    buttons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            const matchId = Number(btn.dataset.matchId);
-
-            onDelete(matchId);
-        });
-    });
-}
-
 export const sharedUI = {
-    renderStats,
-    setupHoverDeleteButtons
+    renderStats
 };

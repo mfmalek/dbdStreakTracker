@@ -54,6 +54,7 @@ async function initStreak() {
                 saveConfigs: streakConfigs.saveConfigs,
                 submitMatch: streakActions.submitMatch,
                 deleteTableMatch: streakActions.deleteTableMatch,
+                deleteMatchById: streakActions.deleteMatchById,
                 clearTableMatches: streakActions.clearTableMatches,
                 resetBestStreak: survivorController.handleResetBestStreak
             }
@@ -68,6 +69,7 @@ async function initStreak() {
             actions: {
                 submitMatch: streakActions.submitMatch,
                 deleteTableMatch: streakActions.deleteTableMatch,
+                deleteMatchById: streakActions.deleteMatchById,
                 clearTableMatches: killerController.handleClearMatches,
                 resetBestStreak: killerController.handleResetBestStreak
             }
