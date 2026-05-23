@@ -1,6 +1,3 @@
-import { sharedUI } from "../Core Streak/sharedUI.js";
-import { streakActions } from "../../Pages/Streak Modules/streak.actions.js";
-
 function initUI() {
     renderTitle();
     renderRules();
@@ -76,10 +73,6 @@ function renderTable(matches) {
             `;
         })
         .join("");
-
-    sharedUI.setupHoverDeleteButtons(async (matchId) => {
-        await streakActions.deleteMatchById(matchId);
-    });
 }
 
 function applyKillerToUI(killerName) {

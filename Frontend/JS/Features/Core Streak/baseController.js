@@ -1,11 +1,19 @@
 import { matchesApi } from "../../API/matches.api.js";
 import { streaksApi } from "../../API/streaks.api.js";
 import { sharedCore } from "../../Core/Streak/sharedCore.js";
+import { sharedUI } from "./sharedUI.js";
+import { streakActions } from "../../Pages/Streak Modules/streak.actions.js";
 
 export function createBaseController({ renderTable, renderStats }) {
     async function refreshUI() {
         const matches = await matchesApi.getMatches();
+        
         renderTable(matches);
+
+        sharedUI.setupHoverDeleteButtons(async (matchId) => {
+            await streakActions.deleteMatchById(matchId);
+        });
+
         await handleRenderStats();
     }
 

@@ -2,8 +2,6 @@ import { auth } from "../../Auth/auth.js";
 import { sharedCore } from "../../Core/Streak/sharedCore.js";
 import { survivorCore } from "../../Core/Streak/survivorCore.js";
 import { survivorData } from "../../Core/Data/survivorData.js";
-import { sharedUI } from "../Core Streak/sharedUI.js";
-import { streakActions } from "../../Pages/Streak Modules/streak.actions.js";
 
 async function initUI() {
     renderRules();
@@ -285,10 +283,6 @@ function renderTable(matches) {
             return createTableRow(match, displayNumber);
         })
         .join("");
-
-    sharedUI.setupHoverDeleteButtons(async (matchId) => {
-        await streakActions.deleteMatchById(matchId);
-    });
 }
 
 function createMatchPreview(match, names) {
