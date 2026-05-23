@@ -143,7 +143,7 @@ function validateKillerMatchInputs(mapName, killerName, kills) {
         return false;
     }
 
-    if (!kills) {
+    if (!kills && kills !== 0) {
         alert("Please enter the number of kills.");
         return false;
     }
