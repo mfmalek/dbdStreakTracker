@@ -36,7 +36,7 @@ function renderTable(matches) {
     thead.innerHTML = `
         <tr>
             <th>#</th>
-            <th>Killer</th>
+            <th>Result</th>
             <th>Perks</th>
             <th>Add-ons</th>
             <th>Map</th>
@@ -54,7 +54,10 @@ function renderTable(matches) {
             return `
                 <tr>
                     <td>${displayNumber}</td>
-                    <td>${match.killerName || "Unknown"}</td>
+                    <td>
+                        ${match.kills || "N/A"}K - 
+                        ${match.result === "win" ? "✅" : "☠️"}
+                    </td>
                     <td>${match.killerPerks?.join(", ") || "N/A"}</td>
                     <td>${match.killerAddons?.join(", ") || "N/A"}</td>
                     <td>${match.mapName || "Unknown Map"}</td>
@@ -82,12 +85,10 @@ function createMatchPreview(match) {
     if (!match) return "Match not found.";
 
     return `
-        Killer: ${match.killerName || "Unknown"}
+        Kills: ${match.kills || "N/A"}
         Perks: ${match.killerPerks?.join(", ") || "N/A"}
         Add-ons: ${match.killerAddons?.join(", ") || "N/A"}
-
         Map: ${match.mapName || "Unknown"}
-        Kills: ${match.kills ?? 0}
     `;
 }
 
