@@ -42,7 +42,7 @@ async function handleEditMatch(matchId, updatedMatch) {
 
     const matches = await matchesApi.getMatches();
 
-    await survivorUI.renderMatches(matches);
+    await survivorUI.renderTable(matches);
     await updateStats(matches);
 }
 
