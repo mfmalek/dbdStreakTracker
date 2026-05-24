@@ -151,9 +151,6 @@ async function editMatchById(matchId) {
 function populateFormForEditing(match) {
     const { role } = streakContext.getContext();
 
-    document.getElementById("mapName").value =
-        match.mapName || "";
-
     if (role === "survivor") {
         populateSurvivorMatch(match);
     } else {
@@ -207,6 +204,14 @@ function populateSurvivorMatch(match) {
     } else if (killerSelect) {
         killerSelect.value = match.killerName;
     }
+
+    const mapSelect = document.getElementById("mapName");
+
+    if (mapSelect?.tomselect) {
+        mapSelect.tomselect.setValue(match.mapName);
+    } else if (mapSelect) {
+        mapSelect.value = match.mapName;
+    }
 }
 
 function populateKillerMatch(match) {
@@ -223,6 +228,14 @@ function populateKillerMatch(match) {
             select.tomselect.setValue(perk);
         } else if (select) {
             select.value = perk;
+        }
+
+        const mapSelect = document.getElementById("mapName");
+
+        if (mapSelect?.tomselect) {
+            mapSelect.tomselect.setValue(match.mapName);
+        } else if (mapSelect) {
+            mapSelect.value = match.mapName;
         }
     }
 

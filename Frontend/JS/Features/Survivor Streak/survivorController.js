@@ -5,6 +5,7 @@ import { sharedUI } from "../Core Streak/sharedUI.js";
 import { survivorUI } from "./survivorUI.js";
 import { survivorsApi } from "../../API/survivors.api.js";
 import { groupsApi } from "../../API/groups.api.js";
+import { matchesApi } from "../../API/matches.api.js";
 
 const base = createBaseController({
     renderTable: survivorUI.renderTable,
