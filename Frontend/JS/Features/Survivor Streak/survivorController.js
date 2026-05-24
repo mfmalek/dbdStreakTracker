@@ -36,6 +36,15 @@ async function handleRenderSurvivors() {
     survivorUI.renderSurvivors(configs);
 }
 
+async function handleEditMatch(matchId, updatedMatch) {
+    await matchesApi.updateMatch(matchId, updatedMatch);
+
+    const matches = await matchesApi.getMatches();
+
+    await survivorUI.renderMatches(matches);
+    await updateStats(matches);
+}
+
 async function handleRenderInvites() {
     const invites = await groupsApi.getInvites();
     survivorUI.renderInvites(invites);
@@ -69,6 +78,7 @@ export const survivorController = {
     getSurvivorNames,
     handleRenderTitle,
     handleRenderSurvivors,
+    handleEditMatch,
     handleRenderInvites,
     handleRenderGroupMembers,
     handleRenderTableHeader,

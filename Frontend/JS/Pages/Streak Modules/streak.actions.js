@@ -63,7 +63,14 @@ async function submitSurvivorMatch() {
         killerPerks
     };
 
-    await survivorController.handleSubmitMatch(match);
+    if (editingState.isEditing()) {
+        const matchId = editingState.getEditingMatchId();
+
+        await survivorController.handleEditMatch(matchId, match);
+        editingState.stopEditing();
+    } else {
+        await survivorController.handleSubmitMatch(match);
+    }
 
     resetForm();
 }
@@ -100,7 +107,14 @@ async function submitKillerMatch() {
         kills
     };
 
-    await killerController.handleSubmitMatch(match);
+    if (editingState.isEditing()) {
+        const matchId = editingState.getEditingMatchId();
+
+        await killerController.handleEditMatch(matchId, match);
+        editingState.stopEditing();
+    } else {
+        await killerController.handleSubmitMatch(match);
+    }
 
     if (killsInput) {
         killsInput.value = "";
