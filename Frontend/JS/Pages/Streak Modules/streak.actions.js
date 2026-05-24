@@ -68,6 +68,7 @@ async function submitSurvivorMatch() {
 
         await survivorController.handleEditMatch(matchId, match);
         editingState.stopEditing();
+        updateEditingUI();
     } else {
         await survivorController.handleSubmitMatch(match);
     }
@@ -112,6 +113,7 @@ async function submitKillerMatch() {
 
         await killerController.handleEditMatch(matchId, match);
         editingState.stopEditing();
+        updateEditingUI();
     } else {
         await killerController.handleSubmitMatch(match);
     }
@@ -125,17 +127,14 @@ async function submitKillerMatch() {
     if (killerName) {
         const clean = killerName.replace(/[^a-zA-Z0-9]/g, "");
 
-        document.getElementById("killerImage").src =
-            `../Images/Portraits/Killers/Portrait_${clean}.png`;
+        document.getElementById("killerImage").src = `../Images/Portraits/Killers/Portrait_${clean}.png`;
     } else {
-        document.getElementById("killerImage").src =
-            "../Images/Miscellaneous/Icon_Killer.png";
+        document.getElementById("killerImage").src = "../Images/Miscellaneous/Icon_Killer.png";
     }
 }
 
 async function editMatchById(matchId) {
     const matches = await matchesApi.getMatches();
-
     const match = matches.find(m => m.id === matchId);
 
     if (!match) {
@@ -144,7 +143,7 @@ async function editMatchById(matchId) {
     }
 
     editingState.startEditing(matchId);
-
+    updateEditingUI();
     populateFormForEditing(match);
 }
 
@@ -251,6 +250,34 @@ function populateKillerMatch(match) {
             select.value = addon;
         }
     }
+}
+
+function updateEditingUI() {
+    const submitBtn = document.getElementById("submitMatchButton");
+    const cancelBtn = document.getElementById("cancelEditButton");
+
+    if (!submitBtn) return;
+
+    if (editingState.isEditing()) {
+        submitBtn.textContent = "Edit Match";
+
+        if (cancelBtn) {
+            cancelBtn.classList.remove("hidden");
+        }
+    } else {
+        submitBtn.textContent = "Submit Match";
+
+        if (cancelBtn) {
+            cancelBtn.classList.add("hidden");
+        }
+    }
+}
+
+function cancelEditing() {
+    editingState.stopEditing();
+
+    resetForm();
+    updateEditingUI();
 }
 
 function validateMatchInputs(mapName, killerName) {
@@ -409,6 +436,8 @@ function resetForm() {
 export const streakActions = {
     submitMatch,
     editMatchById,
+    cancelEditing,
+    updateEditingUI,
     deleteTableMatch,
     deleteMatchById,
     clearTableMatches

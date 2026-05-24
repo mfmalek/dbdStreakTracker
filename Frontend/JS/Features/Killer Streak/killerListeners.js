@@ -1,6 +1,7 @@
 function initListeners({
     submitMatch,
     editMatchById,
+    cancelEditing,
     deleteTableMatch,
     deleteMatchById,
     clearTableMatches,
@@ -8,6 +9,7 @@ function initListeners({
 }) {
     bindSubmit(submitMatch);
     bindEditById(editMatchById);
+    bindCancelEdit(cancelEditing);
     bindDelete(deleteTableMatch);
     bindDeleteById(deleteMatchById);
     bindClear(clearTableMatches);
@@ -32,6 +34,10 @@ function bindEditById(editMatchById) {
 
         await editMatchById(matchId);
     });
+}
+
+function bindCancelEdit(cancelEditing) {
+    document.getElementById("cancelEditButton")?.addEventListener("click", cancelEditing);
 }
 
 function bindDelete(deleteTableMatch) {

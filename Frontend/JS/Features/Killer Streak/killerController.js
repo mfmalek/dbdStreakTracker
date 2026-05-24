@@ -13,7 +13,7 @@ async function handleEditMatch(matchId, updatedMatch) {
 
     const matches = await matchesApi.getMatches();
 
-    await baseKiller.updateUI(matches);
+    await baseKiller.refreshUI();
 }
 
 export const killerController = {

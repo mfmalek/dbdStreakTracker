@@ -54,6 +54,7 @@ async function initStreak() {
                 saveConfigs: streakConfigs.saveConfigs,
                 submitMatch: streakActions.submitMatch,
                 editMatchById: streakActions.editMatchById,
+                cancelEditing: streakActions.cancelEditing,
                 deleteTableMatch: streakActions.deleteTableMatch,
                 deleteMatchById: streakActions.deleteMatchById,
                 clearTableMatches: streakActions.clearTableMatches,
@@ -70,6 +71,7 @@ async function initStreak() {
             actions: {
                 submitMatch: streakActions.submitMatch,
                 editMatchById: streakActions.editMatchById,
+                cancelEditing: streakActions.cancelEditing,
                 deleteTableMatch: streakActions.deleteTableMatch,
                 deleteMatchById: streakActions.deleteMatchById,
                 clearTableMatches: killerController.handleClearMatches,
