@@ -2,6 +2,7 @@ function initListeners({
     ui,
     saveConfigs,
     submitMatch,
+    editMatchById,
     deleteTableMatch,
     deleteMatchById,
     clearTableMatches,
@@ -20,6 +21,7 @@ function initListeners({
         renderTableHeader
     );
     bindSubmit(submitMatch);
+    bindEditById(editMatchById);
     bindDelete(deleteTableMatch);
     bindDeleteById(deleteMatchById);
     bindClear(clearTableMatches);
@@ -89,8 +91,20 @@ function bindSubmit(submitMatch) {
     document.getElementById("submitMatchButton")?.addEventListener("click", submitMatch);
 }
 
-function bindClear(clearTableMatches) {
-    document.getElementById("clearMatchesButton")?.addEventListener("click", clearTableMatches);
+function bindEditById(editMatchById) {
+    const table = document.getElementById("matchTableBody");
+
+    if (!table) return;
+
+    table.addEventListener("click", async (e) => {
+        const btn = e.target.closest(".editMatchHoverBtn");
+
+        if (!btn) return;
+
+        const matchId = Number(btn.dataset.matchId);
+
+        await editMatchById(matchId);
+    });
 }
 
 function bindDelete(deleteTableMatch) {
@@ -111,6 +125,10 @@ function bindDeleteById(deleteMatchById) {
 
         await deleteMatchById(matchId);
     });
+}
+
+function bindClear(clearTableMatches) {
+    document.getElementById("clearMatchesButton")?.addEventListener("click", clearTableMatches);
 }
 
 function bindResetBest(resetBestStreak) {

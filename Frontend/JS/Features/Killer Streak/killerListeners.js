@@ -1,11 +1,13 @@
 function initListeners({
     submitMatch,
+    editMatchById,
     deleteTableMatch,
     deleteMatchById,
     clearTableMatches,
     resetBestStreak
 }) {
     bindSubmit(submitMatch);
+    bindEditById(editMatchById);
     bindDelete(deleteTableMatch);
     bindDeleteById(deleteMatchById);
     bindClear(clearTableMatches);
@@ -14,6 +16,22 @@ function initListeners({
 
 function bindSubmit(submitMatch) {
     document.getElementById("submitMatchButton")?.addEventListener("click", submitMatch);
+}
+
+function bindEditById(editMatchById) {
+    const table = document.getElementById("matchTableBody");
+
+    if (!table) return;
+
+    table.addEventListener("click", async (e) => {
+        const btn = e.target.closest(".editMatchHoverBtn");
+
+        if (!btn) return;
+
+        const matchId = Number(btn.dataset.matchId);
+
+        await editMatchById(matchId);
+    });
 }
 
 function bindDelete(deleteTableMatch) {

@@ -4,6 +4,7 @@ import { matchesApi } from "../../API/matches.api.js";
 import { killerUI } from "../../Features/Killer Streak/killerUI.js";
 import { survivorController } from "../../Features/Survivor Streak/survivorController.js";
 import { killerController } from "../../Features/Killer Streak/killerController.js";
+import { editingState } from "../../Features/Core Streak/editingState.js";
 
 async function submitMatch() {
     const { role } = streakContext.getContext();
@@ -115,6 +116,113 @@ async function submitKillerMatch() {
     } else {
         document.getElementById("killerImage").src =
             "../Images/Miscellaneous/Icon_Killer.png";
+    }
+}
+
+async function editMatchById(matchId) {
+    const matches = await matchesApi.getMatches();
+
+    const match = matches.find(m => m.id === matchId);
+
+    if (!match) {
+        alert("Match not found.");
+        return;
+    }
+
+    editingState.startEditing(matchId);
+
+    populateFormForEditing(match);
+}
+
+function populateFormForEditing(match) {
+    const { role } = streakContext.getContext();
+
+    document.getElementById("mapName").value =
+        match.mapName || "";
+
+    if (role === "survivor") {
+        populateSurvivorMatch(match);
+    } else {
+        populateKillerMatch(match);
+    }
+}
+
+function populateSurvivorMatch(match) {
+    match.survivors?.forEach((surv, sIndex) => {
+        surv.perks?.forEach((perk, pIndex) => {
+            const select = document.getElementById(
+                `perk${pIndex + 1}Surv${sIndex + 1}`
+            );
+
+            if (!select) return;
+
+            if (select.tomselect) {
+                select.tomselect.setValue(perk);
+            } else {
+                select.value = perk;
+            }
+        });
+
+        const checkbox = document.getElementById(
+            `surv${sIndex + 1}Survived`
+        );
+
+        if (checkbox) {
+            checkbox.checked = surv.survived;
+        }
+    });
+
+    for (let p = 1; p <= 4; p++) {
+        const select =
+            document.getElementById(`killerPerk${p}`);
+
+        const perk = match.killerPerks?.[p - 1] || "";
+
+        if (select?.tomselect) {
+            select.tomselect.setValue(perk);
+        } else if (select) {
+            select.value = perk;
+        }
+    }
+
+    const killerSelect =
+        document.getElementById("killerName");
+
+    if (killerSelect?.tomselect) {
+        killerSelect.tomselect.setValue(match.killerName);
+    } else if (killerSelect) {
+        killerSelect.value = match.killerName;
+    }
+}
+
+function populateKillerMatch(match) {
+    document.getElementById("kills").value =
+        match.kills ?? "";
+
+    for (let p = 1; p <= 4; p++) {
+        const select =
+            document.getElementById(`killerPerk${p}`);
+
+        const perk = match.killerPerks?.[p - 1] || "";
+
+        if (select?.tomselect) {
+            select.tomselect.setValue(perk);
+        } else if (select) {
+            select.value = perk;
+        }
+    }
+
+    for (let a = 1; a <= 2; a++) {
+        const select =
+            document.getElementById(`killerAddon${a}`);
+
+        const addon = match.killerAddons?.[a - 1] || "";
+
+        if (select?.tomselect) {
+            select.tomselect.setValue(addon);
+        } else if (select) {
+            select.value = addon;
+        }
     }
 }
 
@@ -273,6 +381,7 @@ function resetForm() {
 
 export const streakActions = {
     submitMatch,
+    editMatchById,
     deleteTableMatch,
     deleteMatchById,
     clearTableMatches
