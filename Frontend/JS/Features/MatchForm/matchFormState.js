@@ -16,7 +16,7 @@ function getEditingMatchId() {
     return editingMatchId;
 }
 
-export const editingState = {
+export const matchFormState = {
     startEditing,
     stopEditing,
     isEditing,

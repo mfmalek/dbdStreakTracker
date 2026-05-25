@@ -39,3 +39,7 @@ select, input[type="text"] {
     width: 200px;
     padding: 5px;
 }
+
+.hidden {
+    display: none;
+}

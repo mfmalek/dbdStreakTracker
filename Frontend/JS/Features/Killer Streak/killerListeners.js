@@ -2,16 +2,16 @@ function initListeners({
     submitMatch,
     editMatchById,
     cancelEditing,
-    deleteTableMatch,
     deleteMatchById,
+    deleteMatchOnClick,
     clearTableMatches,
     resetBestStreak
 }) {
     bindSubmit(submitMatch);
     bindEditById(editMatchById);
     bindCancelEdit(cancelEditing);
-    bindDelete(deleteTableMatch);
     bindDeleteById(deleteMatchById);
+    bindDeleteOnClick(deleteMatchOnClick);
     bindClear(clearTableMatches);
     bindResetBest(resetBestStreak);
 }
@@ -40,11 +40,11 @@ function bindCancelEdit(cancelEditing) {
     document.getElementById("cancelEditButton")?.addEventListener("click", cancelEditing);
 }
 
-function bindDelete(deleteTableMatch) {
-    document.getElementById("deleteMatchButton")?.addEventListener("click", deleteTableMatch);
+function bindDeleteById(deleteMatchById) {
+    document.getElementById("deleteMatchButton")?.addEventListener("click", deleteMatchById);
 }
 
-function bindDeleteById(deleteMatchById) {
+function bindDeleteOnClick(deleteMatchOnClick) {
     const table = document.getElementById("matchTableBody");
 
     if (!table) return;
@@ -56,7 +56,7 @@ function bindDeleteById(deleteMatchById) {
 
         const matchId = Number(btn.dataset.matchId);
 
-        await deleteMatchById(matchId);
+        await deleteMatchOnClick(matchId);
     });
 }
 

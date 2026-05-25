@@ -8,10 +8,11 @@ import { streakShared } from "./Streak Modules/streak.shared.js";
 import { navbar } from "../Layout/navbar.js";
 import { matchesApi } from "../API/matches.api.js";
 import { groupsApi } from "../API/groups.api.js";
-import { streakActions } from "./Streak Modules/streak.actions.js";
 import { streakConfigs } from "./Streak Modules/streak.configs.js";
 import { survivorController } from "../Features/Survivor Streak/survivorController.js";
 import { killerController } from "../Features/Killer Streak/killerController.js";
+import { matchFormController } from "../Features/MatchForm/matchFormController.js";
+import { matchDeletion } from "../Features/MatchForm/matchDeletion.js";
 
 async function initStreak() {
     const loading = document.getElementById("loadingScreen");
@@ -52,12 +53,12 @@ async function initStreak() {
             matches,
             actions: {
                 saveConfigs: streakConfigs.saveConfigs,
-                submitMatch: streakActions.submitMatch,
-                editMatchById: streakActions.editMatchById,
-                cancelEditing: streakActions.cancelEditing,
-                deleteTableMatch: streakActions.deleteTableMatch,
-                deleteMatchById: streakActions.deleteMatchById,
-                clearTableMatches: streakActions.clearTableMatches,
+                submitMatch: matchFormController.submitMatch,
+                editMatchById: matchFormController.editMatch,
+                cancelEditing: matchFormController.cancelEditing,
+                deleteMatchById: matchDeletion.deleteMatchById,
+                deleteMatchOnClick: matchDeletion.deleteMatchOnClick,
+                clearTableMatches: matchDeletion.clearTableMatches,
                 resetBestStreak: survivorController.handleResetBestStreak
             }
         });
@@ -69,11 +70,11 @@ async function initStreak() {
             matches,
             killerName,
             actions: {
-                submitMatch: streakActions.submitMatch,
-                editMatchById: streakActions.editMatchById,
-                cancelEditing: streakActions.cancelEditing,
-                deleteTableMatch: streakActions.deleteTableMatch,
-                deleteMatchById: streakActions.deleteMatchById,
+                submitMatch: matchFormController.submitMatch,
+                editMatchById: matchFormController.editMatch,
+                cancelEditing: matchFormController.cancelEditing,
+                deleteMatchById: matchDeletion.deleteMatchById,
+                deleteMatchOnClick: matchDeletion.deleteMatchOnClick,
                 clearTableMatches: killerController.handleClearMatches,
                 resetBestStreak: killerController.handleResetBestStreak
             }
