@@ -1,8 +1,9 @@
 import { matchFormState } from "./matchFormState.js";
+import { matchControls } from "./Utils/matchControls.js";
 
 function updateEditingUI() {
-    const submitBtn = document.getElementById("submitMatchButton");
-    const cancelBtn = document.getElementById("cancelEditButton");
+    const submitBtn = matchControls.getSubmitMatchButton();
+    const cancelBtn = matchControls.getCancelEditButton();
 
     if (!submitBtn) return;
 

@@ -9,6 +9,8 @@ const SURVIVOR_COUNT = {
     squad: 4
 }[sharedCore.MODE];
 
+const SURVIVOR_PERK_COUNT = 4;
+
 function initSurvivorCore() {
     setupSurvivorPerks();
 }
@@ -17,7 +19,7 @@ function setupSurvivorPerks() {
     const perks = uiHelpers.createOptionsFromArray(survivorData.perks);
 
     for (let s = 1; s <= SURVIVOR_COUNT; s++) {
-        for (let p = 1; p <= 4; p++) {
+        for (let p = 1; p <= SURVIVOR_PERK_COUNT; p++) {
             uiHelpers.createTomSelect(`perk${p}Surv${s}`, perks, "Select a perk");
         }
     }
@@ -25,5 +27,6 @@ function setupSurvivorPerks() {
 
 export const survivorCore = {
     SURVIVOR_COUNT,
+    SURVIVOR_PERK_COUNT,
     initSurvivorCore
 };

@@ -1,4 +1,4 @@
-import { survivorCore } from "../../Core/Streak/survivorCore.js";
+import { formElements } from "./Utils/formElements.js";
 
 function resetForm() {
     clearSelects();
@@ -27,8 +27,11 @@ function clearInputs() {
 }
 
 function clearImages() {
-    document.getElementById("killerImage").src = "../Images/Miscellaneous/Icon_Killer.png";
-    document.getElementById("mapImage").src = "../Images/Maps/Map_GenericMapBackground.png";
+    const killerImage = formElements.getKillerImage();
+    const mapImage = formElements.getMapImage();
+
+    killerImage.src = "../Images/Miscellaneous/Icon_Killer.png";
+    mapImage.src = "../Images/Maps/Map_GenericMapBackground.png";
 }
 
 export const sharedMatchForm = {

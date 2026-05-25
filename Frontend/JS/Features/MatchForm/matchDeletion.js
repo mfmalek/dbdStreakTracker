@@ -3,9 +3,10 @@ import { matchesApi } from "../../API/matches.api.js";
 import { killerController } from "../Killer Streak/killerController.js";
 import { survivorController } from "../Survivor Streak/survivorController.js";
 import { killerUI } from "../Killer Streak/killerUI.js";
+import { matchControls } from "./Utils/matchControls.js";
 
 async function deleteMatchById() {
-    const input = document.getElementById("deleteMatchNumber");
+    const input = matchControls.getDeleteMatchInput();
     const index = parseInt(input?.value) - 1;
 
     if (isNaN(index)) {

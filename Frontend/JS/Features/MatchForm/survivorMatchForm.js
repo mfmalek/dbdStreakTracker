@@ -1,14 +1,17 @@
 import { survivorCore } from "../../Core/Streak/survivorCore.js";
-import { formHelpers } from "./Utils/formHelpers.js";
+import { killerCore } from "../../Core/Streak/killerCore.js";
+import { selectHelpers } from "./Utils/selectHelpers.js";
+import { formElements } from "./Utils/formElements.js";
 
 function getSurvivors() {
     const survivors = [];
 
     for (let s = 1; s <= survivorCore.SURVIVOR_COUNT; s++) {
+        const survivorCheckbox = formElements.getSurvivorCheckbox(s);
         const perks = [];
 
-        for (let p = 1; p <= 4; p++) {
-            const select = document.getElementById(`perk${p}Surv${s}`);
+        for (let p = 1; p <= survivorCore.SURVIVOR_PERK_COUNT; p++) {
+            const select = formElements.getSurvivorPerkSelect(s, p);
 
             perks.push(select?.value || "");
         }
@@ -16,7 +19,7 @@ function getSurvivors() {
         survivors.push({
             name: `Surv${s}`,
             perks,
-            survived: document.getElementById(`surv${s}Survived`)?.checked || false
+            survived: survivorCheckbox?.checked || false
         });
     }
 
@@ -32,14 +35,14 @@ function populateSurvivorMatch(match) {
 function populateSurvivor(match) {
     match.survivors?.forEach((surv, sIndex) => {
         surv.perks?.forEach((perk, pIndex) => {
-            const select = document.getElementById(`perk${pIndex + 1}Surv${sIndex + 1}`);
+            const select = formElements.getSurvivorPerkSelect(sIndex + 1, pIndex + 1);
 
             if (!select) return;
 
-            formHelpers.setSelectValue(select, perk);
+            selectHelpers.setSelectValue(select, perk);
         });
 
-        const checkbox = document.getElementById(`surv${sIndex + 1}Survived`);
+        const checkbox = formElements.getSurvivorCheckbox(sIndex + 1);
 
         if (checkbox) {
             checkbox.checked = surv.survived;
@@ -48,21 +51,21 @@ function populateSurvivor(match) {
 }
 
 function populateKiller(match) {
-    const killerSelect = document.getElementById("killerName");
+    const killerSelect = formElements.getKillerSelect();
 
-    formHelpers.setSelectValue(killerSelect, match.killerName);
+    selectHelpers.setSelectValue(killerSelect, match.killerName);
 
-    for (let p = 1; p <= 4; p++) {
-        const select = document.getElementById(`killerPerk${p}`);
+    for (let p = 1; p <= killerCore.KILLER_PERK_COUNT; p++) {
+        const select = formElements.getKillerPerkSelect(p);
         const perk = match.killerPerks?.[p - 1] || "";
 
-        formHelpers.setSelectValue(select, perk);
+        selectHelpers.setSelectValue(select, perk);
     }
 }
 
 function populateMap(match) {
-    const mapSelect = document.getElementById("mapName");
-    formHelpers.setSelectValue(mapSelect, match.mapName);
+    const mapSelect = formElements.getMapSelect();
+    selectHelpers.setSelectValue(mapSelect, match.mapName);
 }
 
 export const survivorMatchForm = {

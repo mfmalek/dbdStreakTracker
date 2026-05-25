@@ -6,6 +6,6 @@ function setSelectValue(element, value) {
     }
 }
 
-export const formHelpers = {
+export const selectHelpers = {
     setSelectValue
 };

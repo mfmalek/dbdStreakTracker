@@ -1,24 +1,26 @@
-import { formHelpers } from "./Utils/formHelpers.js";
+import { selectHelpers } from "./Utils/selectHelpers.js";
+import { formElements } from "./Utils/formElements.js";
+import { killerCore } from "../../Core/Streak/killerCore.js";
 
 function populateKillerMatch(match) {
-    const mapSelect = document.getElementById("mapName");
+    const mapSelect = formElements.getMapSelect();
+    const killsInput = formElements.getKillsInput();
 
-    formHelpers.setSelectValue(mapSelect, match.mapName);
+    selectHelpers.setSelectValue(mapSelect, match.mapName);
+    killsInput.value = match.kills ?? "";
 
-    document.getElementById("kills").value = match.kills ?? "";
-
-    for (let p = 1; p <= 4; p++) {
-        const perksSelect = document.getElementById(`killerPerk${p}`);
+    for (let p = 1; p <= killerCore.KILLER_PERK_COUNT; p++) {
+        const perksSelect = formElements.getKillerPerkSelect(p);
         const perk = match.killerPerks?.[p - 1] || "";
         
-        formHelpers.setSelectValue(perksSelect, perk);
+        selectHelpers.setSelectValue(perksSelect, perk);
     }
 
-    for (let a = 1; a <= 2; a++) {
-        const addonSelect = document.getElementById(`killerAddon${a}`);
+    for (let a = 1; a <= killerCore.KILLER_ADDON_COUNT; a++) {
+        const addonSelect = formElements.getKillerAddonSelect(a);
         const addon = match.killerAddons?.[a - 1] || "";
 
-        formHelpers.setSelectValue(addonSelect, addon);
+        selectHelpers.setSelectValue(addonSelect, addon);
     }
 }
 
