@@ -1,4 +1,4 @@
-import { killerUI } from "../../Features/Killer Streak/killerUI.js";
+import { killerUI } from "../../Features/UI/KillerUI/killerUI.js";
 import { killerController } from "../../Features/Killer Streak/killerController.js";
 import { killerCore } from "../../Core/Streak/killerCore.js";
 import { killerListeners } from "../../Features/Killer Streak/killerListeners.js";

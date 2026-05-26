@@ -1,20 +1,22 @@
 import { survivorCore } from "../../Core/Streak/survivorCore.js";
 import { auth } from "../../Auth/auth.js";
 import { createBaseController } from "../Core Streak/baseController.js";
-import { sharedUI } from "../Core Streak/sharedUI.js";
-import { survivorUI } from "./survivorUI.js";
+import { sharedStatsUI } from "../UI/SharedUI/sharedStatsUI.js";
+import { survivorUI } from "../UI/SurvivorUI/survivorUI.js";
 import { survivorsApi } from "../../API/survivors.api.js";
 import { groupsApi } from "../../API/groups.api.js";
 import { matchesApi } from "../../API/matches.api.js";
 
 const base = createBaseController({
     renderTable: survivorUI.renderTable,
-    renderStats: sharedUI.renderStats
+    renderStats: sharedStatsUI.renderStats
 });
 
 async function handleSaveConfigs(configs) {
     await survivorsApi.saveSurvivorConfigs(configs);
+
     const names = await getSurvivorNames();
+
     survivorUI.renderTitle(names);
     survivorUI.renderTableHeader(names);
 }

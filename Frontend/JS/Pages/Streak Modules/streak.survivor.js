@@ -1,4 +1,4 @@
-import { survivorUI } from "../../Features/Survivor Streak/survivorUI.js";
+import { survivorUI } from "../../Features/UI/SurvivorUI/survivorUI.js";
 import { survivorController } from "../../Features/Survivor Streak/survivorController.js";
 import { survivorCore } from "../../Core/Streak/survivorCore.js";
 import { survivorListeners } from "../../Features/Survivor Streak/survivorListeners.js";

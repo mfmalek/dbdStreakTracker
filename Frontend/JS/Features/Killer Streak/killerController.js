@@ -1,11 +1,11 @@
 import { createBaseController } from "../Core Streak/baseController.js";
-import { sharedUI } from "../Core Streak/sharedUI.js";
-import { killerUI } from "./killerUI.js";
+import { sharedStatsUI } from "../UI/SharedUI/sharedStatsUI.js";
+import { killerUI } from "../UI/KillerUI/killerUI.js";
 import { matchesApi } from "../../API/matches.api.js";
 
 const baseKiller = createBaseController({
     renderTable: killerUI.renderTable,
-    renderStats: sharedUI.renderStats
+    renderStats: sharedStatsUI.renderStats
 });
 
 async function handleEditMatch(matchId, updatedMatch) {

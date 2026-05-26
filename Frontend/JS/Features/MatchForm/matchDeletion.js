@@ -2,7 +2,7 @@ import { streakContext } from "../../Core/Utils/streakContext.js";
 import { matchesApi } from "../../API/matches.api.js";
 import { killerController } from "../Killer Streak/killerController.js";
 import { survivorController } from "../Survivor Streak/survivorController.js";
-import { killerUI } from "../Killer Streak/killerUI.js";
+import { killerUI } from "../UI/KillerUI/killerUI.js";
 import { matchControls } from "./Utils/matchControls.js";
 
 async function deleteMatchById() {
