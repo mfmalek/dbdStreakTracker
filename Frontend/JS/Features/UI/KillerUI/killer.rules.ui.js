@@ -1,5 +1,5 @@
-import { uiElements } from "../Utils/uiElements.js";
-import { sharedRulesUI } from "../SharedUI/sharedRulesUI.js";
+import { uiElements } from "../Utils/ui.elements.js";
+import { sharedRulesUI } from "../SharedUI/shared.rules.ui.js";
 
 function getRules() {
     return [

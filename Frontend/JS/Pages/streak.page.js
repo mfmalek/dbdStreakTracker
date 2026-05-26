@@ -1,7 +1,7 @@
 import { auth } from "../Auth/auth.js";
-import { sharedCore } from "../Core/Streak/sharedCore.js";
-import { killerCore } from "../Core/Streak/killerCore.js";
-import { streakContext } from "../Core/Utils/streakContext.js";
+import { sharedCore } from "../Core/Streak/shared.core.js";
+import { killerCore } from "../Core/Streak/killer.core.js";
+import { streakContext } from "../Core/Utils/streak.context.js";
 import { initSurvivorStreak } from "./Streak Modules/streak.survivor.js";
 import { initKillerStreak } from "./Streak Modules/streak.killer.js";
 import { streakShared } from "./Streak Modules/streak.shared.js";
@@ -9,10 +9,10 @@ import { navbar } from "../Layout/navbar.js";
 import { matchesApi } from "../API/matches.api.js";
 import { groupsApi } from "../API/groups.api.js";
 import { streakConfigs } from "./Streak Modules/streak.configs.js";
-import { survivorController } from "../Features/Survivor Streak/survivorController.js";
-import { killerController } from "../Features/Killer Streak/killerController.js";
-import { matchFormController } from "../Features/MatchForm/matchFormController.js";
-import { matchDeletion } from "../Features/MatchForm/matchDeletion.js";
+import { survivorController } from "../Features/Survivor Streak/survivor.controller.js";
+import { killerController } from "../Features/Killer Streak/killer.controller.js";
+import { matchFormController } from "../Features/MatchForm/match.form.controller.js";
+import { matchDeletion } from "../Features/MatchForm/match.deletion.js";
 
 async function initStreak() {
     const loading = document.getElementById("loadingScreen");

@@ -1,5 +1,5 @@
-import { matchFormState } from "./matchFormState.js";
-import { matchControls } from "./Utils/matchControls.js";
+import { matchFormState } from "./match.form.state.js";
+import { matchControls } from "./Utils/match.controls.js";
 
 function updateEditingUI() {
     const submitBtn = matchControls.getSubmitMatchButton();

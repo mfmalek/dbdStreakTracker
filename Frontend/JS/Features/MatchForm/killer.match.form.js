@@ -1,6 +1,6 @@
-import { selectHelpers } from "./Utils/selectHelpers.js";
-import { formElements } from "./Utils/formElements.js";
-import { killerCore } from "../../Core/Streak/killerCore.js";
+import { selectHelpers } from "./Utils/select.helpers.js";
+import { formElements } from "./Utils/form.elements.js";
+import { killerCore } from "../../Core/Streak/killer.core.js";
 
 function populateKillerMatch(match) {
     const mapSelect = formElements.getMapSelect();

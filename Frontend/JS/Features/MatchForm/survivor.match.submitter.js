@@ -1,11 +1,11 @@
-import { killerCore } from "../../Core/Streak/killerCore.js";
-import { survivorMatchForm } from "./survivorMatchForm.js";
-import { formElements } from "./Utils/formElements.js";
-import { matchFormValidation } from "./matchFormValidation.js";
-import { matchFormState } from "./matchFormState.js";
-import { survivorController } from "../Survivor Streak/survivorController.js";
-import { matchFormUI } from "./matchFormUI.js";
-import { sharedMatchForm } from "./sharedMatchForm.js";
+import { killerCore } from "../../Core/Streak/killer.core.js";
+import { survivorMatchForm } from "./survivor.match.form.js";
+import { formElements } from "./Utils/form.elements.js";
+import { matchFormValidation } from "./match.form.validation.js";
+import { matchFormState } from "./match.form.state.js";
+import { survivorController } from "../Survivor Streak/survivor.controller.js";
+import { matchFormUI } from "./match.form.ui.js";
+import { sharedMatchForm } from "./shared.match.form.js";
 
 async function submitSurvivorMatch() {
     const survivors = survivorMatchForm.getSurvivors();

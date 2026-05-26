@@ -1,4 +1,4 @@
-import { sharedPreviewUI } from "../SharedUI/sharedPreviewUI.js";
+import { sharedPreviewUI } from "../SharedUI/shared.preview.ui.js";
 
 function createMatchPreview(match) {
     if (!match) return "Match not found.";

@@ -1,6 +1,6 @@
-import { uiElements } from "../Utils/uiElements.js";
-import { sharedCore } from  "../../../Core/Streak/sharedCore.js";
-import { sharedRulesUI } from "../SharedUI/sharedRulesUI.js";
+import { uiElements } from "../Utils/ui.elements.js";
+import { sharedCore } from  "../../../Core/Streak/shared.core.js";
+import { sharedRulesUI } from "../SharedUI/shared.rules.ui.js";
 
 function getRulesByMode(mode) {
     const generalRules = [

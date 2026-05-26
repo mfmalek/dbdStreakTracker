@@ -1,6 +1,6 @@
-import { http } from "./http.js";
-import { sharedCore } from "../Core/Streak/sharedCore.js";
-import { streakContext } from "../Core/Utils/streakContext.js";
+import { http } from "./http.client.js";
+import { sharedCore } from "../Core/Streak/shared.core.js";
+import { streakContext } from "../Core/Utils/streak.context.js";
 
 function getContext() {
     const { role, killerName } = streakContext.getContext();

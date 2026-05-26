@@ -1,6 +1,6 @@
 import { matchesApi } from "../../API/matches.api.js";
 import { streaksApi } from "../../API/streaks.api.js";
-import { sharedCore } from "../../Core/Streak/sharedCore.js";
+import { sharedCore } from "../../Core/Streak/shared.core.js";
 
 export function createBaseController({ renderTable, renderStats }) {
     async function refreshUI() {

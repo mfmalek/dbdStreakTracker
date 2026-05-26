@@ -1,6 +1,6 @@
-import { survivorData } from "../Data/survivorData.js";
-import { uiHelpers } from "../Utils/uiHelpers.js";
-import { sharedCore } from "./sharedCore.js";
+import { survivorData } from "../Data/survivor.data.js";
+import { uiHelpers } from "../Utils/ui.helpers.js";
+import { sharedCore } from "./shared.core.js";
 
 const SURVIVOR_COUNT = {
     solo: 1,

@@ -1,8 +1,8 @@
-import { uiElements } from "../Utils/uiElements.js";
-import { formElements } from "../../MatchForm/Utils/formElements.js";
-import { killerTableUI } from "./killerTableUI.js";
-import { killerPreviewUI } from "./killerPreviewUI.js";
-import { killerRulesUI } from "./killerRulesUI.js";
+import { uiElements } from "../Utils/ui.elements.js";
+import { formElements } from "../../MatchForm/Utils/form.elements.js";
+import { killerTableUI } from "./killer.table.ui.js";
+import { killerPreviewUI } from "./killer.preview.ui.js";
+import { killerRulesUI } from "./killer.rules.ui.js";
 
 function initUI() {
     renderTitle();

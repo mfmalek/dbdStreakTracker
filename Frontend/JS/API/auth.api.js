@@ -1,4 +1,4 @@
-import { http } from "./http.js";
+import { http } from "./http.client.js";
 
 async function login(username, password) {
     return await http.post("/auth/login", {

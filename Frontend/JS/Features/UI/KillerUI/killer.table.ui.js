@@ -1,5 +1,5 @@
-import { uiElements } from "../Utils/uiElements.js";
-import { sharedTableUI } from "../SharedUI/sharedTableUI.js";
+import { uiElements } from "../Utils/ui.elements.js";
+import { sharedTableUI } from "../SharedUI/shared.table.ui.js";
 
 function renderTable(matches) {
     renderTableHeader();

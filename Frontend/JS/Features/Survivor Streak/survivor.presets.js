@@ -1,4 +1,4 @@
-import { survivorCore } from "../../Core/Streak/survivorCore.js";
+import { survivorCore } from "../../Core/Streak/survivor.core.js";
 import { presetsApi } from "../../API/presets.api.js";
 
 function initPresets() {

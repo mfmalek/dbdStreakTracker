@@ -1,11 +1,11 @@
-import { streakContext } from "../../Core/Utils/streakContext.js";
-import { formElements } from "./Utils/formElements.js";
-import { matchFormValidation } from "./matchFormValidation.js";
-import { matchFormState } from "./matchFormState.js";
-import { killerController } from "../Killer Streak/killerController.js";
-import { matchFormUI } from "./matchFormUI.js";
-import { sharedMatchForm } from "./sharedMatchForm.js";
-import { killerCore } from "../../Core/Streak/killerCore.js";
+import { streakContext } from "../../Core/Utils/streak.context.js";
+import { formElements } from "./Utils/form.elements.js";
+import { matchFormValidation } from "./match.form.validation.js";
+import { matchFormState } from "./match.form.state.js";
+import { killerController } from "../Killer Streak/killer.controller.js";
+import { matchFormUI } from "./match.form.ui.js";
+import { sharedMatchForm } from "./shared.match.form.js";
+import { killerCore } from "../../Core/Streak/killer.core.js";
 
 async function submitKillerMatch() {
     const { killerName } = streakContext.getContext();

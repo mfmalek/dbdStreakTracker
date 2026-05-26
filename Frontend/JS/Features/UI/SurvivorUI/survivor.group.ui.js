@@ -1,4 +1,4 @@
-import { uiElements } from "../Utils/uiElements.js";
+import { uiElements } from "../Utils/ui.elements.js";
 
 function renderGroupMembers(members, group, currentUser) {
     const container = uiElements.getGroupMembersContainer();

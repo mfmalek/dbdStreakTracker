@@ -1,9 +1,9 @@
-import { streakContext } from "../../Core/Utils/streakContext.js";
+import { streakContext } from "../../Core/Utils/streak.context.js";
 import { matchesApi } from "../../API/matches.api.js";
-import { killerController } from "../Killer Streak/killerController.js";
-import { survivorController } from "../Survivor Streak/survivorController.js";
-import { killerUI } from "../UI/KillerUI/killerUI.js";
-import { matchControls } from "./Utils/matchControls.js";
+import { killerController } from "../Killer Streak/killer.controller.js";
+import { survivorController } from "../Survivor Streak/survivor.controller.js";
+import { killerUI } from "../UI/KillerUI/killer.ui.js";
+import { matchControls } from "./Utils/match.controls.js";
 
 async function deleteMatchById() {
     const input = matchControls.getDeleteMatchInput();

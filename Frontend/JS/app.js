@@ -1,8 +1,8 @@
-import { login } from "./Pages/login.js";
-import { register } from "./Pages/register.js";
-import { home } from "./Pages/home.js";
-import { killerSelection } from "./Pages/killerSelection.js";
-import { streak } from "./Pages/streak.js";
+import { login } from "./Pages/login.page.js";
+import { register } from "./Pages/register.page.js";
+import { home } from "./Pages/home.page.js";
+import { killerSelection } from "./Pages/killer.selection.page.js";
+import { streak } from "./Pages/streak.page.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const page = document.body.dataset.page;

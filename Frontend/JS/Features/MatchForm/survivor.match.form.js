@@ -1,7 +1,7 @@
-import { survivorCore } from "../../Core/Streak/survivorCore.js";
-import { killerCore } from "../../Core/Streak/killerCore.js";
-import { selectHelpers } from "./Utils/selectHelpers.js";
-import { formElements } from "./Utils/formElements.js";
+import { survivorCore } from "../../Core/Streak/survivor.core.js";
+import { killerCore } from "../../Core/Streak/killer.core.js";
+import { selectHelpers } from "./Utils/select.helpers.js";
+import { formElements } from "./Utils/form.elements.js";
 
 function getSurvivors() {
     const survivors = [];

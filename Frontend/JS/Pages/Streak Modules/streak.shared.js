@@ -1,4 +1,4 @@
-import { streakContext } from "../../Core/Utils/streakContext.js";
+import { streakContext } from "../../Core/Utils/streak.context.js";
 
 function syncKillerFromUrl() {
     const params = new URLSearchParams(window.location.search);

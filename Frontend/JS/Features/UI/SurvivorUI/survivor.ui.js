@@ -1,9 +1,9 @@
-import { uiElements } from "../Utils/uiElements.js";
-import { survivorRulesUI } from "../SurvivorUI/survivorRulesUI.js";
-import { survivorTableUI } from "../SurvivorUI/survivorTableUI.js";
-import { survivorConfigUI } from "../SurvivorUI/survivorConfigUI.js";
-import { survivorGroupUI } from "../SurvivorUI/survivorGroupUI.js";
-import { survivorPreviewUI } from "../SurvivorUI/survivorPreviewUI.js";
+import { uiElements } from "../Utils/ui.elements.js";
+import { survivorRulesUI } from "./survivor.rules.ui.js";
+import { survivorTableUI } from "./survivor.table.ui.js";
+import { survivorConfigUI } from "./survivor.config.ui.js";
+import { survivorGroupUI } from "./survivor.group.ui.js";
+import { survivorPreviewUI } from "./survivor.preview.ui.js";
 
 async function initUI() {
     survivorRulesUI.renderRules();

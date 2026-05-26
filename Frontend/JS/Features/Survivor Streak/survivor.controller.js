@@ -1,8 +1,8 @@
-import { survivorCore } from "../../Core/Streak/survivorCore.js";
+import { survivorCore } from "../../Core/Streak/survivor.core.js";
 import { auth } from "../../Auth/auth.js";
-import { createBaseController } from "../Core Streak/baseController.js";
-import { sharedStatsUI } from "../UI/SharedUI/sharedStatsUI.js";
-import { survivorUI } from "../UI/SurvivorUI/survivorUI.js";
+import { createBaseController } from "../Core Streak/base.controller.js";
+import { sharedStatsUI } from "../UI/SharedUI/shared.stats.ui.js";
+import { survivorUI } from "../UI/SurvivorUI/survivor.ui.js";
 import { survivorsApi } from "../../API/survivors.api.js";
 import { groupsApi } from "../../API/groups.api.js";
 import { matchesApi } from "../../API/matches.api.js";

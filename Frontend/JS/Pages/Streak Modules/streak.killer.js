@@ -1,7 +1,7 @@
-import { killerUI } from "../../Features/UI/KillerUI/killerUI.js";
-import { killerController } from "../../Features/Killer Streak/killerController.js";
-import { killerCore } from "../../Core/Streak/killerCore.js";
-import { killerListeners } from "../../Features/Killer Streak/killerListeners.js";
+import { killerUI } from "../../Features/UI/KillerUI/killer.ui.js";
+import { killerController } from "../../Features/Killer Streak/killer.controller.js";
+import { killerCore } from "../../Core/Streak/killer.core.js";
+import { killerListeners } from "../../Features/Killer Streak/killer.listeners.js";
 
 export async function initKillerStreak({ group, matches, killerName, actions }) {
     await killerUI.initUI(group);

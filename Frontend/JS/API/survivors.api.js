@@ -1,5 +1,5 @@
-import { http } from "./http.js";
-import { sharedCore } from "../Core/Streak/sharedCore.js";
+import { http } from "./http.client.js";
+import { sharedCore } from "../Core/Streak/shared.core.js";
 
 function getMode() {
     return sharedCore.MODE;

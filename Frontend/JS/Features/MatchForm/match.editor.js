@@ -1,10 +1,10 @@
 import { matchesApi } from "../../API/matches.api.js";
-import { matchFormState } from "./matchFormState.js";
-import { matchFormUI } from "./matchFormUI.js";
-import { sharedMatchForm } from "./sharedMatchForm.js";
-import { streakContext } from "../../Core/Utils/streakContext.js";
-import { survivorMatchForm } from "./survivorMatchForm.js";
-import { killerMatchForm } from "./killerMatchForm.js";
+import { matchFormState } from "./match.form.state.js";
+import { matchFormUI } from "./match.form.ui.js";
+import { sharedMatchForm } from "./shared.match.form.js";
+import { streakContext } from "../../Core/Utils/streak.context.js";
+import { survivorMatchForm } from "./survivor.match.form.js";
+import { killerMatchForm } from "./killer.match.form.js";
 
 async function editMatch(matchId) {
     const matches = await matchesApi.getMatches();

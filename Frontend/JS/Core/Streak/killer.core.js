@@ -1,5 +1,5 @@
-import { killerData } from "../Data/killerData.js";
-import { uiHelpers } from "../Utils/uiHelpers.js";
+import { killerData } from "../Data/killer.data.js";
+import { uiHelpers } from "../Utils/ui.helpers.js";
 
 const KILLER_PERK_COUNT = 4;
 const KILLER_ADDON_COUNT = 2;

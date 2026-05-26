@@ -1,6 +1,6 @@
-import { uiElements } from "../Utils/uiElements.js";
-import { sharedTableUI } from "../SharedUI/sharedTableUI.js";
-import { survivorCore } from "../../../Core/Streak/survivorCore.js";
+import { uiElements } from "../Utils/ui.elements.js";
+import { sharedTableUI } from "../SharedUI/shared.table.ui.js";
+import { survivorCore } from "../../../Core/Streak/survivor.core.js";
 
 function renderTable(names, matches) {
     renderTableHeader(names);
