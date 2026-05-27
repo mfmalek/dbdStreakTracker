@@ -10,18 +10,18 @@ const killerPerks = [
     "Furtive Chase", "Game Afoot", "Gearhead", "Genetic Limits", "Grim Embrace", "Haywire", "Help Wanted",
     "Hex: Blood Favour", "Hex: Crowd Control", "Hex: Devour Hope", "Hex: Face the Darkness",
     "Hex: Haunted Ground", "Hex: Hive Mind", "Hex: Huntress Lullaby", "Hex: No One Escapes Death", "Hex: Nothing but Misery",
-    "Hex: Overtune of Doom", "Hex: Pentimento", "Hex: Plaything", "Hex: Retribution", "Hex: Ruin", "Hex: The Third Seal",
-    "Hex: Thrill of the Hunt", "Hex: Two Can Play", "Hex: Undying", "Hex: Wretched Fate",
+    "Hex: Overtune of Doom", "Hex: Pentimento", "Hex: Plaything", "Hex: Retribution", "Hex: Ruin", "Hex: Scared to Death",
+    "Hex: The Third Seal", "Hex: Thrill of the Hunt", "Hex: Two Can Play", "Hex: Undying", "Hex: Wretched Fate",
     "Hoarder", "Hubris", "Human Greed", "Hysteria", "I'm All Ears", "Infectious Fright",
     "Insidious", "Iron Grasp", "Iron Maiden", "Knock Out", "Languid Touch", "Lethal Pursuer",
     "Leverage", "Lightborn", "Machine Learning", "Mad Grit", "Make Your Choice",
     "Merciless Storm", "Mindbreaker", "Monitor & Abuse", "Nemesis", "No Quarter", "No Way Out",
     "None Are Free", "Nowhere to Hide", "Oppression", "Overcharge", "Overwhelming Presence", "Phantom Fear",
-    "Play with Your Food", "Pop Goes the Weasel", "Predator", "Rancor", "Rapid Brutality", "Ravenous", "Remember Me",
-    "Save the Best for Last", "Scourge Hook: Floods of Rage", "Scourge Hook: Gift of Pain",
+    "Play with Your Food", "Pop Goes the Weasel", "Predator", "Rampage", "Rancor", "Rapid Brutality", "Ravenous",
+    "Remember Me", "Save the Best for Last", "Scourge Hook: Floods of Rage", "Scourge Hook: Gift of Pain",
     "Scourge Hook: Hangman's Trick", "Scourge Hook: Jagged Compass",
     "Scourge Hook: Monstrous Shrine", "Scourge Hook: Pain Resonance", "Secret Project", "Septic Touch",
-    "Shadowborn", "Shattered Hope", "Sloppy Butcher", "Spies from the Shadows", "Spirit Fury",
+    "Shadowborn", "Shattered Hope", "Silent Shadow", "Sloppy Butcher", "Spies from the Shadows", "Spirit Fury",
     "Starstruck", "Stridor", "Superior Anatomy", "Surge", "Surveillance", "Tanatophobia", "THWACK!",
     "Terminus", "Territorial Imperative", "Thrilling Tremors", "Tinkerer",
     "Trail of Torment", "Turn Back the Clock", "Ultimate Weapon", "Unbound", "Undone", "Unforseen",
@@ -37,7 +37,7 @@ const killerNames = [
     "The Artist", "The Onryo", "The Dredge", "The Mastermind", "The Knight",
     "The Skull Merchant", "The Singularity", "The Xenomorph", "The Good Guy", "The Unknown",
     "The Lich", "The Dark Lord", "The Houndmaster", "The Ghoul", "The Animatronic",
-    "The Krasue", "The First"
+    "The Krasue", "The First", "The Slasher"
 ];
 
 const killerAddons = {
@@ -1005,6 +1005,29 @@ const killerAddons = {
         "Mid-Century Radio",
         "Orderly ID",
         "Stained Glass Mural"
+    ],
+
+    "The Slasher": [
+        "Dirty Money",
+        "Iridescent Boat Motor",
+        "Bloody Magazine",
+        "Burnt Fuse",
+        "Deputy's Badge",
+        "Missing Cockscrew",
+        "Eye Goop",
+        "Imprinted Aluminum",
+        "Mirror Shards",
+        "Two Nails",
+        "Bloody Smile",
+        "Coroner's Coffee",
+        "Party Noisemaker",
+        "Sleeping Bag",
+        "Toxic Waste",
+        "Bent Wheel",
+        "Garden Claw",
+        "Knitting Needle",
+        "Orderly's Shoe",
+        "Sauna Rock"
     ]
 };
 
