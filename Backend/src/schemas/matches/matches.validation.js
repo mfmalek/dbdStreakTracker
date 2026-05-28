@@ -14,7 +14,7 @@ const validateMatchByRole = (req, res, next) => {
     }
 
     const err = new Error("Invalid role");
-    err.status(400);
+    err.status = 400;
 
     return next(err);
 };
