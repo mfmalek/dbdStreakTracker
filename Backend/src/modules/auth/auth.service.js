@@ -1,6 +1,9 @@
 const prisma = require("../../config/prisma");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const BadRequestError = require("../../errors/bad.request.error");
+const UnauthorizedError = require("../../errors/unauthorized.error");
+const NotFoundError = require("../../errors/not.found.error");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 if (!JWT_SECRET) {
@@ -17,16 +20,12 @@ const register = async (username, password) => {
                 password: hashedPassword
             }
         });
-    } catch(err) {
+    } catch (err) {
         if (err.code === "P2002") {
-            const error = new Error(`Username "${username}" is already taken`);
-            error.status = 400;
-            throw error;
+            throw new BadRequestError(`Username "${username}" is already taken`);
         }
 
-        const error = new Error("Failed to register user");
-        error.status = 500;
-        throw error;
+        throw err;
     }
 };
 
@@ -36,16 +35,12 @@ const login = async (username, password) => {
     });
 
     if (!user) {
-        const err = new Error("User not found");
-        err.status = 404;
-        throw err;
+        throw new NotFoundError("User not found");
     }
 
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
-        const err = new Error("Invalid password");
-        err.status = 401;
-        throw err;
+        throw new UnauthorizedError("Invalid password");
     }
 
     const token = jwt.sign(

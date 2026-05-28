@@ -1,4 +1,6 @@
 const prisma = require("../../config/prisma");
+const BadRequestError = require("../../errors/bad.request.error");
+const NotFoundError = require("../../errors/not.found.error");
 
 function getSafeKiller(role, killerName) {
     return role === "killer" ? killerName : "__survivor__";
@@ -8,15 +10,15 @@ function buildWhere(user, mode, role, killerName, survivor) {
     const safeKiller = getSafeKiller(role, killerName);
 
     if (!role) {
-        throw new Error("role is required for presets");
+        throw new BadRequestError(`"role" is required for preset`);
     }
 
     if (role === "killer" && !killerName) {
-        throw new Error("killerName is required for killer presets");
+        throw new BadRequestError(`"killerName" is required for killer preset`);
     }
 
     if (role === "survivor" && (survivor === undefined || survivor === null)) {
-        throw new Error("survivor is required for survivor presets");
+        throw new BadRequestError(`"survivor" is required for survivor preset`);
     }
 
     return {
@@ -42,15 +44,15 @@ const createPreset = async (data) => {
     const safeKiller = getSafeKiller(role, killerName);
 
     if (!role) {
-        throw new Error("role is required for creating presets");
+        throw new BadRequestError(`"role" is required for creating preset`);
     }
 
     if (role === "killer" && !killerName) {
-        throw new Error("killerName is required for killer presets");
+        throw new BadRequestError(`"killerName" is required for killer preset`);
     }
 
     if (role === "survivor" && (survivor === undefined || survivor === null)) {
-        throw new Error("survivor is required for survivor presets");
+        throw new BadRequestError(`"survivor" is required for survivor preset`);
     }
 
     return await prisma.preset.create({
@@ -75,9 +77,7 @@ const deletePreset = async (id, user) => {
     });
 
     if (deleted.count === 0) {
-        const err = new Error("Preset not found");
-        err.status = 404;
-        throw err;
+        throw new NotFoundError("Preset not found");
     }
     return true;
 };

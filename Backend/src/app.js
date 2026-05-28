@@ -9,6 +9,7 @@ const presetsRoutes = require("./modules/presets/presets.routes");
 const matchesRoutes = require('./modules/matches/matches.routes');
 const streakRoutes = require("./modules/streak/streak.routes");
 const errorMiddleware = require("./middlewares/error.middleware");
+const NotFoundError = require("./errors/not.found.error");
 
 app.get("/api/health", (req, res) => {
     console.log("Health check ping");
@@ -23,6 +24,11 @@ app.use("/api/groups", groupRoutes);
 app.use("/api/presets", presetsRoutes);
 app.use('/api/matches', matchesRoutes);
 app.use("/api/streak", streakRoutes);
+
+app.use((req, res, next) => {
+    next(new NotFoundError("Route not found"));
+});
+
 app.use(errorMiddleware);
 
 module.exports = app;

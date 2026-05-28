@@ -1,4 +1,5 @@
 const prisma = require("../../config/prisma");
+const BadRequestError = require("../../errors/bad.request.error");
 
 function getSafeKiller(role, killerName) {
     return role === "killer" ? killerName : "__survivor__";
@@ -8,7 +9,7 @@ function buildWhere(user, mode, groupId, role, killerName) {
     const safeKiller = getSafeKiller(role, killerName);
 
     if (role === "killer" && !killerName) {
-        throw new Error("killerName is required for killer streaks");
+        throw new BadRequestError(`"killerName" is required for killer streak`);
     }
 
     return {

@@ -1,5 +1,6 @@
 const { survivorMatchSchema } = require("./survivor.match.schema");
 const { killerMatchSchema } = require("./killer.match.schema");
+const BadRequestError = require("../../errors/bad.request.error");
 
 const validateMatchByRole = (req, res, next) => {
     const { role } = req.body;
@@ -30,10 +31,7 @@ const validateMatchByRole = (req, res, next) => {
         return next();
     }
 
-    const err = new Error("Invalid role");
-    err.status = 400;
-
-    return next(err);
+    throw new BadRequestError("Invalid role");
 };
 
 module.exports = {
