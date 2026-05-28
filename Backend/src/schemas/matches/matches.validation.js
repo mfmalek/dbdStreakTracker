@@ -1,15 +1,43 @@
 const { validate } = require("../../middlewares/validate.middleware");
-const { survivorMatchSchema } = require("../../schemas/matches/survivor.match.schema");
-const { killerMatchSchema } = require("../../schemas/matches/killer.match.schema");
+const { survivorMatchSchema } = require("./survivor.match.schema");
+const { killerMatchSchema } = require("./killer.match.schema");
 
 const validateMatchByRole = (req, res, next) => {
     const { role } = req.body;
 
     if (role === "killer") {
+        const {
+            kills,
+            killerPerks,
+            killerAddons,
+            mapName
+        } = req.body;
+
+        req.body = {
+            kills,
+            killerPerks,
+            killerAddons,
+            mapName
+        };
+
         return validate(killerMatchSchema)(req, res, next);
     }
 
     if (role === "survivor") {
+        const {
+            survivors,
+            killerName,
+            killerPerks,
+            mapName
+        } = req.body;
+
+        req.body = {
+            survivors,
+            killerName,
+            killerPerks,
+            mapName
+        };
+
         return validate(survivorMatchSchema)(req, res, next);
     }
 

@@ -5,7 +5,7 @@ module.exports = (err, req, res, next) => {
         return res.status(err.status || 400).json({
             error: true,
             message: "Validation failed",
-            details: err.errors
+            details: err.issues
         });
     }
 
