@@ -1,4 +1,3 @@
-const { validate } = require("../../middlewares/validate.middleware");
 const { survivorMatchSchema } = require("./survivor.match.schema");
 const { killerMatchSchema } = require("./killer.match.schema");
 
@@ -6,39 +5,29 @@ const validateMatchByRole = (req, res, next) => {
     const { role } = req.body;
 
     if (role === "killer") {
-        const {
-            kills,
-            killerPerks,
-            killerAddons,
-            mapName
-        } = req.body;
-
-        req.body = {
-            kills,
-            killerPerks,
-            killerAddons,
-            mapName
+        const payload = {
+            kills: req.body.kills,
+            killerPerks: req.body.killerPerks,
+            killerAddons: req.body.killerAddons,
+            mapName: req.body.mapName
         };
 
-        return validate(killerMatchSchema)(req, res, next);
+        req.validatedData = killerMatchSchema.parse(payload);
+
+        return next();
     }
 
     if (role === "survivor") {
-        const {
-            survivors,
-            killerName,
-            killerPerks,
-            mapName
-        } = req.body;
-
-        req.body = {
-            survivors,
-            killerName,
-            killerPerks,
-            mapName
+        const payload = {
+            survivors: req.body.survivors,
+            killerName: req.body.killerName,
+            killerPerks: req.body.killerPerks,
+            mapName: req.body.mapName
         };
 
-        return validate(survivorMatchSchema)(req, res, next);
+        req.validatedData = survivorMatchSchema.parse(payload);
+
+        return next();
     }
 
     const err = new Error("Invalid role");
