@@ -16,7 +16,7 @@ export async function initSurvivorStreak({ group, matches, actions }) {
 
     const names = await survivorController.getSurvivorNames();
 
-    survivorUI.renderTable(names, matches || []);
+    survivorUI.renderTable(names, matches);
     await survivorController.handleRenderStats();
 
     survivorCore.initSurvivorCore();

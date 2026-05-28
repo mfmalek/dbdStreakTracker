@@ -6,7 +6,7 @@ import { killerListeners } from "../../Features/Killer Streak/killer.listeners.j
 export async function initKillerStreak({ group, matches, killerName, actions }) {
     await killerUI.initUI(group);
 
-    killerUI.renderTable(matches || []);
+    killerUI.renderTable(matches);
 
     await killerController.handleRenderStats();
 

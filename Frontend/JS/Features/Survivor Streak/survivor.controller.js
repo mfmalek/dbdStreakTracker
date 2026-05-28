@@ -9,7 +9,14 @@ import { matchesApi } from "../../API/matches.api.js";
 
 const base = createBaseController({
     renderTable: survivorUI.renderTable,
-    renderStats: sharedStatsUI.renderStats
+    renderStats: sharedStatsUI.renderStats,
+
+    refreshTable: async() => {
+        const names = await getSurvivorNames();
+        const matches = await matchesApi.getMatches();
+
+        survivorUI.renderTable(names, matches);
+    }
 });
 
 async function handleSaveConfigs(configs) {
