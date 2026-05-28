@@ -30,7 +30,7 @@ async function request(path, { method = "GET", body, query } = {}) {
     if (!res.ok) {
         const err = await res.text();
         console.error(`${method} ${path} ERROR:`, err);
-        throw new Error(err);
+        throw err;
     }
     return res.status !== 204 ? res.json() : null;
 }
