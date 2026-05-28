@@ -1,5 +1,9 @@
 const prisma = require('../../config/prisma');
 const { updateBestStreak } = require("../streak/streak.service");
+const BadRequestError = require("../../errors/bad.request.error");
+const UnauthorizedError = require("../../errors/unauthorized.error");
+const ForbiddenError = require("../../errors/forbidden.error");
+const NotFoundError = require("../../errors/not.found.error");
 
 function getSafeKiller(role, killerName) {
     return role === "killer" ? killerName : "__survivor__";
@@ -9,7 +13,7 @@ function buildWhere(user, mode, groupId, role, killerName) {
     const safeKiller = getSafeKiller(role, killerName);
 
     if (role === "killer" && !killerName) {
-        throw new Error("killerName is required for killer matches");
+        throw new BadRequestError(`"killerName" is required for killer match`);
     }
 
     return {
@@ -24,11 +28,11 @@ function buildWhere(user, mode, groupId, role, killerName) {
 
 const getMatches = async (user, mode, role, killerName, groupId) => {
     if (role === "killer" && !killerName) {
-        throw new Error("killerName is required for getting matches");
+        throw new BadRequestError(`"killerName" is required for getting match`);
     }
 
     if (!role) {
-        throw new Error("role is required for getting matches");
+        throw new BadRequestError(`"role" is required for getting match`);
     }
 
     return await prisma.match.findMany({
@@ -53,12 +57,12 @@ const createMatch = async (data) => {
 
     const safeKiller = getSafeKiller(role, contextKillerName);
 
-    if (role === "killer" && !contextKillerName) {
-        throw new Error("killerName is required for creating killer matches");
+    if (!role) {
+        throw new BadRequestError(`"role" is required for creating match`);
     }
 
-    if (!role) {
-        throw new Error("role is required for creating matches");
+    if (role === "killer" && !contextKillerName) {
+        throw new BadRequestError(`"killerName" is required for creating killer match`);
     }
 
     const result = calculateResult(matchData, mode, role);
@@ -109,12 +113,12 @@ const updateMatch = async (id, user, matchData) => {
     });
 
     if (!existingMatch) {
-        throw new Error("Match not found");
+        throw new NotFoundError("Match not found while updating match");
     }
 
     if (!existingMatch.groupId) {
         if (existingMatch.user !== user) {
-            throw new Error("Unauthorized");
+            throw new UnauthorizedError("Unauthorized attempt of updating match");
         }
     }
 
@@ -127,7 +131,7 @@ const updateMatch = async (id, user, matchData) => {
         });
 
         if (!member) {
-            throw new Error("Not part of group");
+            throw new ForbiddenError("Not part of group to update match");
         }
     }
 
@@ -200,12 +204,12 @@ const deleteMatch = async (id, user) => {
     });
 
     if (!match) {
-        throw new Error("Match not found");
+        throw new NotFoundError("Match not found while deleting match");
     }
 
     if (!match.groupId) {
         if (match.user !== user) {
-            throw new Error("Unauthorized");
+            throw new UnauthorizedError("Unauthorized attempt of deleting match");
         }
     }
 
@@ -218,7 +222,7 @@ const deleteMatch = async (id, user) => {
         });
 
         if (!member) {
-            throw new Error("Not part of group");
+            throw new ForbiddenError("Not part of group to delete match");
         }
     }
 

@@ -1,3 +1,5 @@
+const BadRequestError = require("../errors/bad.request.error");
+
 const validate = (schema) => {
     return (req, res, next) => {
         try {
@@ -5,8 +7,12 @@ const validate = (schema) => {
 
             next();
         } catch (error) {
-            error.status = 400;
-            next(error);
+            next(
+                new BadRequestError(
+                    "Validation failed",
+                    error.issues
+                )
+            );
         }
     };
 };

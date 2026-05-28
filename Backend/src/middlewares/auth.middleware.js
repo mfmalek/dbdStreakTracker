@@ -1,3 +1,4 @@
+const UnauthorizedError = require("../errors/unauthorized.error");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -9,7 +10,7 @@ const authMiddleware = (req, res, next) => {
     const header = req.headers.authorization;
 
     if (!header) {
-        return res.status(401).json({ error: "No token provided" });
+        return next(new UnauthorizedError("No token provided"));
     }
 
     const token = header.split(" ")[1];
@@ -20,7 +21,7 @@ const authMiddleware = (req, res, next) => {
         req.user = decoded;
         next();
     } catch (err) {
-        return res.status(401).json({ error: "Invalid token" });
+        return next(new UnauthorizedError("Invalid token"));
     }
 };
 
