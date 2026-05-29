@@ -1,22 +1,26 @@
-const BadRequestError = require("../errors/bad.request.error");
-
-const validate = (schema) => {
+const validateBody = (schema) => {
     return (req, res, next) => {
-        try {
-            req.validatedData = schema.parse(req.body);
+        req.validatedBody = schema.parse(req.body);
+        next();
+    };
+};
 
-            next();
-        } catch (error) {
-            next(
-                new BadRequestError(
-                    "Validation failed",
-                    error.issues
-                )
-            );
-        }
+const validateQuery = (schema) => {
+    return (req, res, next) => {
+        req.validatedQuery = schema.parse(req.query);
+        next();
+    };
+};
+
+const validateParams = (schema) => {
+    return (req, res, next) => {
+        req.validatedParams = schema.parse(req.params);
+        next();
     };
 };
 
 module.exports = {
-    validate
+    validateBody,
+    validateQuery,
+    validateParams
 };
