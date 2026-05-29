@@ -6,6 +6,7 @@ const roleSchema = z.enum([
 ]);
 
 const modeSchema = z.enum([
+    "killer",
     "solo",
     "duo",
     "trio",

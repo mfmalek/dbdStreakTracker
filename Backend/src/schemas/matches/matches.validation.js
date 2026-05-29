@@ -6,12 +6,28 @@ const validateMatchByRole = (req, res, next) => {
     const { role } = req.body;
 
     if (role === "killer") {
-        req.validatedBody = killerMatchSchema.parse(req.body);
+        const payload = {
+            kills: req.body.kills,
+            killerPerks: req.body.killerPerks,
+            killerAddons: req.body.killerAddons,
+            mapName: req.body.mapName
+        };
+
+        req.validatedBody = killerMatchSchema.parse(payload);
+
         return next();
     }
 
     if (role === "survivor") {
-        req.validatedBody = survivorMatchSchema.parse(req.body);
+        const payload = {
+            survivors: req.body.survivors,
+            killerName: req.body.killerName,
+            killerPerks: req.body.killerPerks,
+            mapName: req.body.mapName
+        };
+
+        req.validatedBody = survivorMatchSchema.parse(payload);
+
         return next();
     }
 
