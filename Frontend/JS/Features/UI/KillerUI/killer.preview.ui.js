@@ -4,7 +4,7 @@ function createMatchPreview(match) {
     if (!match) return "Match not found.";
 
     return `
-        Kills: ${match.result === "win" ? "[✅]" : "[☠️]"} ${match.kills ?? "N/A"}
+        \tKills: ${match.result === "win" ? "[✅]" : "[☠️]"} ${match.kills ?? "N/A"}
         Perks: ${sharedPreviewUI.formatPerks(match.killerPerks)}
         Add-ons: ${sharedPreviewUI.formatAddons(match.killerAddons)}
         Map: ${sharedPreviewUI.formatMap(match.mapName)}

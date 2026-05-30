@@ -1,9 +1,9 @@
-const { ZodError } = require("zod");
+const { ZodError: NativeZodError } = require("zod");
 
 module.exports = (err, req, res, next) => {
     console.error(err);
 
-    if (err instanceof ZodError) {
+    if (err instanceof NativeZodError) {
         return res.status(400).json({
             error: true,
             message: "Validation failed",
