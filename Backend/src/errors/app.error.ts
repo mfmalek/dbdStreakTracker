@@ -1,5 +1,8 @@
 class AppError extends Error {
-    constructor(message, status = 500, details = null) {
+    status: number;
+    details: unknown;
+
+    constructor(message: string, status: number = 500, details: unknown = null) {
         super(message);
 
         this.name = this.constructor.name;
@@ -10,4 +13,4 @@ class AppError extends Error {
     }
 }
 
-module.exports = AppError;
+export default AppError;

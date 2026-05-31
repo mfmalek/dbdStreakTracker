@@ -1,6 +1,7 @@
+import BadRequestError from "../../errors/bad.request.error";
+import NotFoundError from "../../errors/not.found.error";
+
 const prisma = require("../../config/prisma");
-const BadRequestError = require("../../errors/bad.request.error");
-const NotFoundError = require("../../errors/not.found.error");
 
 function getSafeKiller(role, killerName) {
     return role === "killer" ? killerName : "__survivor__";

@@ -1,6 +1,7 @@
+import BadRequestError from "../../errors/bad.request.error";
+
 const { survivorMatchSchema } = require("./survivor.match.schema");
 const { killerMatchSchema } = require("./killer.match.schema");
-const BadRequestError = require("../../errors/bad.request.error");
 
 const validateMatchByRole = (req, res, next) => {
     const { role } = req.body;

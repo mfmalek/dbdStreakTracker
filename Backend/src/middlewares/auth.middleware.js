@@ -1,4 +1,5 @@
-const UnauthorizedError = require("../errors/unauthorized.error");
+import UnauthorizedError from "../errors/unauthorized.error";
+
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 

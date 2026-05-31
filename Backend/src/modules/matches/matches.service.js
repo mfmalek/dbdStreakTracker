@@ -1,9 +1,10 @@
+import BadRequestError from "../../errors/bad.request.error";
+import ForbiddenError from "../../errors/forbidden.error";
+import NotFoundError from "../../errors/not.found.error";
+import UnauthorizedError from "../../errors/unauthorized.error";
+
 const prisma = require('../../config/prisma');
 const { updateBestStreak } = require("../streak/streak.service");
-const BadRequestError = require("../../errors/bad.request.error");
-const UnauthorizedError = require("../../errors/unauthorized.error");
-const ForbiddenError = require("../../errors/forbidden.error");
-const NotFoundError = require("../../errors/not.found.error");
 
 function getSafeKiller(role, killerName) {
     return role === "killer" ? killerName : "__survivor__";

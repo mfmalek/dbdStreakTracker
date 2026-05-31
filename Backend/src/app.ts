@@ -1,12 +1,13 @@
-const express = require('express');
-const cors = require('cors');
+import express from "express";
+import cors from "cors";
+
 const app = express();
 
 const authRoutes = require("./modules/auth/auth.routes");
 const survivorRoutes = require("./modules/survivors/survivors.routes");
 const groupRoutes = require("./modules/groups/groups.routes");
 const presetsRoutes = require("./modules/presets/presets.routes");
-const matchesRoutes = require('./modules/matches/matches.routes');
+const matchesRoutes = require("./modules/matches/matches.routes");
 const streakRoutes = require("./modules/streak/streak.routes");
 const errorMiddleware = require("./middlewares/error.middleware");
 const NotFoundError = require("./errors/not.found.error");
@@ -16,13 +17,14 @@ app.get("/api/health", (req, res) => {
     res.status(200).json({ status: "ok" });
 });
 
-app.use(cors({origin: "*",}));
+app.use(cors({ origin: "*" }));
 app.use(express.json());
+
 app.use("/api/auth", authRoutes);
 app.use("/api/survivors", survivorRoutes);
 app.use("/api/groups", groupRoutes);
 app.use("/api/presets", presetsRoutes);
-app.use('/api/matches', matchesRoutes);
+app.use("/api/matches", matchesRoutes);
 app.use("/api/streak", streakRoutes);
 
 app.use((req, res, next) => {
@@ -31,4 +33,4 @@ app.use((req, res, next) => {
 
 app.use(errorMiddleware);
 
-module.exports = app;
+export default app;

@@ -1,5 +1,6 @@
+import BadRequestError from "../errors/bad.request.error";
+
 const { ZodError } = require("zod");
-const BadRequestError = require("../errors/bad.request.error");
 
 function createValidator(source, target) {
     return (schema) => {
