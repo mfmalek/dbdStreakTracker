@@ -1,6 +1,5 @@
+import prisma from "../../config/prisma";
 import BadRequestError from "../../errors/bad.request.error";
-
-const prisma = require("../../config/prisma");
 
 function getSafeKiller(role, killerName) {
     return role === "killer" ? killerName : "__survivor__";

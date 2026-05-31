@@ -1,9 +1,9 @@
+import prisma from "../../config/prisma";
 import BadRequestError from "../../errors/bad.request.error";
 import ForbiddenError from "../../errors/forbidden.error";
 import NotFoundError from "../../errors/not.found.error";
 import UnauthorizedError from "../../errors/unauthorized.error";
 
-const prisma = require('../../config/prisma');
 const { updateBestStreak } = require("../streak/streak.service");
 
 function getSafeKiller(role, killerName) {

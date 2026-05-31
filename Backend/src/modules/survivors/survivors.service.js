@@ -1,4 +1,4 @@
-const prisma = require("../../config/prisma");
+import prisma from "../../config/prisma";
 
 const getConfigs = async (user, mode) => {
     return await prisma.survivorConfig.findMany({

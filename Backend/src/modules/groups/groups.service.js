@@ -1,8 +1,7 @@
+import prisma from "../../config/prisma";
 import BadRequestError from "../../errors/bad.request.error";
 import ForbiddenError from "../../errors/forbidden.error";
 import NotFoundError from "../../errors/not.found.error";
-
-const prisma = require("../../config/prisma");
 
 const createGroup = async (username, mode) => {
     const existing = await prisma.groupMember.findUnique({

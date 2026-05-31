@@ -1,5 +1,6 @@
+import prisma from "../../config/prisma";
+
 const groupsService = require("./groups.service");
-const prisma = require("../../config/prisma");
 
 async function createGroup(req, res) {
     const username = req.user.username;

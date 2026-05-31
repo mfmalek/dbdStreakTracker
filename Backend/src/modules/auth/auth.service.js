@@ -1,8 +1,8 @@
 import BadRequestError from "../../errors/bad.request.error";
 import NotFoundError from "../../errors/not.found.error";
 import UnauthorizedError from "../../errors/unauthorized.error";
+import prisma from "../../config/prisma";
 
-const prisma = require("../../config/prisma");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
