@@ -5,7 +5,7 @@ const resetStreakSchema = z.object({
     mode: modeSchema,
     role: roleSchema,
     killerName: z.string().optional(),
-    groupId: z.number().int().positive().optional()
+    groupId: z.number().int().positive().nullish()
 }).strict();
 
 module.exports = {
