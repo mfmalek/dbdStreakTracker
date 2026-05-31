@@ -13,7 +13,7 @@ const validateMatchByRole = (req, res, next) => {
             mapName: req.body.mapName
         };
 
-        req.validatedBody = killerMatchSchema.parse(payload);
+        req.validatedPayload = killerMatchSchema.parse(payload);
 
         return next();
     }
@@ -26,7 +26,7 @@ const validateMatchByRole = (req, res, next) => {
             mapName: req.body.mapName
         };
 
-        req.validatedBody = survivorMatchSchema.parse(payload);
+        req.validatedPayload = survivorMatchSchema.parse(payload);
 
         return next();
     }

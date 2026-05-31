@@ -10,7 +10,7 @@ const getConfigs = async (req, res) => {
 
 const saveConfigs = async (req, res) => {
     const user = req.user.username;
-    const { mode, configs } = req.validatedData;
+    const { mode, configs } = req.validatedBody;
 
     await service.saveConfigs(user, mode, configs);
 

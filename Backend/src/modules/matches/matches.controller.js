@@ -9,7 +9,7 @@ const getMatches = async (req, res) => {
 
 const createMatch = async (req, res) => {
     const user = req.user.username;
-    const { mode, role, killerName, groupId, ...matchData } = { ...req.body, ...req.validatedData};
+    const { mode, role, killerName, groupId, ...matchData } = { ...req.body, ...req.validatedPayload};
     const newMatch = await matchesService.createMatch({
         user,
         mode,

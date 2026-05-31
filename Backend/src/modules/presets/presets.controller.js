@@ -9,7 +9,7 @@ const getPresets = async (req, res) => {
 
 const createPreset = async (req, res) => {
     const user = req.user.username;
-    const { mode, role, killerName, survivor, name, perks } = req.validatedData;
+    const { mode, role, killerName, survivor, name, perks } = req.validatedBody;
     const newPreset = await presetsService.createPreset({
         user,
         mode,

@@ -10,7 +10,7 @@ const getBestStreak = async (req, res) => {
 
 const resetBestStreak = async (req, res) => {
     const user = req.user.username;
-    const { mode, role, killerName, groupId } = req.validatedData;
+    const { mode, role, killerName, groupId } = req.validatedBody;
 
     await streakService.resetBestStreak(user, mode, role, killerName, groupId);
 
