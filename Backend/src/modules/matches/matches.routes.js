@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const matchesController = require('./matches.controller');
 const authMiddleware = require("../../middlewares/auth.middleware");
 const asyncHandler = require("../../utils/async.handler");
