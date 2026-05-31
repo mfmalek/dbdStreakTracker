@@ -31,7 +31,6 @@
     font-size: 18px;
     font-weight: bold;
     color: var(--text-light);
-    cursor: pointer;
 }
 
 #modeType {

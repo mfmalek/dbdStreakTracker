@@ -2,14 +2,14 @@ const presetsService = require("./presets.service");
 
 const getPresets = async (req, res) => {
     const user = req.user.username;
-    const { mode, role, killerName, survivor } = req.query;
+    const { mode, role, killerName, survivor } = req.validatedQuery;
     const presets = await presetsService.getPresets(user, mode, role, killerName, survivor);
     res.json(presets);
 };
 
 const createPreset = async (req, res) => {
     const user = req.user.username;
-    const { mode, role, killerName, survivor, name, perks } = req.body;
+    const { mode, role, killerName, survivor, name, perks } = req.validatedData;
     const newPreset = await presetsService.createPreset({
         user,
         mode,
