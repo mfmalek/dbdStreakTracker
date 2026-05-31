@@ -27,14 +27,6 @@ function buildWhere(user, mode, groupId, role, killerName) {
 }
 
 const getMatches = async (user, mode, role, killerName, groupId) => {
-    if (role === "killer" && !killerName) {
-        throw new BadRequestError(`"killerName" is required for getting match`);
-    }
-
-    if (!role) {
-        throw new BadRequestError(`"role" is required for getting match`);
-    }
-
     return await prisma.match.findMany({
         where: buildWhere(user, mode, groupId, role, killerName),
         orderBy: { createdAt: "asc" }
@@ -56,16 +48,8 @@ const createMatch = async (data) => {
     }
 
     const safeKiller = getSafeKiller(role, contextKillerName);
-
-    if (!role) {
-        throw new BadRequestError(`"role" is required for creating match`);
-    }
-
-    if (role === "killer" && !contextKillerName) {
-        throw new BadRequestError(`"killerName" is required for creating killer match`);
-    }
-
     const result = calculateResult(matchData, mode, role);
+
     const newMatch = await prisma.match.create({
         data: {
             user: groupId ? null : user,

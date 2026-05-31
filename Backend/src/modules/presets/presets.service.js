@@ -9,10 +9,6 @@ function getSafeKiller(role, killerName) {
 function buildWhere(user, mode, role, killerName, survivor) {
     const safeKiller = getSafeKiller(role, killerName);
 
-    if (!role) {
-        throw new BadRequestError(`"role" is required for preset`);
-    }
-
     if (role === "killer" && !killerName) {
         throw new BadRequestError(`"killerName" is required for killer preset`);
     }
@@ -42,10 +38,6 @@ const getPresets = async (user, mode, role, killerName, survivor) => {
 const createPreset = async (data) => {
     const { user, mode, role, killerName, survivor, name, perks } = data;
     const safeKiller = getSafeKiller(role, killerName);
-
-    if (!role) {
-        throw new BadRequestError(`"role" is required for creating preset`);
-    }
 
     if (role === "killer" && !killerName) {
         throw new BadRequestError(`"killerName" is required for killer preset`);

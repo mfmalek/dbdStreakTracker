@@ -56,10 +56,6 @@ const inviteUser = async (fromUser, toUser, groupId, mode) => {
         throw new BadRequestError("You cannot invite yourself");
     }
 
-    if (!mode) {
-        throw new BadRequestError("Mode is required for inviting user");
-    }
-
     let group;
     if (groupId) {
         group = await prisma.streakGroup.findUnique({
@@ -136,10 +132,6 @@ const getMyInvites = async (username) => {
 };
 
 const getMyGroup = async (username, mode) => {
-    if (!mode) {
-        throw new BadRequestError("Mode is required for getting user");
-    }
-
     const membership = await prisma.groupMember.findFirst({
         where: {
             username,

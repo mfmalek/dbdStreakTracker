@@ -39,6 +39,7 @@ const login = async (username, password) => {
     }
 
     const valid = await bcrypt.compare(password, user.password);
+
     if (!valid) {
         throw new UnauthorizedError("Invalid password");
     }
