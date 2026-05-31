@@ -4,9 +4,11 @@ const router = express.Router();
 const streakController = require("./streak.controller");
 const authMiddleware = require("../../middlewares/auth.middleware");
 const asyncHandler = require("../../utils/async.handler");
-const streakValidation = require("../../schemas/streak/streak.validation");
+const { validateBody, validateQuery } = require("../../middlewares/validate.middleware");
+const { streakQuerySchema } = require("../../schemas/streak/streak.query.schema");
+const { resetStreakSchema } = require("../../schemas/streak/streak.body.schema");
 
-router.get("/", authMiddleware, streakValidation.validateGetStreak, asyncHandler(streakController.getBestStreak));
-router.delete("/", authMiddleware, streakValidation.validateResetStreak, asyncHandler(streakController.resetBestStreak));
+router.get("/", authMiddleware, validateQuery(streakQuerySchema), asyncHandler(streakController.getBestStreak));
+router.delete("/", authMiddleware, validateBody(resetStreakSchema), asyncHandler(streakController.resetBestStreak));
 
 module.exports = router;

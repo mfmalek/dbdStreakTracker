@@ -3,7 +3,13 @@ const router = express.Router();
 
 const authMiddleware = require("../../middlewares/auth.middleware");
 const asyncHandler = require("../../utils/async.handler");
-const groupsValidation = require("../../schemas/groups/groups.validation");
+
+const { validateBody } = require("../../middlewares/validate.middleware");
+const { createGroupSchema } = require("../../schemas/groups/create.group.schema");
+const { inviteGroupSchema } = require("../../schemas/groups/invite.group.schema");
+const { acceptInviteSchema } = require("../../schemas/groups/accept.invite.schema");
+const { removeMemberSchema } = require("../../schemas/groups/remove.member.schema");
+const { leaveGroupSchema } = require("../../schemas/groups/leave.group.schema");
 
 const {
     createGroup,
@@ -16,13 +22,13 @@ const {
     leaveGroup
 } = require("./groups.controller");
 
-router.post("/", authMiddleware,  groupsValidation.validateCreateGroup, asyncHandler(createGroup));
-router.post("/invite", authMiddleware, groupsValidation.validateInviteUser, asyncHandler(inviteUser));
-router.post("/accept", authMiddleware, groupsValidation.validateAcceptInvite, asyncHandler(acceptInvite));
+router.post("/", authMiddleware,  validateBody(createGroupSchema), asyncHandler(createGroup));
+router.post("/invite", authMiddleware, validateBody(inviteGroupSchema), asyncHandler(inviteUser));
+router.post("/accept", authMiddleware, validateBody(acceptInviteSchema), asyncHandler(acceptInvite));
 router.get("/invites", authMiddleware, asyncHandler(getMyInvites));
 router.get("/me", authMiddleware, asyncHandler(getMyGroup));
 router.get("/:groupId/members", authMiddleware, asyncHandler(getGroupMembers));
-router.post("/remove", authMiddleware, groupsValidation.validateRemoveMember, asyncHandler(removeMember));
-router.post("/leave", authMiddleware, groupsValidation.validateLeaveGroup, asyncHandler(leaveGroup));
+router.post("/remove", authMiddleware, validateBody(removeMemberSchema), asyncHandler(removeMember));
+router.post("/leave", authMiddleware, validateBody(leaveGroupSchema), asyncHandler(leaveGroup));
 
 module.exports = router;

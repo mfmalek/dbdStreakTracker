@@ -1,23 +1,26 @@
-const validateBody = (schema) => {
-    return (req, res, next) => {
-        req.validatedBody = schema.parse(req.body);
-        next();
-    };
-};
+const { ZodError } = require("zod");
+const BadRequestError = require("../errors/bad.request.error");
 
-const validateQuery = (schema) => {
-    return (req, res, next) => {
-        req.validatedQuery = schema.parse(req.query);
-        next();
-    };
-};
+function createValidator(source, target) {
+    return (schema) => {
+        return (req, res, next) => {
+            try {
+                req[target] = schema.parse(req[source]);
+                next();
+            } catch (err) {
+                if (err instanceof ZodError) {
+                    return next(new BadRequestError("Validation failed", err.issues));
+                }
 
-const validateParams = (schema) => {
-    return (req, res, next) => {
-        req.validatedParams = schema.parse(req.params);
-        next();
+                next(err);
+            }
+        };
     };
-};
+}
+
+const validateBody = createValidator("body", "validatedBody");
+const validateQuery = createValidator("query", "validatedQuery");
+const validateParams = createValidator("params", "validatedParams");
 
 module.exports = {
     validateBody,
