@@ -3,14 +3,36 @@ import BadRequestError from "../../errors/bad.request.error";
 import ForbiddenError from "../../errors/forbidden.error";
 import NotFoundError from "../../errors/not.found.error";
 import UnauthorizedError from "../../errors/unauthorized.error";
+import { updateBestStreak } from "../streak/streak.service";
+import { Prisma } from "@prisma/client";
 
-const { updateBestStreak } = require("../streak/streak.service");
+type MatchResult = "win" | "loss";
 
-function getSafeKiller(role, killerName) {
-    return role === "killer" ? killerName : "__survivor__";
+interface SurvivorData {
+    survived: boolean;
 }
 
-function buildWhere(user, mode, groupId, role, killerName) {
+interface MatchData {
+    kills?: number;
+    survivors?: SurvivorData[];
+    killerName?: string;
+    [key: string]: unknown;
+}
+
+interface CreateMatchInput {
+    user: string;
+    mode: string;
+    role: string;
+    killerName?: string;
+    groupId?: number;
+    [key: string]: unknown;
+}
+
+function getSafeKiller(role: string, killerName?: string): string {
+    return role === "killer" ? killerName! : "__survivor__";
+}
+
+function buildWhere(user: string, mode: string, groupId: number | undefined, role: string, killerName?: string) {
     const safeKiller = getSafeKiller(role, killerName);
 
     if (role === "killer" && !killerName) {
@@ -27,14 +49,14 @@ function buildWhere(user, mode, groupId, role, killerName) {
     };
 }
 
-const getMatches = async (user, mode, role, killerName, groupId) => {
-    return await prisma.match.findMany({
+export const getMatches = async (user: string, mode: string, role: string, killerName?: string, groupId?: number) => {
+    return prisma.match.findMany({
         where: buildWhere(user, mode, groupId, role, killerName),
         orderBy: { createdAt: "asc" }
     });
 };
 
-const createMatch = async (data) => {
+export const createMatch = async (data: CreateMatchInput) => {
     const {
         user,
         mode,
@@ -45,22 +67,22 @@ const createMatch = async (data) => {
     } = data;
 
     if (role === "survivor") {
-        matchData.killerName = data.killerName;
+        (matchData as MatchData).killerName = contextKillerName;
     }
 
     const safeKiller = getSafeKiller(role, contextKillerName);
-    const result = calculateResult(matchData, mode, role);
+    const result = calculateResult(matchData as MatchData, mode, role);
 
     const newMatch = await prisma.match.create({
         data: {
             user: groupId ? null : user,
-            groupId: groupId || null,
+            groupId: groupId ?? null,
             createdBy: user,
             mode,
             role,
             killerName: safeKiller,
             result,
-            data: matchData
+            data: matchData as Prisma.InputJsonValue
         }
     });
 
@@ -89,10 +111,11 @@ const createMatch = async (data) => {
             groupId
         );
     }
+
     return newMatch;
 };
 
-const updateMatch = async (id, user, matchData) => {
+export const updateMatch = async (id: string | number, user: string, matchData: MatchData) => {
     const existingMatch = await prisma.match.findUnique({
         where: { id: Number(id) }
     });
@@ -130,7 +153,7 @@ const updateMatch = async (id, user, matchData) => {
         where: { id: Number(id) },
         data: {
             result,
-            data: matchData
+            data: matchData as Prisma.InputJsonValue
         }
     });
 
@@ -138,14 +161,15 @@ const updateMatch = async (id, user, matchData) => {
         where: buildWhere(
             user,
             existingMatch.mode,
-            existingMatch.groupId,
+            existingMatch.groupId ?? undefined,
             existingMatch.role,
-            existingMatch.killerName
+            existingMatch.killerName ?? undefined
         ),
         orderBy: { createdAt: "asc" }
     });
 
     const bestStreak = calculateBestStreak(matches);
+    const safeKiller = getSafeKiller(existingMatch.role, existingMatch.killerName ?? undefined);
 
     await prisma.streak.upsert({
         where: existingMatch.groupId
@@ -154,7 +178,7 @@ const updateMatch = async (id, user, matchData) => {
                     groupId: existingMatch.groupId,
                     mode: existingMatch.mode,
                     role: existingMatch.role,
-                    killerName: existingMatch.killerName
+                    killerName: existingMatch.killerName ?? safeKiller
                 }
             }
             : {
@@ -162,17 +186,15 @@ const updateMatch = async (id, user, matchData) => {
                     user,
                     mode: existingMatch.mode,
                     role: existingMatch.role,
-                    killerName: existingMatch.killerName
+                    killerName: existingMatch.killerName ?? safeKiller
                 }
             },
-
         update: {
             best: bestStreak
         },
-
         create: {
             user: existingMatch.groupId ? null : user,
-            groupId: existingMatch.groupId || null,
+            groupId: existingMatch.groupId ?? null,
             mode: existingMatch.mode,
             role: existingMatch.role,
             killerName: existingMatch.killerName,
@@ -183,7 +205,7 @@ const updateMatch = async (id, user, matchData) => {
     return updatedMatch;
 };
 
-const deleteMatch = async (id, user) => {
+export const deleteMatch = async (id: string | number, user: string) => {
     const match = await prisma.match.findUnique({
         where: { id: Number(id) }
     });
@@ -216,11 +238,13 @@ const deleteMatch = async (id, user) => {
     });
 
     const { mode, groupId, role, killerName } = match;
-    const safeKiller = getSafeKiller(role, killerName);
+    const safeKiller = getSafeKiller(role, killerName ?? undefined);
+
     const matches = await prisma.match.findMany({
-        where: buildWhere(user, mode, groupId, role, killerName),
+        where: buildWhere(user, mode, groupId ?? undefined, role, killerName ?? undefined),
         orderBy: { createdAt: "asc" }
     });
+
     const bestStreak = calculateBestStreak(matches);
 
     await prisma.streak.upsert({
@@ -244,48 +268,59 @@ const deleteMatch = async (id, user) => {
         update: { best: bestStreak },
         create: {
             user: groupId ? null : user,
-            groupId: groupId || null,
+            groupId: groupId ?? null,
             mode,
             role,
             killerName: safeKiller,
             best: bestStreak
         }
     });
+
     return match;
 };
 
-const clearMatches = async (user, mode, role, killerName, groupId) => {
-    return await prisma.match.deleteMany({
+export const clearMatches = async (user: string, mode: string, role: string, killerName?: string, groupId?: number) => {
+    return prisma.match.deleteMany({
         where: buildWhere(user, mode, groupId, role, killerName)
     });
 };
 
-function calculateKillerResult(matchData) {
-    const kills = matchData.kills || 0;
+function calculateKillerResult(matchData: MatchData): MatchResult {
+    const kills = Number(matchData.kills ?? 0);
     return kills >= 3 ? "win" : "loss";
 }
 
-function calculateSurvivorResult(matchData, mode) {
-    const survivors = matchData.survivors || [];
+function calculateSurvivorResult(matchData: MatchData, mode: string): MatchResult {
+    const survivors = matchData.survivors ?? [];
     const escapedCount = survivors.filter(s => s.survived).length;
 
     switch (mode) {
-        case "solo": return escapedCount === 1 ? "win" : "loss";
-        case "duo": return escapedCount >= 1 ? "win" : "loss";
-        case "trio": return escapedCount >= 2 ? "win" : "loss";
-        case "squad": return escapedCount >= 3 ? "win" : "loss";
-        default: return "loss";
+        case "solo":
+            return escapedCount === 1 ? "win" : "loss";
+
+        case "duo":
+            return escapedCount >= 1 ? "win" : "loss";
+
+        case "trio":
+            return escapedCount >= 2 ? "win" : "loss";
+
+        case "squad":
+            return escapedCount >= 3 ? "win" : "loss";
+
+        default:
+            return "loss";
     }
 }
 
-function calculateResult(matchData, mode, role) {
+export function calculateResult(matchData: MatchData, mode: string, role: string): MatchResult {
     if (role === "killer") {
         return calculateKillerResult(matchData);
     }
+
     return calculateSurvivorResult(matchData, mode);
 }
 
-function calculateCurrentStreak(matches) {
+function calculateCurrentStreak(matches: { result: string }[]): number {
     let streak = 0;
 
     for (let i = matches.length - 1; i >= 0; i--) {
@@ -295,10 +330,11 @@ function calculateCurrentStreak(matches) {
             break;
         }
     }
+
     return streak;
 }
 
-function calculateBestStreak(matches) {
+function calculateBestStreak(matches: { result: string }[]): number {
     let best = 0;
     let temp = 0;
 
@@ -310,14 +346,6 @@ function calculateBestStreak(matches) {
             temp = 0;
         }
     }
+
     return best;
 }
-
-module.exports = {
-    getMatches,
-    createMatch,
-    updateMatch,
-    deleteMatch,
-    clearMatches,
-    calculateResult
-};

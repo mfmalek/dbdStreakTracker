@@ -8,6 +8,7 @@ declare global {
             validatedBody?: unknown;
             validatedQuery?: unknown;
             validatedParams?: unknown;
+            validatedPayload?: unknown;
         }
     }
 }
