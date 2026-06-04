@@ -2,11 +2,11 @@ import prisma from "../../config/prisma";
 import BadRequestError from "../../errors/bad.request.error";
 import NotFoundError from "../../errors/not.found.error";
 
-function getSafeKiller(role, killerName) {
-    return role === "killer" ? killerName : "__survivor__";
+function getSafeKiller(role: string, killerName?: string): string {
+    return role === "killer" ? killerName! : "__survivor__";
 }
 
-function buildWhere(user, mode, role, killerName, survivor) {
+function buildWhere(user: string, mode: string, role: string, killerName?: string, survivor?: number | string) {
     const safeKiller = getSafeKiller(role, killerName);
 
     if (role === "killer" && !killerName) {
@@ -28,14 +28,24 @@ function buildWhere(user, mode, role, killerName, survivor) {
     };
 }
 
-const getPresets = async (user, mode, role, killerName, survivor) => {
-    return await prisma.preset.findMany({
+export async function getPresets(user: string, mode: string, role: string, killerName?: string, survivor?: number | string) {
+    return prisma.preset.findMany({
         where: buildWhere(user, mode, role, killerName, survivor),
         orderBy: { createdAt: "asc" }
     });
-};
+}
 
-const createPreset = async (data) => {
+export interface CreatePresetInput {
+    user: string;
+    mode: string;
+    role: string;
+    killerName?: string;
+    survivor?: number | string;
+    name: string;
+    perks: string[];
+}
+
+export async function createPreset(data: CreatePresetInput) {
     const { user, mode, role, killerName, survivor, name, perks } = data;
     const safeKiller = getSafeKiller(role, killerName);
 
@@ -47,7 +57,7 @@ const createPreset = async (data) => {
         throw new BadRequestError(`"survivor" is required for survivor preset`);
     }
 
-    return await prisma.preset.create({
+    return prisma.preset.create({
         data: {
             user,
             mode,
@@ -58,9 +68,9 @@ const createPreset = async (data) => {
             perks
         }
     });
-};
+}
 
-const deletePreset = async (id, user) => {
+export async function deletePreset(id: string | number, user: string): Promise<boolean> {
     const deleted = await prisma.preset.deleteMany({
         where: {
             id: Number(id),
@@ -71,11 +81,6 @@ const deletePreset = async (id, user) => {
     if (deleted.count === 0) {
         throw new NotFoundError("Preset not found");
     }
-    return true;
-};
 
-module.exports = {
-    getPresets,
-    createPreset,
-    deletePreset
-};
+    return true;
+}

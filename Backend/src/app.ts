@@ -3,14 +3,14 @@ import cors from "cors";
 import errorMiddleware from "./middlewares/error.middleware";
 import authRoutes from "./modules/auth/auth.routes";
 import survivorRoutes from "./modules/survivors/survivors.routes";
+import presetsRoutes from "./modules/presets/presets.routes";
 import streakRoutes from "./modules/streak/streak.routes";
+import NotFoundError from "./errors/not.found.error";
 
 const app = express();
 
 const groupRoutes = require("./modules/groups/groups.routes");
-const presetsRoutes = require("./modules/presets/presets.routes");
 const matchesRoutes = require("./modules/matches/matches.routes");
-const NotFoundError = require("./errors/not.found.error");
 
 app.get("/api/health", (req, res) => {
     console.log("Health check ping");
