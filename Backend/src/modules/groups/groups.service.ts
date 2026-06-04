@@ -3,7 +3,7 @@ import BadRequestError from "../../errors/bad.request.error";
 import ForbiddenError from "../../errors/forbidden.error";
 import NotFoundError from "../../errors/not.found.error";
 
-const createGroup = async (username, mode) => {
+export async function createGroup(username: string, mode: string) {
     const existing = await prisma.groupMember.findUnique({
         where: {
             username_mode: {
@@ -33,17 +33,10 @@ const createGroup = async (username, mode) => {
         }
     });
 
-    await prisma.streak.create({
-        data: {
-            groupId: group.id,
-            mode,
-            best: 0
-        }
-    });
     return group;
-};
+}
 
-const inviteUser = async (fromUser, toUser, groupId, mode) => {
+export async function inviteUser(fromUser: string, toUser: string, groupId: number | null, mode: string) {
     const userExists = await prisma.user.findUnique({
         where: { username: toUser }
     });
@@ -57,9 +50,10 @@ const inviteUser = async (fromUser, toUser, groupId, mode) => {
     }
 
     let group;
+
     if (groupId) {
         group = await prisma.streakGroup.findUnique({
-            where: { id: groupId }
+            where: { id: Number(groupId) }
         });
 
         if (!group) {
@@ -117,9 +111,9 @@ const inviteUser = async (fromUser, toUser, groupId, mode) => {
             groupId: group.id
         }
     });
-};
+}
 
-const getMyInvites = async (username) => {
+export async function getMyInvites(username: string) {
     return prisma.groupInvite.findMany({
         where: {
             toUser: username,
@@ -129,9 +123,9 @@ const getMyInvites = async (username) => {
             group: true
         }
     });
-};
+}
 
-const getMyGroup = async (username, mode) => {
+export async function getMyGroup(username: string, mode: string) {
     const membership = await prisma.groupMember.findFirst({
         where: {
             username,
@@ -145,12 +139,13 @@ const getMyGroup = async (username, mode) => {
     if (!membership) {
         return null;
     }
-    return membership.StreakGroup;
-};
 
-const acceptInvite = async (username, inviteId) => {
+    return membership.StreakGroup;
+}
+
+export async function acceptInvite(username: string, inviteId: number) {
     const invite = await prisma.groupInvite.findUnique({
-        where: { id: inviteId },
+        where: { id: Number(inviteId) },
         include: { group: true }
     });
 
@@ -180,24 +175,25 @@ const acceptInvite = async (username, inviteId) => {
     });
 
     await prisma.groupInvite.update({
-        where: { id: inviteId },
+        where: { id: Number(inviteId) },
         data: { status: "accepted" }
     });
-    return { success: true };
-};
 
-const getGroupMembers = async (groupId) => {
+    return { success: true };
+}
+
+export async function getGroupMembers(groupId: number) {
     return prisma.groupMember.findMany({
         where: { groupId },
         select: {
             username: true
         }
     });
-};
+}
 
-const removeMember = async (owner, groupId, targetUser) => {
+export async function removeMember(owner: string, groupId: number, targetUser: string) {
     const group = await prisma.streakGroup.findUnique({
-        where: { id: groupId }
+        where: { id: Number(groupId) }
     });
 
     if (!group) {
@@ -220,12 +216,13 @@ const removeMember = async (owner, groupId, targetUser) => {
             }
         }
     });
-    return { success: true };
-};
 
-const leaveGroup = async (username, groupId) => {
+    return { success: true };
+}
+
+export async function leaveGroup(username: string, groupId: number) {
     const group = await prisma.streakGroup.findUnique({
-        where: { id: groupId }
+        where: { id: Number(groupId) }
     });
 
     if (!group) {
@@ -244,16 +241,6 @@ const leaveGroup = async (username, groupId) => {
             }
         }
     });
-    return { success: true };
-};
 
-module.exports = {
-    createGroup,
-    inviteUser,
-    getMyInvites,
-    getMyGroup,
-    acceptInvite,
-    getGroupMembers,
-    removeMember,
-    leaveGroup
-};
+    return { success: true };
+}
