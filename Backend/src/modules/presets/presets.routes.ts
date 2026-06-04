@@ -3,9 +3,8 @@ import * as presetsController from "./presets.controller";
 import authMiddleware from "../../middlewares/auth.middleware";
 import asyncHandler from "../../utils/async.handler";
 import { validateBody, validateQuery } from "../../middlewares/validate.middleware";
-
-const { createPresetSchema } = require("../../schemas/presets/preset.schema");
-const { getPresetsQuerySchema } = require("../../schemas/presets/presets.query.schema");
+import { createPresetSchema } from "../../schemas/presets/preset.schema";
+import { getPresetsQuerySchema } from "../../schemas/presets/presets.query.schema";
 
 const router = Router();
 

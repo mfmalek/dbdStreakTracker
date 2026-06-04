@@ -1,7 +1,7 @@
-const { z } = require("zod");
-const { roleSchema, modeSchema } = require("../common/match.enums");
+import { z } from "zod";
+import { roleSchema, modeSchema } from "../common/match.enums";
 
-const createPresetSchema = z.object({
+export const createPresetSchema = z.object({
     mode: modeSchema,
     role: roleSchema,
     killerName: z.string().optional(),
@@ -9,7 +9,3 @@ const createPresetSchema = z.object({
     name: z.string().min(1).max(30),
     perks: z.array(z.string()).max(4)
 }).strict();
-
-module.exports = {
-    createPresetSchema
-};

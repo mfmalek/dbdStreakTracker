@@ -1,10 +1,10 @@
+import { Request, Response, NextFunction } from "express";
 import BadRequestError from "../../errors/bad.request.error";
+import { survivorMatchSchema } from "./survivor.match.schema";
+import { killerMatchSchema } from "./killer.match.schema";
 
-const { survivorMatchSchema } = require("./survivor.match.schema");
-const { killerMatchSchema } = require("./killer.match.schema");
-
-const validateMatchByRole = (req, res, next) => {
-    const { role } = req.body;
+export const validateMatchByRole = (req: Request, _res: Response, next: NextFunction): void => {
+    const { role } = req.body as { role?: string };
 
     if (role === "killer") {
         const payload = {
@@ -16,7 +16,8 @@ const validateMatchByRole = (req, res, next) => {
 
         req.validatedPayload = killerMatchSchema.parse(payload);
 
-        return next();
+        next();
+        return;
     }
 
     if (role === "survivor") {
@@ -29,12 +30,9 @@ const validateMatchByRole = (req, res, next) => {
 
         req.validatedPayload = survivorMatchSchema.parse(payload);
 
-        return next();
+        next();
+        return;
     }
 
     throw new BadRequestError("Invalid role");
-};
-
-module.exports = {
-    validateMatchByRole
 };
