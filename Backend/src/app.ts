@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import errorMiddleware from "./middlewares/error.middleware";
 
 const app = express();
 
@@ -9,7 +10,6 @@ const groupRoutes = require("./modules/groups/groups.routes");
 const presetsRoutes = require("./modules/presets/presets.routes");
 const matchesRoutes = require("./modules/matches/matches.routes");
 const streakRoutes = require("./modules/streak/streak.routes");
-const errorMiddleware = require("./middlewares/error.middleware");
 const NotFoundError = require("./errors/not.found.error");
 
 app.get("/api/health", (req, res) => {
