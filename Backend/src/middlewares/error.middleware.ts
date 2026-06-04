@@ -1,14 +1,16 @@
-const { ZodError: NativeZodError } = require("zod");
+import { Request, Response, NextFunction } from "express";
+import { ZodError } from "zod";
 
-module.exports = (err, req, res, next) => {
+const errorMiddleware = (err: any, req: Request, res: Response, next: NextFunction): void => {
     console.error(err);
 
-    if (err instanceof NativeZodError) {
-        return res.status(400).json({
+    if (err instanceof ZodError) {
+        res.status(400).json({
             error: true,
             message: "Validation failed",
             details: err.issues
         });
+        return;
     }
 
     res.status(err.status || 500).json({
@@ -17,3 +19,5 @@ module.exports = (err, req, res, next) => {
         details: err.details || null
     });
 };
+
+export default errorMiddleware;
