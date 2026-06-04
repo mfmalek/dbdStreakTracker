@@ -1,17 +1,17 @@
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import prisma from "../../config/prisma";
 import BadRequestError from "../../errors/bad.request.error";
 import NotFoundError from "../../errors/not.found.error";
 import UnauthorizedError from "../../errors/unauthorized.error";
-import prisma from "../../config/prisma";
 
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 if (!JWT_SECRET) {
     throw new Error("JWT_SECRET is not defined");
 }
 
-const register = async (username, password) => {
+export const register = async (username: string, password: string) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     try {
@@ -22,7 +22,7 @@ const register = async (username, password) => {
             }
         });
     } catch (err) {
-        if (err.code === "P2002") {
+        if (typeof err === "object" && err !== null && "code" in err && err.code === "P2002") {
             throw new BadRequestError(`Username "${username}" is already taken`);
         }
 
@@ -30,7 +30,7 @@ const register = async (username, password) => {
     }
 };
 
-const login = async (username, password) => {
+export const login = async (username: string, password: string) => {
     const user = await prisma.user.findUnique({
         where: { username }
     });
@@ -50,10 +50,6 @@ const login = async (username, password) => {
         JWT_SECRET,
         { expiresIn: "7d" }
     );
-    return { token };
-};
 
-module.exports = {
-    register,
-    login
+    return { token };
 };

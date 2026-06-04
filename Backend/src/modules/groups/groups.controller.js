@@ -1,5 +1,3 @@
-import prisma from "../../config/prisma";
-
 const groupsService = require("./groups.service");
 
 async function createGroup(req, res) {

@@ -1,15 +1,15 @@
 import express from "express";
 import cors from "cors";
 import errorMiddleware from "./middlewares/error.middleware";
+import authRoutes from "./modules/auth/auth.routes";
+import survivorRoutes from "./modules/survivors/survivors.routes";
+import streakRoutes from "./modules/streak/streak.routes";
 
 const app = express();
 
-const authRoutes = require("./modules/auth/auth.routes");
-const survivorRoutes = require("./modules/survivors/survivors.routes");
 const groupRoutes = require("./modules/groups/groups.routes");
 const presetsRoutes = require("./modules/presets/presets.routes");
 const matchesRoutes = require("./modules/matches/matches.routes");
-const streakRoutes = require("./modules/streak/streak.routes");
 const NotFoundError = require("./errors/not.found.error");
 
 app.get("/api/health", (req, res) => {
