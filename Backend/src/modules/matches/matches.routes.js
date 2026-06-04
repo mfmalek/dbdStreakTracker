@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const matchesController = require('./matches.controller');
-const authMiddleware = require("../../middlewares/auth.middleware");
+const authMiddleware = require("../../middlewares/auth.middleware").default;
 const asyncHandler = require("../../utils/async.handler");
 const matchValidation = require("../../schemas/matches/matches.validation");
 const { validateQuery, validateParams } = require("../../middlewares/validate.middleware");
