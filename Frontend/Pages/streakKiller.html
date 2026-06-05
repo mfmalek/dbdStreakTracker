@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DBD Escape Streak Tracker - Killer</title>
     <link rel="icon" type="image/x-icon" href="/Images/Miscellaneous/Logo_DBD.ico">
-    <link rel="stylesheet" href="/CSS/streak.core.css">
-    <link rel="stylesheet" href="/CSS/streak.layout.css">
-    <link rel="stylesheet" href="/CSS/streak.components.css">
+    <link rel="stylesheet" href="../CSS/streak.core.css">
+    <link rel="stylesheet" href="../CSS/streak.layout.css">
+    <link rel="stylesheet" href="../CSS/streak.components.css">
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet" />
 </head>
 
 <body data-page="streak" data-mode="killer">
     <div id="loadingScreen">Loading...</div>
-    
+
     <div id="navbar">
         <div class="navLeft">
             <button id="homeButton">Home</button>
@@ -74,6 +74,14 @@
                             <select id="killerAddon2"></select>
                         </div>
                     </div>
+                    <div class="presetControls">
+                        <input type="text" placeholder="Preset Name" id="presetNameKiller">
+                        <button class="presetButton" id="savePresetKiller">Save Preset</button>
+                        <select id="presetListKiller">
+                            <option value="">Load Preset</option>
+                        </select>
+                        <button class="presetButton" id="deletePresetKiller">Delete Preset</button>
+                    </div>
                     <div class="mapImageSection">
                         <img id="mapImage" src="/Images/Maps/Map_GenericMapBackground.png" alt="DBD Map">
                     </div>
@@ -95,7 +103,7 @@
                     <select id="mapName" placeholder="Select Map"></select>
                 </div>
             </div>
-            
+
             <div class="bottomButtons">
                 <button id="submitMatchButton">Submit Match</button>
                 <button class="hidden" id="cancelEditButton">Cancel Editing</button>

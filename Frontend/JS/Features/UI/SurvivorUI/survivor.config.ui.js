@@ -75,7 +75,7 @@ function createPresetControls(index) {
                 <option value="">Load Preset</option>
             </select>
 
-            <button class="presetButton" id="deletePresetSurv${index}">Delete</button>
+            <button class="presetButton" id="deletePresetSurv${index}">Delete Preset</button>
         </div>
     `;
 }
