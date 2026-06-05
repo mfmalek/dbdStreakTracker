@@ -11,7 +11,7 @@ export const getPresets = async (req: Request, res: Response): Promise<void> => 
 
 export const createPreset = async (req: Request, res: Response): Promise<void> => {
     const user = req.user!.username;
-    const { mode, role, killerName, survivor, name, perks } = req.validatedBody as any;
+    const { mode, role, killerName, survivor, name, perks, addons } = req.validatedBody as any;
 
     const preset = await presetsService.createPreset({
         user,
@@ -20,7 +20,8 @@ export const createPreset = async (req: Request, res: Response): Promise<void> =
         killerName,
         survivor,
         name,
-        perks
+        perks,
+        addons
     });
 
     res.json(preset);

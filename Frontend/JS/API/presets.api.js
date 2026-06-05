@@ -22,7 +22,7 @@ async function getPresets(survivor) {
     });
 }
 
-async function savePreset(survivor, name, perks) {
+async function savePreset(survivor, name, perks, addons = []) {
     const { mode, role, killerName } = getContext();
     await http.post("/presets", {
         mode,
@@ -30,7 +30,8 @@ async function savePreset(survivor, name, perks) {
         killerName,
         survivor,
         name,
-        perks
+        perks,
+        addons
     });
 }
 

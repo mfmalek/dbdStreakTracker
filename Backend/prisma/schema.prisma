@@ -32,6 +32,7 @@ model Preset {
     survivor    Int?
     name        String
     perks       Json
+    addons      Json?
     createdAt   DateTime @default(now())
 
     @@index([user, mode, role, killerName])

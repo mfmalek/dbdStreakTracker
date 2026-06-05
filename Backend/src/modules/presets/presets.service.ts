@@ -43,10 +43,11 @@ export interface CreatePresetInput {
     survivor?: number | string;
     name: string;
     perks: string[];
+    addons?: string[];
 }
 
 export async function createPreset(data: CreatePresetInput) {
-    const { user, mode, role, killerName, survivor, name, perks } = data;
+    const { user, mode, role, killerName, survivor, name, perks, addons } = data;
     const safeKiller = getSafeKiller(role, killerName);
 
     if (role === "killer" && !killerName) {
@@ -65,7 +66,8 @@ export async function createPreset(data: CreatePresetInput) {
             killerName: safeKiller,
             survivor: role === "survivor" ? Number(survivor) : null,
             name,
-            perks
+            perks,
+            addons
         }
     });
 }
