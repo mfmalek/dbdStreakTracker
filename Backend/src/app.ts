@@ -6,6 +6,7 @@ import survivorRoutes from "./modules/survivors/survivors.routes";
 import groupRoutes from "./modules/groups/groups.routes";
 import matchesRoutes from "./modules/matches/matches.routes";
 import presetsRoutes from "./modules/presets/presets.routes";
+import profileRoutes from "./modules/profile/profile.routes";
 import streakRoutes from "./modules/streak/streak.routes";
 import NotFoundError from "./errors/not.found.error";
 
@@ -24,6 +25,7 @@ app.use("/api/survivors", survivorRoutes);
 app.use("/api/groups", groupRoutes);
 app.use("/api/presets", presetsRoutes);
 app.use("/api/matches", matchesRoutes);
+app.use("/api/profile", profileRoutes);
 app.use("/api/streak", streakRoutes);
 
 app.use((req, res, next) => {
