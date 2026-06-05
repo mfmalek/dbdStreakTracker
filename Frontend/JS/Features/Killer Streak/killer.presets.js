@@ -74,7 +74,7 @@ function applyPreset() {
     const select = document.getElementById("presetListKiller");
     const selected = select.options[select.selectedIndex];
 
-    if (!selected) return;
+    if (!select || !selected || !selected.dataset.perks || !selected.dataset.addons) return;
     const perks = JSON.parse(selected.dataset.perks);
     const addons = JSON.parse(selected.dataset.addons);
 
