@@ -39,6 +39,10 @@
         {
             "src": "/streakKiller",
             "dest": "/Pages/streakKiller.html"
+        },
+        {
+            "src": "/profile",
+            "dest": "/Pages/profile.html"
         }
     ]
 }

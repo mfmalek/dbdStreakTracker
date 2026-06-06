@@ -1,0 +1,226 @@
+:root {
+    --bg-card: rgba(34, 34, 34, 0.85);
+    --bg-light: #f4f4f4;
+    --primary: #4CAF50;
+    --primary-hover: #45a049;
+    --text-main: #f0f0f0;
+    --text-light: #ffffff;
+    --border: #333;
+    --border-light: #666;
+    --danger: #c0392b;
+    --danger-hover: #e74c3c;
+}
+
+/* GLOBAL */
+
+body {
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+
+    background: url('../Images/Miscellaneous/Background_Foggy.png')
+        no-repeat center center fixed;
+    background-size: cover;
+
+    font-family: Arial, sans-serif;
+    color: var(--text-main);
+}
+
+/* NAVBAR */
+
+#navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: rgba(34, 34, 34, 0.5);
+
+    padding: 12px 20px;
+    margin-bottom: 30px;
+
+    border-radius: 10px;
+    border: 1px solid var(--border-light);
+}
+
+.navLeft, .navCenter, .navRight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#navLogo {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-light);
+}
+
+/* PAGE LAYOUT */
+
+.pageContainer {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    background: rgba(34, 34, 34, 0.8);
+    border-radius: 12px;
+    padding: 25px;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+/* CARDS */
+
+.card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4), 0 0 10px rgba(94, 42, 108, 0.15);
+    backdrop-filter: blur(4px);
+}
+
+.card h1, .card h2 {
+    margin: 0;
+    color: var(--text-light);
+    text-shadow: 2px 2px 8px #000;
+}
+
+.card p {
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.card strong {
+    color: white;
+}
+
+.card:first-child {
+    text-align: center;
+}
+
+.card:first-child p {
+    margin: 8px 0;
+}
+
+/* INPUTS */
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+    background: rgba(0, 0, 0, 0.45);
+    color: white;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+}
+
+input::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+/* BUTTONS */
+
+button {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: var(--primary);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+}
+
+button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 12px;
+
+    margin-bottom: 10px;
+
+    border-radius: 8px;
+    border: 1px solid var(--border-light);
+
+    background: rgba(0,0,0,0.4);
+    color: white;
+}
+
+/* STREAK SECTION */
+
+#profileStreaks {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#profileStreaks > * {
+    background: rgba(0,0,0,0.35);
+    padding: 10px 12px;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary);
+}
+
+/* DANGER ZONE */
+
+.dangerZone {
+    border: 1px solid rgba(231, 76, 60, 0.4);
+}
+
+.dangerZone h2 {
+    color: #ff6b6b;
+}
+
+#deleteAccountButton {
+    background: var(--danger);
+}
+
+#deleteAccountButton:hover {
+    background: var(--danger-hover);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+    #navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .navLeft, .navCenter, .navRight {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .pageContainer {
+        grid-template-columns: 1fr;
+    }
+}

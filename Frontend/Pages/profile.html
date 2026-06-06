@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - DBD Tracker</title>
+    <link rel="icon" type="image/x-icon" href="/Images/Miscellaneous/Logo_DBD.ico">
+    <link rel="stylesheet" href="/CSS/profile.page.css">
+</head>
+
+<body data-page="profile">
+    <div id="navbar">
+        <div class="navLeft">
+            <button id="homeButton">Home</button>
+            <span id="navLogo">DBD Tracker</span>
+        </div>
+
+        <div class="navCenter">
+            <span id="modeIndicator"></span>
+        </div>
+
+        <div class="navRight">
+            <span id="welcomeUser"></span>
+            <button id="profileButton">Profile</button>
+            <button id="logoutButton">Logout</button>
+        </div>
+    </div>
+
+    <div class="pageContainer">
+
+        <section class="card">
+            <h1>Profile</h1>
+            <p> <strong>Username: </strong> <span id="profileUsername"></span> </p>
+            <p> <strong>Member Since: </strong> <span id="profileCreatedAt"></span> </p> 
+        </section>
+
+        <section class="card">
+            <h2>Your Streaks</h2>
+            <div id="profileStreaks"></div>
+        </section>
+
+        <section class="card">
+            <h2>Change Username</h2>
+            <input type="text" id="newUsername" placeholder="New Username">
+            <button id="changeUsernameButton">Change Username</button>
+        </section>
+
+        <section class="card">
+            <h2>Change Password</h2>
+            <input type="password" id="currentPassword" placeholder="Current Password">
+            <input type="password" id="newPassword" placeholder="New Password">
+            <button id="changePasswordButton">Change Password</button>
+        </section>
+
+        <section class="card dangerZone">
+            <h2>Danger Zone</h2>
+            <input type="password" id="deletePassword" placeholder="Confirm Password">
+            <button id="deleteAccountButton">Delete Account</button>
+        </section>
+
+    </div>
+
+    <script type="module" src="/JS/app.js"></script>
+</body>
+
+</html>

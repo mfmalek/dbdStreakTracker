@@ -1,0 +1,76 @@
+import { auth } from "../Auth/auth.js";
+import { navbar } from "../Layout/navbar.js";
+import { profileApi } from "../API/profile.api.js";
+import { profileController } from "../Features/Profile/profile.controller.js";
+import { profileListeners } from "../Features/Profile/profile.listeners.js";
+
+async function initProfile() {
+    const loading = document.getElementById("loadingScreen");
+
+    loading.style.display = "flex";
+
+    try {
+        const user = auth.requireAuth();
+
+        if (!user) return;
+
+        auth.checkLoggedUser();
+
+        navbar.renderNavbar({ mode: "profile" });
+
+        await loadProfile();
+        await loadStreaks();
+
+        profileListeners.initListeners({
+            changeUsername: profileController.changeUsername,
+            changePassword: profileController.changePassword,
+            deleteAccount: profileController.deleteAccount
+        });
+    } finally {
+        loading.style.display = "none";
+    }
+}
+
+async function loadProfile() {
+    const profile = await profileApi.getProfile();
+    const usernameEl = document.getElementById("profileUsername");
+    const createdAtEl = document.getElementById("profileCreatedAt");
+
+    if (usernameEl) {
+        usernameEl.textContent = profile.username;
+    }
+
+    if (createdAtEl) {
+        createdAtEl.textContent = new Date(profile.createdAt).toLocaleDateString();
+    }
+}
+
+async function loadStreaks() {
+    const streaks = await profileApi.getStreaks();
+    const container = document.getElementById("profileStreaks");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    streaks.forEach(streak => {
+        const card = document.createElement("div");
+
+        card.className = "profileStreakCard";
+
+        card.innerHTML = `
+            <h3>
+                ${streak.role === "killer" ? streak.killerName : `${streak.mode} survivor`}
+            </h3>
+
+            <p>Current: ${streak.current}</p>
+            <p>Best: ${streak.best}</p>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+export const profile = {
+    initProfile
+};
