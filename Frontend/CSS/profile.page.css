@@ -189,6 +189,13 @@ input[type="password"] {
     border-left: 4px solid var(--primary);
 }
 
+.emptyState {
+    text-align: center;
+    padding: 30px;
+    color: var(--text-main);
+    font-style: italic;
+}
+
 /* DANGER ZONE */
 
 .dangerZone {

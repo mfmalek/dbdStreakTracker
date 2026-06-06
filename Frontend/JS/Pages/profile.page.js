@@ -49,19 +49,29 @@ async function loadStreaks() {
     const streaks = await profileApi.getStreaks();
     const container = document.getElementById("profileStreaks");
 
+    console.log("PROFILE STREAKS:", streaks);
+
     if (!container) return;
 
     container.innerHTML = "";
 
+    if (streaks.length === 0) {
+        container.innerHTML = `
+            <div class="emptyState">
+                No streaks recorded yet.
+            </div>
+        `;
+        return;
+    }
+
     streaks.forEach(streak => {
         const card = document.createElement("div");
+        const streakName = streak.role === "killer" ? streak.killerName : `${streak.mode.charAt(0).toUpperCase() + streak.mode.slice(1)} Survivor`;
 
         card.className = "profileStreakCard";
 
         card.innerHTML = `
-            <h3>
-                ${streak.role === "killer" ? streak.killerName : `${streak.mode} survivor`}
-            </h3>
+            <h3>${streakName}</h3>
 
             <p>Current: ${streak.current}</p>
             <p>Best: ${streak.best}</p>
