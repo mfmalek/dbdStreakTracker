@@ -239,13 +239,17 @@ export async function getStreaks(username: string) {
             orderBy: { createdAt: "asc" }
         });
 
-        result.push({
-            mode: streak.mode,
-            role: streak.role,
-            killerName: streak.role === "killer" ? streak.killerName : "__survivor__",
-            current: calculateCurrentStreak(matches),
-            best: streak.best
-        });
+        const current = calculateCurrentStreak(matches);
+
+        if (current > 0 || streak.best > 0) {
+            result.push({
+                mode: streak.mode,
+                role: streak.role,
+                killerName: streak.role === "killer" ? streak.killerName : "__survivor__",
+                current,
+                best: streak.best
+            });
+        }
     }
 
     return result;
