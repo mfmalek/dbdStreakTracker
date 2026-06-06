@@ -40,3 +40,10 @@ export const deleteAccount = async (req: Request, res: Response): Promise<void> 
 
     res.json(result);
 };
+
+export const getStreaks = async (req: Request, res: Response): Promise<void> => {
+    const username = req.user!.username;
+    const streaks = await profileService.getStreaks(username);
+
+    res.json(streaks);
+};

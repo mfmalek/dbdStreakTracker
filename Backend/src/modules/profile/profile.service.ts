@@ -174,7 +174,7 @@ export async function deleteAccount(username: string, password: string) {
 
         await tx.groupInvite.deleteMany({
             where: {
-                OR: [ { fromUser: username }, { toUser: username } ]
+                OR: [{ fromUser: username }, { toUser: username }]
             }
         });
 
@@ -192,7 +192,7 @@ export async function deleteAccount(username: string, password: string) {
 
         await tx.match.deleteMany({
             where: {
-                OR: [ { user: username }, { createdBy: username } ]
+                OR: [{ user: username }, { createdBy: username }]
             }
         });
 
@@ -208,4 +208,45 @@ export async function deleteAccount(username: string, password: string) {
     return {
         message: "Account deleted successfully"
     };
+}
+
+function calculateCurrentStreak(matches: { result: string }[]): number {
+    let current = 0;
+
+    for (let i = matches.length - 1; i >= 0; i--) {
+        if (matches[i].result === "win") {
+            current++;
+        } else {
+            break;
+        }
+    }
+
+    return current;
+}
+
+export async function getStreaks(username: string) {
+    const streaks = await prisma.streak.findMany({
+        where: { user: username },
+        orderBy: [{ role: "asc" }, { mode: "asc" }]
+    });
+
+    const result = [];
+
+    for (const streak of streaks) {
+        const matches = await prisma.match.findMany({
+            where: { user: username, mode: streak.mode, role: streak.role, killerName: streak.killerName },
+            select: { result: true },
+            orderBy: { createdAt: "asc" }
+        });
+
+        result.push({
+            mode: streak.mode,
+            role: streak.role,
+            killerName: streak.role === "killer" ? streak.killerName : "__survivor__",
+            current: calculateCurrentStreak(matches),
+            best: streak.best
+        });
+    }
+
+    return result;
 }

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getProfile, changeUsername, changePassword, deleteAccount } from "./profile.controller";
+import { getProfile, changeUsername, changePassword, deleteAccount, getStreaks } from "./profile.controller";
 import authMiddleware from "../../middlewares/auth.middleware";
 import asyncHandler from "../../utils/async.handler";
 import { validateBody } from "../../middlewares/validate.middleware";
@@ -13,5 +13,6 @@ router.get("/me", authMiddleware, asyncHandler(getProfile));
 router.patch("/username", authMiddleware, validateBody(changeUsernameSchema), asyncHandler(changeUsername));
 router.patch("/password", authMiddleware, validateBody(changePasswordSchema), asyncHandler(changePassword));
 router.delete("/delete", authMiddleware, validateBody(deleteAccountSchema), asyncHandler(deleteAccount));
+router.get("/streaks", authMiddleware, asyncHandler(getStreaks));
 
 export default router;
