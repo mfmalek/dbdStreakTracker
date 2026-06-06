@@ -49,8 +49,6 @@ async function loadStreaks() {
     const streaks = await profileApi.getStreaks();
     const container = document.getElementById("profileStreaks");
 
-    console.log("PROFILE STREAKS:", streaks);
-
     if (!container) return;
 
     container.innerHTML = "";
