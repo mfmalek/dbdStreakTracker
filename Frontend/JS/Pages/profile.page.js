@@ -1,8 +1,8 @@
 import { auth } from "../Auth/auth.js";
 import { navbar } from "../Layout/navbar.js";
 import { profileApi } from "../API/profile.api.js";
-import { profileController } from "../Features/Profile/profile.controller.js";
-import { profileListeners } from "../Features/Profile/profile.listeners.js";
+import { profileController } from "../Features/profile/profile.controller.js";
+import { profileListeners } from "../Features/profile/profile.listeners.js";
 
 async function initProfile() {
     const loading = document.getElementById("loadingScreen");
