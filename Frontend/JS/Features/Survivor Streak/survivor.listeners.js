@@ -155,7 +155,7 @@ function bindInvite(inviteUser) {
         const groupId = window.currentGroupId;
 
         try {
-            await inviteUser(username, groupId);
+            await inviteUser(username, groupId || null);
             input.value = "";
             alert("Invite sent!");
         } catch (err) {

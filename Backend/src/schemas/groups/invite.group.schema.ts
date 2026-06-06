@@ -3,6 +3,6 @@ import { modeSchema } from "../common/match.enums";
 
 export const inviteGroupSchema = z.object({
     toUser: z.string().min(1).max(20),
-    groupId: z.number().int().positive().optional(),
+    groupId: z.number().int().positive().nullable().optional(),
     mode: modeSchema.exclude(["killer"])
 }).strict();
