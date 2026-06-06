@@ -225,16 +225,39 @@ function calculateCurrentStreak(matches: { result: string }[]): number {
 }
 
 export async function getStreaks(username: string) {
+    const memberships = await prisma.groupMember.findMany({
+        where: { username },
+        select: { groupId: true }
+    });
+
+    const groupIds = memberships.map(m => m.groupId);
+
     const streaks = await prisma.streak.findMany({
-        where: { user: username },
+        where: {
+            OR: [{ user: username }, { groupId: { in: groupIds } }]
+        },
         orderBy: [{ role: "asc" }, { mode: "asc" }]
     });
 
     const result = [];
 
     for (const streak of streaks) {
+        const matchWhere = streak.groupId
+            ? {
+                groupId: streak.groupId,
+                mode: streak.mode,
+                role: streak.role,
+                killerName: streak.killerName
+            }
+            : {
+                user: username,
+                mode: streak.mode,
+                role: streak.role,
+                killerName: streak.killerName
+            };
+
         const matches = await prisma.match.findMany({
-            where: { user: username, mode: streak.mode, role: streak.role, killerName: streak.killerName },
+            where: matchWhere,
             select: { result: true },
             orderBy: { createdAt: "asc" }
         });
