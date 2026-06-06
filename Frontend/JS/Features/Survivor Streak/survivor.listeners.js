@@ -178,7 +178,6 @@ function bindAcceptInvite(acceptInvite, refreshInvites) {
         try {
             await acceptInvite(inviteId);
             alert("Joined group!");
-            await refreshInvites();
             location.reload()
         } catch (err) {
             console.error(err);
