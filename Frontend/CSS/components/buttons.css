@@ -1,0 +1,49 @@
+/* DEFAULT BUTTONS */
+
+button {
+    background-color: var(--color-button-primary);
+    
+    padding: var(--space-md);
+
+    font-weight: bold;
+    color: var(--color-text-primary);
+
+    border: none;
+    border-radius: var(--radius-sm);
+    
+    cursor: pointer;
+
+    transition: transform 0.5s, background-color 0.25s, box-shadow 0.4s;
+}
+
+button:hover {
+    transform: scale(1.1);
+    background-color: var(--color-primary-hover);
+    box-shadow: var(--shadow-glow-primary-high);
+}
+
+button:active {
+    transform: scale(1);
+}
+
+/* DANGER BUTTONS */
+
+button[name="danger"] {
+    background-color: var(--color-button-danger);
+}
+
+button[name="danger"]:hover {
+    background-color: var(--color-button-danger-hover);
+    box-shadow: var(--shadow-glow-danger);
+}
+
+/* ALTERNATE BUTTONS  */
+
+button[name="alternate"] {
+    background-color: var(--color-button-alternate-primary);
+}
+
+button[name="alternate"]:hover {
+    background-color: var(--color-button-alternate-primary-hover);
+    box-shadow: var(--shadow-glow-secondary);
+}

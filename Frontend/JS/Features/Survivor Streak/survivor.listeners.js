@@ -29,7 +29,7 @@ function initListeners({
     bindClear(clearTableMatches);
     bindResetBest(resetBestStreak);
     bindInvite(inviteUser);
-    bindAcceptInvite(acceptInvite, ui.renderInvites);
+    bindAcceptInvite(acceptInvite);
     bindMemberActions(removeMember, leaveGroup);
 }
 
@@ -165,7 +165,7 @@ function bindInvite(inviteUser) {
     });
 }
 
-function bindAcceptInvite(acceptInvite, refreshInvites) {
+function bindAcceptInvite(acceptInvite) {
     const container = document.getElementById("invitesContainer");
 
     if (!container) return;

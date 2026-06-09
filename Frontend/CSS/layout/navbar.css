@@ -1,0 +1,34 @@
+#navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: var(--color-surface-gray-translucent);
+
+    padding: var(--space-md) var(--space-xl);
+    margin-bottom: var(--space-3xl);
+
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-light);
+
+    font-weight: bold;
+}
+
+.navLeft,
+.navCenter,
+.navRight {
+    display: flex;
+    align-items: center;
+
+    gap: var(--space-lg);
+}
+
+#navbar button {
+    font-weight: bold;
+}
+
+#navLogo {
+    font-size: var(--text-lg);
+
+    color: var(--text-light);
+}

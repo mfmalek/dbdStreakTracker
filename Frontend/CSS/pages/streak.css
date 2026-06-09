@@ -1,0 +1,62 @@
+#ruleset {
+    margin-top: 22px;
+    margin-left: 40px;
+}
+
+.matchEntry {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    justify-items: center;
+}
+
+#survivorContainer {
+    display: contents;
+}
+
+.portraitGrid {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 10px;
+    border-radius: 10px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.portraitGrid.hidden {
+    display: none;
+}
+
+.perkSlots {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.perkSlot {
+    display: flex;
+    flex-direction: column;
+}
+
+#mapAndKiller {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.bottomInfo {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+#groupSection {
+    padding: 20px;
+}

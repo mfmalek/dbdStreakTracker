@@ -1,0 +1,88 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+h1 {
+    font-size: var(--text-5xl);
+    letter-spacing: var(--space-xs);
+}
+
+button[name="alternate"] {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+}
+
+/* ROLE SELECTION DISPLAY */
+
+#roleContainer {
+    height: 100%;
+    align-content: center;
+}
+
+#roleTitle {
+    display: flex;
+    justify-content: center;
+}
+
+.roleSelection {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 48px;
+}
+
+/* MODE SELECTION DISPLAY */
+
+#modeTitle {
+    display: flex;
+    justify-content: center;
+}
+
+.streakButton {
+    width: 120px;
+    height: 120px;
+    transform: rotate(45deg);
+    border: none;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.streakButton img {
+    width: 140%;
+    height: 140%;
+    transform: rotate(-45deg) translateY(-20%);
+}
+
+.streakButton:hover {
+    transform: rotate(45deg) scale(1.1);
+    box-shadow: 0 0 20px rgba(94, 42, 108, 0.7);
+}
+
+/* SURVIVOR MODES DISPLAY */
+
+.perkGrid {
+    margin-top: 150px;
+}
+
+.row {
+    display: flex;
+}
+
+.row.center {
+    justify-content: center;
+    margin: -20px 0;
+}
+
+.row.spread {
+    justify-content: space-between;
+    width: 340px;
+    margin: 10px 0;
+}
+
+/* KILLER MODE DISPLAY */
+
+#killerMode {
+    transform: scale(2);
+}

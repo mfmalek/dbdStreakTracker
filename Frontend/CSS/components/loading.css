@@ -1,0 +1,15 @@
+#loadingScreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    inset: 0;
+
+    background: var(--color-background-dark-translucent);
+
+    font-size: var(--text-2xl);
+    color: var(--color-text-primary);
+
+    z-index: 9999;
+}

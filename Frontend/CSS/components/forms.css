@@ -1,0 +1,100 @@
+/* FROM PROFILE PAGE */
+
+input[type="text"],
+input[type="password"] {
+    min-width: 100%;
+
+    font-size: var(--text-sm);
+
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+
+    background-color: var(--color-surface-black-translucent-low);
+    color: var(--color-text-primary);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: var(--color-border-primary);
+    box-shadow: var(--shadow-glow-primary);
+}
+
+input[name="danger"]:focus {
+    border-color: var(--color-border-danger);
+    box-shadow: var(--shadow-glow-danger);
+}
+
+label {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+    margin-top: 15px;
+
+    user-select: none;
+}
+
+/* FROM AUTH */
+
+input {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* FROM STREAK COMPONENTS */
+
+input[type="checkbox"] {
+    appearance: none;
+    background-color: var(--bg-card);
+    border: 2px solid var(--border-light);
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    position: relative;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--checked);
+    border-color: var(--checked);
+}
+
+input[type="checkbox"]::before {
+    content: "✔";
+    color: var(--text-light);
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    left: 3px;
+    display: none;
+}
+
+input[type="checkbox"]:checked::before {
+    display: block;
+}
+
+input[type="number"] {
+    border: 2px solid var(--border-light);
+    border-radius: 4px;
+    width: 50px;
+    height: 20px;
+}
+
+select#mapName, select#killerName, .ts-wrapper.single.full.has-items.input-hidden {
+    height: 36px;
+    min-width: 210px;
+}
+
+/* FROM STREAK CORE */
+
+select, input[type="text"] {
+    width: 200px;
+    padding: 5px;
+}

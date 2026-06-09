@@ -1,0 +1,72 @@
+table {
+    width: 100%;
+
+    background: var(--bg-card);
+
+    margin-top: 30px;
+
+    border-collapse: collapse;
+}
+
+th,
+td {
+    text-align: center;
+    padding: 8px;
+    border: 1px solid var(--border);
+}
+
+th {
+    background: var(--border);
+    border: 1px solid var(--border-light);
+}
+
+.matchNumberCell {
+    position: relative;
+}
+
+.matchNumber {
+    transition: opacity 0.15s ease;
+}
+
+.matchHoverActions {
+    display: flex;
+
+    position: absolute;
+    top: 50%;
+    right: 8px;
+
+    gap: 4px;
+
+    transform: translateY(-50%);
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: opacity 0.15s ease;
+}
+
+.deleteMatchHoverBtn .editMatchHoverBtn {
+    position: absolute;
+    inset: 50% auto auto 50%;
+
+    background: transparent;
+
+    transform: translate(-50%, -50%);
+    opacity: 0;
+
+    cursor: pointer;
+    pointer-events: none;
+
+    border: none;
+
+    transition: opacity 0.15s ease;
+}
+
+.matchNumberCell:hover .matchNumber {
+    opacity: 0;
+}
+
+.matchNumberCell:hover .matchHoverActions {
+    opacity: 1;
+    pointer-events: auto;
+}

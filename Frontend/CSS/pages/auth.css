@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    margin: var(--space-md);
+}
+
+label {
+    margin: var(--space-md) 0 var(--space-xs);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: var(--color-border-alternate);
+    box-shadow: var(--shadow-glow-secondary);
+}
+
+.authContainer {
+    text-align: center;
+    background-color: var(--color-surface-gray-translucent);
+    padding: var(--space-3xl) var(--space-4xl);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-glow-secondary-dark);
+}
+
+.pageLinking {
+    color: var(--color-text-primary);
+}
