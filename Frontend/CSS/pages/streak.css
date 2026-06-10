@@ -156,6 +156,10 @@
     padding: var(--space-xl);
 }
 
+.bottomButtons {
+    margin-top: var(--space-lg);
+}
+
 /* TOM SELECT MAP OPTION */
 
 .tsMapOption {
@@ -177,11 +181,14 @@
     letter-spacing: 1px;
 }
 
-/* BUTTON */
+/* BUTTONS */
 
 #deleteMatchNumber {
-    height: 35px;
-    width: 80px;
+    height: 50px;
+    width: 100px;
+
+    background-color: var(--color-surface-black-translucent-low);
+    color: var(--color-text-primary);
 }
 
 /* PRESET NAME, LOAD PRESET, KILLER NAME, MAP NAME AND INVITE USERNAME */
@@ -190,6 +197,9 @@ input[type="text"],
 .presetSelect {
     width: 200px;
     padding: var(--space-xs);
+
+    background-color: var(--color-surface-black-translucent-low);
+    color: var(--color-text-primary);
 }
 
 /* RESPONSIVE */

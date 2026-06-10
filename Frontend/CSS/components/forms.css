@@ -96,3 +96,11 @@ input[type="number"] {
     border: 2px solid var(--color-border-gray-medium);
     border-radius: var(--radius-md);
 }
+
+/* TOM SELECT */
+
+div.ts-control {
+    background-color: var(--color-surface-black-translucent-low);
+    border: 2px solid var(--color-border-gray-medium);
+    border-radius: var(--radius-sm);
+}
