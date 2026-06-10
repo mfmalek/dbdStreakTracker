@@ -5,6 +5,8 @@
 
     background: var(--color-surface-gray-translucent);
 
+    min-width: 95vw;
+
     padding: var(--space-md) var(--space-xl);
     margin-bottom: var(--space-3xl);
 
