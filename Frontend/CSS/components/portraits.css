@@ -1,0 +1,38 @@
+.portraitGrid {
+    display: grid;
+    position: absolute;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    padding: var(--space-md);
+    gap: var(--space-md);
+
+    background: var(--color-surface-black-translucent-highest);
+    
+    border-radius: var(--radius-md);
+    
+    z-index: 2;
+    inset: 0;
+
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.portraitOption {
+    width: 60px;
+    height: 60px;
+
+    border-radius: var(--radius-sm);
+
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.portraitOption.selected {
+    outline: 2px solid var(--color-border-primary);
+    transform: scale(1.1);
+}
+
+.portraitOption:hover {
+    transform: scale(1.5);
+}

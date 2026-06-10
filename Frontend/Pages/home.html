@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DBD Streak Tracker</title>
     <link rel="icon" type="image/x-icon" href="/Images/Miscellaneous/Logo_DBD.ico">
-    <link rel="stylesheet" href="/CSS/home.page.css" />
+    <link rel="stylesheet" href="/CSS/main.css" />
+    <link rel="stylesheet" href="/CSS/pages/home.css" />
 </head>
 
 <body data-page="home">
@@ -28,30 +29,30 @@
 
             <div class="perkGrid hidden" id="survivorModes">
                 <div class="row center">
-                    <button class="streakButton" data-mode="solo">
+                    <button class="streakButton" name="alternate" data-mode="solo">
                         <img src="/Images/Miscellaneous/Perk_Overcome.png" />
                     </button>
                 </div>
 
                 <div class="row spread">
-                    <button class="streakButton" data-mode="duo">
+                    <button class="streakButton" name="alternate" data-mode="duo">
                         <img src="/Images/Miscellaneous/Perk_TeamworkCollectiveStealth.png" />
                     </button>
 
-                    <button class="streakButton" data-mode="trio">
+                    <button class="streakButton" name="alternate" data-mode="trio">
                         <img src="/Images/Miscellaneous/Perk_BloodEcho.png" />
                     </button>
                 </div>
 
                 <div class="row center">
-                    <button class="streakButton" data-mode="squad">
+                    <button class="streakButton" name="alternate" data-mode="squad">
                         <img src="/Images/Miscellaneous/Perk_ProveThyself.png" />
                     </button>
                 </div>
             </div>
 
             <div class="perkGrid hidden" id="killerMode">
-                <button class="streakButton killerButton">
+                <button class="streakButton killerButton" name="alternate">
                         <img src="/Images/Miscellaneous/Perk_NoOneEscapesDeath.png" />
                 </button>
             </div>

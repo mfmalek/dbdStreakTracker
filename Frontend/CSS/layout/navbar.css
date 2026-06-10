@@ -9,7 +9,7 @@
     margin-bottom: var(--space-3xl);
 
     border-radius: var(--radius-md);
-    border: 1px solid var(--color-border-light);
+    border: 1px solid var(--color-border-gray-medium);
 
     font-weight: bold;
 }
@@ -30,5 +30,5 @@
 #navLogo {
     font-size: var(--text-lg);
 
-    color: var(--text-light);
+    color: var(--color-text-primary);
 }

@@ -1,4 +1,16 @@
-/* FROM PROFILE PAGE */
+/* LABEL */
+
+label {
+    display: flex;
+    align-items: center;
+
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+
+    user-select: none;
+}
+
+/* TEXT AND PASSWORD */
 
 input[type="text"],
 input[type="password"] {
@@ -9,11 +21,13 @@ input[type="password"] {
     padding: var(--space-md);
     margin-bottom: var(--space-md);
 
-    border: 1px solid var(--color-border-light);
+    border: 1px solid var(--color-border-gray-medium);
     border-radius: var(--radius-md);
 
     background-color: var(--color-surface-black-translucent-low);
     color: var(--color-text-primary);
+
+    transition: 0.2s;
 }
 
 input[type="text"]:focus,
@@ -28,73 +42,57 @@ input[name="danger"]:focus {
     box-shadow: var(--shadow-glow-danger);
 }
 
-label {
-    display: flex;
-    align-items: center;
-
-    gap: 8px;
-    margin-top: 15px;
-
-    user-select: none;
+input::placeholder {
+    color: var(--color-text-secondary);
 }
 
-/* FROM AUTH */
-
-input {
-    width: 100%;
-    padding: 8px;
-    border: none;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-/* FROM STREAK COMPONENTS */
+/* CHECKBOX */
 
 input[type="checkbox"] {
-    appearance: none;
-    background-color: var(--bg-card);
-    border: 2px solid var(--border-light);
-    border-radius: 4px;
     width: 20px;
     height: 20px;
-    cursor: pointer;
+    
     position: relative;
+
+    background-color: var(--color-surface-gray-darkest);
+    
+    border: 2px solid var(--color-border-gray-medium);
+    border-radius: var(--radius-sm);
+    
+    cursor: pointer;
+    appearance: none;
 }
 
 input[type="checkbox"]:checked {
-    background-color: var(--checked);
-    border-color: var(--checked);
+    background-color: var(--color-checkbox-checked);
+    border-color: var(--color-border-primary-light);
 }
 
 input[type="checkbox"]::before {
-    content: "✔";
-    color: var(--text-light);
-    font-size: 14px;
-    position: absolute;
-    top: 0;
-    left: 3px;
     display: none;
+    position: absolute;
+
+    top: -2px;
+    left: 2px;
+
+    content: "✔";
+    color: var(--color-text-primary);
+
+    font-size: var(--text-sm);
 }
 
 input[type="checkbox"]:checked::before {
     display: block;
 }
 
+/* NUMBER */
+
 input[type="number"] {
-    border: 2px solid var(--border-light);
-    border-radius: 4px;
     width: 50px;
     height: 20px;
-}
 
-select#mapName, select#killerName, .ts-wrapper.single.full.has-items.input-hidden {
-    height: 36px;
-    min-width: 210px;
-}
+    outline: none;
 
-/* FROM STREAK CORE */
-
-select, input[type="text"] {
-    width: 200px;
-    padding: 5px;
+    border: 2px solid var(--color-border-gray-medium);
+    border-radius: var(--radius-md);
 }

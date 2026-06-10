@@ -1,62 +1,212 @@
-#ruleset {
-    margin-top: 22px;
-    margin-left: 40px;
+/* RULES */
+
+#titleAndRules {
+    display: inline-flex;
 }
+
+#ruleset {
+    margin-top: var(--space-xl);
+    margin-left: var(--space-3xl);
+}
+
+.streakRule {
+    display: inline-block;
+    margin: var(--space-md) var(--space-xl);
+}
+
+/* ! CHARACTERS AREA ! */
+/* CHARACTER SECTION */
 
 .matchEntry {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
     justify-items: center;
+
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-4xl);
 }
+
+.card {
+    width: 300px;
+    align-items: center;
+}
+
+/* CHARACTER NAMES */
+
+.nickAndChar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.editable {
+    cursor: pointer;
+}
+
+/* CHARACTER IMAGES */
+
+.characterPortrait {
+    height: 200px;
+    width: 200px;
+}
+
+.selectable {
+    cursor: pointer;
+}
+
+/* SURVIVOR CARDS */
 
 #survivorContainer {
     display: contents;
 }
 
-.portraitGrid {
-    position: absolute;
-    z-index: 2;
-    inset: 0;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    background: rgba(0, 0, 0, 0.95);
-    padding: 10px;
-    border-radius: 10px;
-    overflow-y: auto;
-    scrollbar-width: none;
+.survivorCardWrapper {
+    position: relative;
 }
 
-.portraitGrid.hidden {
-    display: none;
+/* LOADOUT INFO */
+
+.perkBuilderTitle {
+    text-align: center;
+}
+
+.perkNumberText,
+.addonNumberText,
+.killsText {
+    font-family: Copperplate, fantasy;
+    font-size: var(--text-lg);
+    color: var(--color-text-primary);
+}
+
+/* CHARACTER PERKS */
+
+.perkBuilder {
+    width: 100%;
 }
 
 .perkSlots {
+    display: flex;
+    flex-direction: column;
+
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+
+    gap: var(--space-md);
 }
 
-.perkSlot {
+/* PRESETS */
+
+.presetControls {
     display: flex;
     flex-direction: column;
-}
-
-#mapAndKiller {
-    display: flex;
     align-items: center;
-    gap: 50px;
+
+    margin-top: var(--space-xl);
+    gap: var(--space-md);
 }
+
+.presetButton {
+    margin-top: var(--space-xs);
+}
+
+/* KILLS */
+
+#killsSection {
+    display: flex;
+    margin-top: var(--space-lg);
+    gap: var(--space-md);
+}
+
+#killsCountText {
+    margin-top: var(--space-xs);
+}
+
+/* MAP IMAGE */
+
+#mapImage {
+    height: 147px;
+    width: 300px;
+
+    margin-top: var(--space-xl);
+
+    border: 1px solid var(--color-border-gray-medium);
+    border-radius: var(--radius-md);
+}
+
+.mapImageSection {
+    margin-top: var(--space-xl);
+}
+
+/* ! CHARACTERS AREA (END) ! */
+/* MATCH INFO */
 
 .bottomInfo {
     display: flex;
     align-items: center;
-    gap: 40px;
-    flex-wrap: wrap;
+    gap: var(--space-3xl);
 }
 
-#groupSection {
-    padding: 20px;
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+#streakStatsSection {
+    min-width: 200px;
+    padding: var(--space-xl);
+}
+
+/* TOM SELECT MAP OPTION */
+
+.tsMapOption {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: var(--text-sm);
+}
+
+.tsOptgroupHeader {
+    padding: var(--space-sm);
+
+    background: rgba(76, 175, 80, 0.9);
+    color: var(--color-text-gray-darkest);
+    
+    font-weight: bold;
+    text-align: center;
+    font-size: var(--text-sm);
+    letter-spacing: 1px;
+}
+
+/* BUTTON */
+
+#deleteMatchNumber {
+    height: 35px;
+    width: 80px;
+}
+
+/* PRESET NAME, LOAD PRESET, KILLER NAME, MAP NAME AND INVITE USERNAME */
+
+input[type="text"],
+.presetSelect {
+    width: 200px;
+    padding: var(--space-xs);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+    #survivorContainer {
+        grid-template-columns: 1fr;
+    }
+
+    #mapAndKiller {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .bottomButtons {
+        flex-direction: column;
+        gap: 10px;
+    }
 }

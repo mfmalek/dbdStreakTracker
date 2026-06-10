@@ -29,7 +29,7 @@ function createSurvivorColumn(index, config = {}) {
     const image = config.image || "Portrait_MegThomas.png";
 
     return `
-        <div class="column">
+        <div class="flex-column-center">
             <div class="nickAndChar">
                 <h2 class="nickname editable" id="nicknameSurv${index}" data-index="${index}"> ${name} </h2>
                 <img class="characterPortrait selectable" id="imageSurv${index}"
@@ -71,7 +71,7 @@ function createPresetControls(index) {
             <input type="text" placeholder="Preset Name" id="presetNameSurv${index}">
             <button class="presetButton" id="savePresetSurv${index}">Save Preset</button>
 
-            <select id="presetListSurv${index}">
+            <select class="presetSelect" id="presetListSurv${index}">
                 <option value="">Load Preset</option>
             </select>
 

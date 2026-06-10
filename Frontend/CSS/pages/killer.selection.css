@@ -1,18 +1,21 @@
 body {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    padding-top: 48px;
+    flex-direction: column;
+
+    padding-top: var(--space-4xl);
 }
 
 h1 {
-    margin-bottom: 48px;
+    margin-bottom: var(--space-4xl);
 }
 
 #killerList {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 25px;
+
+    gap: var(--space-2xl);
+
     width: 80%;
     max-width: 900px;
 }
@@ -21,24 +24,30 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     background: rgba(0, 0, 0, 0.6);
-    border-radius: 12px;
-    padding: 16px;
-    cursor: pointer;
+
+    border-radius: var(--space-md);
+
+    padding: var(--space-lg);
+
+    box-shadow: var(--shadow-md-heavy);
     transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 0 10px rgba(0,0,0,0.7);
+    cursor: pointer;
 }
 
 .killerCard:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 18px rgba(94, 42, 108, 0.7);
+    box-shadow: var(--shadow-glow-lg-secondary-heavy);
 }
 
 .killerCard img {
     width: 100px;
     height: 100px;
+
     object-fit: contain;
-    margin-bottom: 10px;
+
+    margin-bottom: var(--space-md);
 }
 
 .killerCard span {

@@ -18,7 +18,7 @@ button {
 
 button:hover {
     transform: scale(1.1);
-    background-color: var(--color-primary-hover);
+    background-color: var(--color-button-primary-hover);
     box-shadow: var(--shadow-glow-primary-high);
 }
 

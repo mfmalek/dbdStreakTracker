@@ -20,10 +20,13 @@ input[type="password"]:focus {
 
 .authContainer {
     text-align: center;
+
     background-color: var(--color-surface-gray-translucent);
-    padding: var(--space-3xl) var(--space-4xl);
-    border-radius: var(--radius-md);
     box-shadow: var(--shadow-glow-secondary-dark);
+
+    padding: var(--space-3xl) var(--space-4xl);
+
+    border-radius: var(--radius-md);
 }
 
 .pageLinking {

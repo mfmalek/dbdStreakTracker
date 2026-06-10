@@ -1,16 +1,18 @@
 /* BASE */
 
 @import url("./base/reset.css");
-@import url("./base/typography.css");
 @import url("./base/variables.css");
+@import url("./base/typography.css");
 
 /* COMPONENTS */
 
 @import url("./components/buttons.css");
 @import url("./components/cards.css");
 @import url("./components/forms.css");
+@import url("./components/group.css");
 @import url("./components/loading.css");
 @import url("./components/modals.css");
+@import url("./components/portraits.css");
 @import url("./components/tables.css");
 
 /* LAYOUT */
