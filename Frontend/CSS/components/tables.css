@@ -1,70 +1,90 @@
+/* TABLE BASE STYLES */
+
 table {
     width: 100%;
-    margin-top: var(--space-3xl);
-
-    background: var(--color-surface-gray-darkest);
-
     border-collapse: collapse;
+    font-size: 0.9rem;
+    background: var(--color-surface-gray-darkest);
+}
+
+tbody tr {
+    transition: background-color 0.15s ease;
+}
+
+tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.02);
 }
 
 th,
 td {
     text-align: center;
-    padding: var(--space-sm);
+    padding: var(--space-md) var(--space-sm);
     border: 1px solid var(--color-border-gray-dark);
+    vertical-align: middle;
 }
+
+tr th:first-child,
+tr td:first-child {
+    border-left: none;
+}
+
+tr th:last-child,
+tr td:last-child {
+    border-right: none;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* TABLE HEADERS */
 
 th {
-    background: var(--color-border-gray-dark);
-    border: 1px solid var(--color-border-gray-medium);
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--color-button-alternate-primary);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    border-top: none;
 }
 
-/* MATCH ID */
+/* ACTIONS COLUMN */
 
-.matchNumberCell {
-    position: relative;
-}
-
-.matchNumber {
-    transition: opacity 0.15s ease;
-}
-
-.matchHoverActions {
+.actions-cell {
     display: flex;
-    position: absolute;
-
-    top: 50%;
-    right: var(--space-sm);
-    gap: var(--space-xs);
-
-    transform: translateY(-50%);
-    opacity: 0;
-
-    pointer-events: none;
-    transition: opacity 0.15s ease;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
 }
 
-.deleteMatchHoverBtn,
-.editMatchHoverBtn {
-    position: absolute;
-    inset: 50% auto auto 50%;
-
-    background-color: transparent;
-
-    transform: translate(-50%, -50%);
-    opacity: 0;
-
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm, 4px);
     border: none;
     cursor: pointer;
-    pointer-events: none;
-    transition: opacity 0.15s ease;
+    transition: opacity 0.2s ease, transform 0.1s ease;
 }
 
-.matchNumberCell:hover .matchNumber {
-    opacity: 0;
+.action-btn:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
 }
 
-.matchNumberCell:hover .matchHoverActions {
-    opacity: 1;
-    pointer-events: auto;
+.action-btn:active {
+    transform: scale(0.95);
+}
+
+.edit-btn {
+    background-color: var(--color-button-alternate-primary);
+    color: white;
+}
+
+.delete-btn {
+    background-color: #9f1239;
+    color: white;
 }
