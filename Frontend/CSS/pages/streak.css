@@ -329,6 +329,10 @@ select.hidden-select {
     padding-left: var(--space-sm);
 }
 
+.preset-input-group input[type="text"] {
+    width: 110px; /* Constrain this specific input */
+}
+
 .presetSelect {
     background: transparent;
     border: none;
@@ -444,14 +448,15 @@ select.hidden-select {
     color: var(--color-text-primary);
 }
 
-/* PRESET NAME, LOAD PRESET, KILLER NAME, MAP NAME AND INVITE USERNAME */
-
-input[type="text"] {
-    width: 200px;
+/* GENERAL INPUT OVERRIDE - FIXED */
+input[type="text"], input[type="number"] {
+    width: 100%; /* Changed from hardcoded 200px to allow flex behavior */
     padding: var(--space-xs);
-
     background-color: var(--color-surface-black-translucent-low);
     color: var(--color-text-primary);
+    border: 1px solid var(--color-border-gray-dark);
+    border-radius: var(--radius-sm);
+    box-sizing: border-box;
 }
 
 /* DASHBOARD GRID LAYOUT */
@@ -509,6 +514,7 @@ input[type="text"] {
     display: flex;
     gap: 12px;
     margin-bottom: 16px;
+    align-items: stretch; /* Ensures items inside stretch to identical heights */
 }
 
 .inputGroup {
@@ -516,6 +522,7 @@ input[type="text"] {
     flex-direction: column;
     flex: 1;
     gap: 6px;
+    min-width: 0; /* Critical: prevents children from breaking the grid cell width */
 }
 
 .inputGroup label {
@@ -525,8 +532,10 @@ input[type="text"] {
     letter-spacing: 0.5px;
 }
 
+/* UNIFIED STYLING FOR INPUTS AND TOM SELECT */
 .inviteControls input[type="text"].dark-input,
-.dark-input {
+.dark-input,
+.ts-wrapper.dark-input .ts-control {
     background: #0f0f13 !important;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
     color: #fff !important;
@@ -538,11 +547,22 @@ input[type="text"] {
     box-sizing: border-box;
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    min-height: 45px; /* Ensures map dropdown and text input share the exact same height */
+    display: flex;
+    align-items: center;
 }
 
-.dark-input:focus {
+.dark-input:focus,
+.ts-wrapper.dark-input.focus .ts-control {
     border-color: #b062ff !important;
     box-shadow: 0 0 0 2px rgba(176, 98, 255, 0.15);
+}
+
+.ts-wrapper.dark-input .ts-dropdown {
+    background: #0f0f13;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-radius: 8px;
 }
 
 /* ACTION CONTROLS & SIDE-BY-SIDE */
@@ -716,6 +736,11 @@ input[type="text"] {
     width: 100%;
 }
 
+.inviteControls .dark-input {
+    flex: 1; /* Allows input to shrink gracefully so the button stays inside the card */
+    min-width: 0;
+}
+
 .btn-purple {
     background: #6f2dbd;
     color: white;
@@ -725,6 +750,7 @@ input[type="text"] {
     cursor: pointer;
     font-weight: 600;
     font-size: 14px;
+    flex-shrink: 0; /* Prevents the button from being squished */
     transition: background 0.2s;
 }
 
@@ -883,7 +909,6 @@ input[type="text"] {
 }
 
 .empty-state {
-    color: #571;
     font-style: italic;
     font-size: 13px;
     color: #8b949e;
