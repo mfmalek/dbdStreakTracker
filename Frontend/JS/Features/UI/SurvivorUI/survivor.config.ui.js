@@ -25,32 +25,42 @@ function renderSurvivors(configs) {
 }
 
 function createSurvivorColumn(index, config = {}) {
-    const name = config.name || `Surv${index}`;
+    const name = config.name || `Surv ${index}`;
     const image = config.image || "Portrait_MegThomas.png";
 
     return `
-        <div class="flex-column-center">
-            <div class="nickAndChar">
-                <h2 class="nickname editable" id="nicknameSurv${index}" data-index="${index}"> ${name} </h2>
-                <img class="characterPortrait selectable" id="imageSurv${index}"
-                    data-index="${index}" src="../Images/Portraits/Survivors/${image}" alt="Survivor">
-            </div>
-        
-            <div class="survivorCardWrapper">
-                <div class="card">
-                    <div class="perkBuilder">
-                        <h2 class="perkBuilderTitle">Surv${index}'s build</h2>
+        <div class="character-wrapper">
+            <div class="card survivor-card">
+                <div class="card-header">
+                    <div class="header-info">
+                        <div class="role-icon survivor-icon">🛡️</div>
+                        <div class="name-role">
+                            <h2 class="nickname editable" id="nicknameSurv${index}" data-index="${index}">${name}</h2>
+                            <span class="role-text">SURVIVOR ${index}</span>
+                        </div>
+                    </div>
+                    <button class="icon-btn edit-btn">✎</button>
+                </div>
 
-                        <div class="perkSlots">${createPerkSlots(index)}</div>
+                <div class="card-body">
+                    <div class="survivorCardWrapper">
+                        <div class="portrait-container">
+                            <img class="characterPortrait selectable" id="imageSurv${index}" data-index="${index}" src="../Images/Portraits/Survivors/${image}" alt="Survivor">
+                        </div>
+                        ${createPortraitGrid(index)}
+                    </div>
+
+                    <div class="build-section">
+                        <h2 class="perkBuilderTitle">Surv ${index}'s Build</h2>
+                        <div class="perkSlots-row">${createPerkSlots(index)}</div>
                         ${createPresetControls(index)}
                     </div>
                 </div>
-                ${createPortraitGrid(index)}
             </div>
-
-            <label>
+            
+            <label class="survived-checkbox">
                 <input type="checkbox" id="surv${index}Survived">
-                Surv${index} Survived
+                Surv ${index} Escaped
             </label>
         </div>
     `;
@@ -58,24 +68,27 @@ function createSurvivorColumn(index, config = {}) {
 
 function createPerkSlots(index) {
     return [1, 2, 3, 4].map(p => `
-        <div class="perkSlot">
-            <label class="perkNumberText">Perk ${p}:</label>
-            <select id="perk${p}Surv${index}"></select>
+        <div class="perkSlot wrapper">
+            <div class="perk-diamond survivor-diamond">
+                <span class="plus-icon">+</span>
+                <select id="perk${p}Surv${index}" class="hidden-select"></select>
+            </div>
+            <label class="perkNumberText">PERK ${p}</label>
         </div>
     `).join("");
 }
 
 function createPresetControls(index) {
     return `
-        <div class="presetControls">
-            <input type="text" placeholder="Preset Name" id="presetNameSurv${index}">
-            <button class="presetButton" id="savePresetSurv${index}">Save Preset</button>
-
-            <select class="presetSelect" id="presetListSurv${index}">
-                <option value="">Load Preset</option>
-            </select>
-
-            <button class="presetButton" id="deletePresetSurv${index}">Delete Preset</button>
+        <div class="presetControls row">
+            <div class="preset-input-group">
+                <span class="preset-icon">💾</span>
+                <select class="presetSelect" id="presetListSurv${index}">
+                    <option value="">Load Preset</option>
+                </select>
+            </div>
+            <button class="presetButton save" id="savePresetSurv${index}">Save Preset</button>
+            <button class="presetButton delete icon-only" id="deletePresetSurv${index}">🗑️</button>
         </div>
     `;
 }

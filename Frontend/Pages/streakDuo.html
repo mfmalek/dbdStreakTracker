@@ -45,36 +45,61 @@
     <div class="matchEntry">
         <div id="survivorContainer"></div>
 
-        <div class="flex-column-center">
-            <div class="nickAndChar" id="killerInfo">
-                <h2 class="nickname">Killer</h2>
-                <img class="characterPortrait" id="killerImage" src="/Images/Miscellaneous/Icon_Killer.png" alt="Killer"
-                    title="Killer">
-            </div>
-            <div class="perkBuilder">
-                <div class="card">
-                    <h2 class="perkBuilderTitle">Killer's build</h2>
-                    <div class="perkSlots">
-                        <div class="perkSlot" id="killerPerkSlot1">
-                            <label for="killerPerk1" class="perkNumberText">Perk 1:</label>
-                            <select id="killerPerk1"></select>
+        <div class="character-wrapper">
+            <div class="card killer-card">
+                <div class="card-header">
+                    <div class="header-info">
+                        <div class="role-icon killer-icon">
+                            <img src="/Images/Miscellaneous/Icon_Killer.png" alt="Killer"
+                                style="filter: invert(1); width: 24px;">
                         </div>
-                        <div class="perkSlot" id="killerPerkSlot2">
-                            <label for="killerPerk2" class="perkNumberText">Perk 2:</label>
-                            <select id="killerPerk2"></select>
-                        </div>
-                        <div class="perkSlot" id="killerPerkSlot3">
-                            <label for="killerPerk3" class="perkNumberText">Perk 3:</label>
-                            <select id="killerPerk3"></select>
-                        </div>
-                        <div class="perkSlot" id="killerPerkSlot4">
-                            <label for="killerPerk4" class="perkNumberText">Perk 4:</label>
-                            <select id="killerPerk4"></select>
+                        <div class="name-role">
+                            <h2 class="nickname">KILLER</h2>
                         </div>
                     </div>
+                    <button class="icon-btn edit-btn">✎</button>
+                </div>
+
+                <div class="card-body">
+                    <div class="build-section">
+                        <h2 class="perkBuilderTitle">Killer's Build</h2>
+                        <div class="perkSlots-row">
+                            <div class="perkSlot wrapper">
+                                <div class="perk-diamond killer-diamond">
+                                    <span class="plus-icon">+</span>
+                                    <select id="killerPerk1" class="hidden-select"></select>
+                                </div>
+                                <label class="perkNumberText">PERK 1</label>
+                            </div>
+                            <div class="perkSlot wrapper">
+                                <div class="perk-diamond killer-diamond">
+                                    <span class="plus-icon">+</span>
+                                    <select id="killerPerk2" class="hidden-select"></select>
+                                </div>
+                                <label class="perkNumberText">PERK 2</label>
+                            </div>
+                            <div class="perkSlot wrapper">
+                                <div class="perk-diamond killer-diamond">
+                                    <span class="plus-icon">+</span>
+                                    <select id="killerPerk3" class="hidden-select"></select>
+                                </div>
+                                <label class="perkNumberText">PERK 3</label>
+                            </div>
+                            <div class="perkSlot wrapper">
+                                <div class="perk-diamond killer-diamond">
+                                    <span class="plus-icon">+</span>
+                                    <select id="killerPerk4" class="hidden-select"></select>
+                                </div>
+                                <label class="perkNumberText">PERK 4</label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="mapImageSection">
                         <img id="mapImage" src="/Images/Maps/Map_GenericMapBackground.png" alt="DBD Map">
+                        <div class="map-label">MAP PREVIEW</div>
                     </div>
+
                 </div>
             </div>
         </div>
