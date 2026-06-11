@@ -69,7 +69,8 @@ function createSurvivorColumn(index, config = {}) {
 function createPerkSlots(index) {
     return [1, 2, 3, 4].map(p => `
         <div class="perkSlot wrapper">
-            <div class="perk-diamond survivor-diamond">
+            <div class="perk-input-container">
+                <div class="perk-diamond survivor-diamond"></div>
                 <span class="plus-icon">+</span>
                 <select id="perk${p}Surv${index}" class="hidden-select"></select>
             </div>
