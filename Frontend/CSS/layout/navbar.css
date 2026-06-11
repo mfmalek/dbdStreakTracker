@@ -3,17 +3,14 @@
     align-items: center;
     justify-content: space-between;
 
-    background: var(--color-surface-gray-translucent);
-
-    min-width: 95vw;
-
-    padding: var(--space-md) var(--space-xl);
+    background: var(--color-surface-black-translucent-low);
+    min-width: 100%;
+    
+    padding: var(--space-sm) var(--space-2xl);
     margin-bottom: var(--space-3xl);
 
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border-gray-medium);
-
-    font-weight: bold;
+    border-bottom: 1px solid var(--color-border-gray-dark);
+    font-size: var(--text-sm);
 }
 
 .navLeft,
@@ -21,16 +18,56 @@
 .navRight {
     display: flex;
     align-items: center;
-
     gap: var(--space-lg);
 }
 
-#navbar button {
-    font-weight: bold;
+#navLogo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    
+    font-size: var(--text-lg);
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--purple-medium);
 }
 
-#navLogo {
-    font-size: var(--text-lg);
+.logoIcon {
+    height: 24px;
+    width: auto;
+}
 
+/* GHOST BUTTONS FOR THE NAV */
+
+.navBtn.ghost {
+    background: transparent;
+    border: 1px solid var(--color-border-gray-dark);
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    padding: var(--space-xs) var(--space-lg);
+    border-radius: var(--radius-sm);
+    transition: 0.2s ease;
+}
+
+.navBtn.ghost:hover {
+    border-color: var(--color-border-gray-medium);
     color: var(--color-text-primary);
+    transform: none; /* Removing the scale effect for the top nav */
+    box-shadow: none;
+}
+
+.navDropdown {
+    background: transparent;
+    border: none;
+    color: var(--color-text-primary);
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.userBadge {
+    font-weight: 600;
+    letter-spacing: 0.5px;
 }

@@ -1,6 +1,6 @@
 function renderRulesList(container, rules) {
     container.innerHTML = rules
-        .map(rule => `<span class="streakRule">• ${rule}</span>`)
+        .map(rule => `<span class="streakRule">◇ ${rule}</span>`)
         .join("");
 }
 

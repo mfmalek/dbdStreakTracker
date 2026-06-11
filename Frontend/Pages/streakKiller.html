@@ -14,22 +14,28 @@
 <body data-page="streak" data-mode="killer">
     <div id="loadingScreen">Loading...</div>
 
-    <div id="navbar">
+    <nav id="navbar">
         <div class="navLeft">
-            <button id="homeButton">Home</button>
-            <span id="navLogo">DBD Tracker</span>
+            <button id="homeButton" class="navBtn ghost">
+                <span class="navIcon">⌂</span> Home
+            </button>
+            <div id="navLogo">
+                <img src="/Images/Miscellaneous/Logo_DBD.png" alt="DBD Logo" class="logoIcon">
+                <span>DBD TRACKER</span>
+            </div>
         </div>
 
         <div class="navCenter">
-            <span id="modeIndicator"></span>
+            <span class="navIcon">👥</span>
+            <button id="modeIndicator" class="navDropdown"></button>
         </div>
 
         <div class="navRight">
-            <span id="welcomeUser"></span>
-            <button id="profileButton">Profile</button>
-            <button id="logoutButton">Logout</button>
+            <span id="welcomeUser" class="userBadge">👑</span>
+            <button id="profileButton" class="navBtn ghost">Profile</button>
+            <button id="logoutButton" class="navBtn ghost">Logout</button>
         </div>
-    </div>
+    </nav>
 
     <div id="titleAndRules">
         <h1 id="streakTitle"></h1>
