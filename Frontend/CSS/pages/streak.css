@@ -396,19 +396,12 @@ select.hidden-select {
     margin-top: var(--space-xs);
 }
 
-/* ! CHARACTERS AREA (END) ! */
 /* MATCH INFO */
 
 .bottomInfo {
     display: flex;
     align-items: center;
     gap: var(--space-3xl);
-}
-
-.inputGroup {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
 }
 
 #streakStatsSection {
@@ -459,6 +452,255 @@ input[type="text"] {
 
     background-color: var(--color-surface-black-translucent-low);
     color: var(--color-text-primary);
+}
+
+/* DASHBOARD GRID LAYOUT */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+/* DASHBOARD CARDS */
+
+.dashboard-card {
+    background: rgba(18, 18, 22, 0.7); /* Dark translucent background */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    font-size: 13px;
+    color: #a0a0b0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.icon-purple {
+    color: #b062ff; /* Neon purple accent */
+}
+
+/* INPUTS & FORMS */
+
+.input-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 6px;
+}
+
+.inputGroup label {
+    font-size: 12px;
+    color: #888;
+}
+
+.dark-input {
+    background: #1a1a20;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.dark-input:focus {
+    border-color: #b062ff;
+}
+
+/* BUTTONS */
+
+.btn-submit {
+    background: #2ea043;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 8px;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background: #3fb950;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: #a0a0b0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.btn-danger {
+    background: rgba(220, 53, 69, 0.2);
+    color: #ff6b6b;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-danger:hover {
+    background: rgba(220, 53, 69, 0.4);
+}
+
+.btn-purple {
+    background: #7938d2;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* DELETE ROW SPECIFICS */
+
+.delete-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.input-with-label {
+    display: flex;
+    align-items: center;
+    background: #1a1a20;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding-left: 12px;
+    flex: 1;
+}
+
+.input-with-label .prefix {
+    color: #888;
+    font-size: 12px;
+}
+
+.input-with-label .num-input {
+    border: none;
+    background: transparent;
+    padding: 10px;
+}
+
+/* STREAK STATS SPECIFICS */
+
+.streak-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 24px;
+    margin-top: 10px;
+}
+
+.streak-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.streak-label {
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 1px;
+}
+
+.streak-value {
+    font-size: 36px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.text-green {
+    color: #3fb950;
+}
+
+.text-purple {
+    color: #b062ff;
+}
+
+.streak-divider {
+    width: 1px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-ghost-purple {
+    background: transparent;
+    color: #b062ff;
+    border: 1px solid rgba(176, 98, 255, 0.3);
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: auto;
+}
+
+/* GROUP & INVITES */
+
+.inviteControls {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.empty-state {
+    color: #666;
+    font-style: italic;
+    font-size: 13px;
+    list-style: none;
+    padding: 0;
+}
+
+.invites-list {
+    padding: 0;
+    margin: 0 0 16px 0;
+}
+
+.view-all-btn {
+    background: transparent;
+    border: none;
+    color: #b062ff;
+    cursor: pointer;
+    margin-top: auto;
+    font-size: 13px;
 }
 
 /* RESPONSIVE */
