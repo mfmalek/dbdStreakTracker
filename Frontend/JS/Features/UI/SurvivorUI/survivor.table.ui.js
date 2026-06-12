@@ -9,7 +9,7 @@ function renderTable(names, matches) {
 
 function renderTableHeader(names) {
     const thead = document.querySelector("#matchTable thead");
-    
+
     if (!thead) return;
 
     let html = "<tr><th>#</th>";
@@ -22,9 +22,10 @@ function renderTableHeader(names) {
     });
 
     html += `
-        <th>Map</th>
         <th>Killer</th>
         <th>Killer Perks</th>
+        <th>Map</th>
+        <th>Actions</th>
     </tr>`;
 
     thead.innerHTML = html;
@@ -51,7 +52,7 @@ function renderTableBody(matches) {
 function createTableRow(match, displayNumber) {
     let rowHTML = `
         <tr>
-            ${sharedTableUI.createMatchNumberCell(match.id, displayNumber)}
+            <td>${sharedTableUI.createMatchNumberCell(displayNumber)}</td>
         `;
 
     for (let i = 0; i < survivorCore.SURVIVOR_COUNT; i++) {
@@ -64,9 +65,10 @@ function createTableRow(match, displayNumber) {
     }
 
     rowHTML += `
-        <td>${match.mapName || "Unknown Map"}</td>
         <td>${match.killerName || "Unknown Killer"}</td>
         <td>${match.killerPerks?.join(", ") || "N/A"}</td>
+        <td>${match.mapName || "Unknown Map"}</td>
+        <td>${sharedTableUI.createMatchActionsCell(match.id)}</td>
     </tr>`;
 
     return rowHTML;

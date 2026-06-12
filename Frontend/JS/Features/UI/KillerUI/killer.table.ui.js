@@ -18,6 +18,7 @@ function renderTableHeader() {
             <th>Perks</th>
             <th>Add-ons</th>
             <th>Map</th>
+            <th>Actions</th>
         </tr>
     `
 
@@ -39,14 +40,12 @@ function renderTableBody(matches) {
 
             return `
                 <tr>
-                    ${sharedTableUI.createMatchNumberCell(match.id, displayNumber)}
-                    <td>
-                        ${match.kills ?? "N/A"}K - 
-                        ${match.result === "win" ? "✅" : "☠️"}
-                    </td>
+                    <td>${sharedTableUI.createMatchNumberCell(displayNumber)}</td>
+                    <td>${match.kills ?? "N/A"}K - ${match.result === "win" ? "✅" : "☠️"}</td>
                     <td>${match.killerPerks?.join(", ") || "N/A"}</td>
                     <td>${match.killerAddons?.join(", ") || "N/A"}</td>
                     <td>${match.mapName || "Unknown Map"}</td>
+                    <td>${sharedTableUI.createMatchActionsCell(match.id)}</td>
                 </tr>
             `;
         })
