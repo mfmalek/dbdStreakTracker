@@ -45,7 +45,7 @@ function renderTableBody(matches) {
                     <td>${match.killerPerks?.join(", ") || "N/A"}</td>
                     <td>${match.killerAddons?.join(", ") || "N/A"}</td>
                     <td>${match.mapName || "Unknown Map"}</td>
-                    <td>${sharedTableUI.createMatchActionsCell(match.id)}</td>
+                    ${sharedTableUI.createMatchActionsCell(match.id)}
                 </tr>
             `;
         })

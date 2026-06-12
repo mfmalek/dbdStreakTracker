@@ -52,7 +52,7 @@ function renderTableBody(matches) {
 function createTableRow(match, displayNumber) {
     let rowHTML = `
         <tr>
-            <td>${sharedTableUI.createMatchNumberCell(displayNumber)}</td>
+            ${sharedTableUI.createMatchNumberCell(displayNumber)}
         `;
 
     for (let i = 0; i < survivorCore.SURVIVOR_COUNT; i++) {
