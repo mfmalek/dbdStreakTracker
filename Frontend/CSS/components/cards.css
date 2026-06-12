@@ -1,15 +1,46 @@
 .card {
     display: flex;
     flex-direction: column;
-
     padding: var(--space-2xl);
     gap: var(--space-lg);
-
-    background-color: var(--color-surface-gray-translucent);
-    
-    border: 1px solid var(--color-border-gray-medium);
+    background-color: var(--color-surface-black-translucent-low);
+    border: 1px solid var(--color-border-gray-dark);
     border-radius: var(--radius-lg);
-
     box-shadow: var(--shadow-md-light);
     backdrop-filter: blur(4px);
+}
+
+.dashboard-card {
+    background: rgba(14, 14, 18, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.card-title {
+    font-size: 12px;
+    color: #a0a0b0;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.icon-purple {
+    color: #b062ff;
 }

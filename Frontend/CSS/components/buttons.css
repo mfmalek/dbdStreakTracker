@@ -2,17 +2,12 @@
 
 button {
     background-color: var(--color-button-primary);
-    
     padding: var(--space-md);
-
     font-weight: bold;
     color: var(--color-text-primary);
-
     border: none;
     border-radius: var(--radius-sm);
-    
     cursor: pointer;
-
     transition: transform 0.5s, background-color 0.25s, box-shadow 0.4s;
 }
 
@@ -26,7 +21,7 @@ button:active {
     transform: scale(1);
 }
 
-/* DANGER BUTTONS */
+/* BASE BUTTON VARIANTS */
 
 button[name="danger"] {
     background-color: var(--color-button-danger);
@@ -37,8 +32,6 @@ button[name="danger"]:hover {
     box-shadow: var(--shadow-glow-danger);
 }
 
-/* ALTERNATE BUTTONS  */
-
 button[name="alternate"] {
     background-color: var(--color-button-alternate-primary);
 }
@@ -46,4 +39,196 @@ button[name="alternate"] {
 button[name="alternate"]:hover {
     background-color: var(--color-button-alternate-primary-hover);
     box-shadow: var(--shadow-glow-secondary);
+}
+
+
+
+/* DASHBOARD & ACTION BUTTONS */
+
+.btn-submit {
+    background: #238636;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    flex: 1;
+    margin-bottom: 0 !important;
+    transition: background 0.2s;
+}
+
+.btn-submit:hover {
+    background: #2ea043;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-ghost {
+    background: rgba(255, 255, 255, 0.03);
+    color: #c9d1d9;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    flex: 1;
+    transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-danger {
+    background: rgba(248, 81, 73, 0.1);
+    color: #f85149;
+    border: 1px solid rgba(248, 81, 73, 0.2);
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    flex: 1;
+    transition: all 0.2s;
+}
+
+.btn-danger:hover {
+    background: rgba(248, 81, 73, 0.2);
+    border-color: rgba(248, 81, 73, 0.4);
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-purple {
+    background: #6f2dbd;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+
+.btn-purple:hover {
+    background: #803bd6;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-ghost-purple {
+    background: transparent;
+    color: #b062ff;
+    border: 1px solid rgba(176, 98, 255, 0.25);
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    width: 100%;
+    margin-top: 20px;
+    transition: all 0.2s;
+}
+
+.btn-ghost-purple:hover {
+    background: rgba(176, 98, 255, 0.08);
+    border-color: #b062ff;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-remove {
+    background: transparent;
+    border: 1px solid rgba(248, 81, 73, 0.3);
+    color: #ff6b6b;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-remove:hover {
+    background: rgba(248, 81, 73, 0.15);
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-action-check {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+    background: rgba(46, 160, 67, 0.15);
+    color: #3fb950;
+    border: 1px solid rgba(46, 160, 67, 0.2);
+}
+
+.btn-action-check:hover {
+    background: rgba(46, 160, 67, 0.3);
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-action-cross {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+    background: rgba(248, 81, 73, 0.15);
+    color: #f85149;
+    border: 1px solid rgba(248, 81, 73, 0.2);
+}
+
+.btn-action-cross:hover {
+    background: rgba(248, 81, 73, 0.3);
+    transform: none;
+    box-shadow: none;
+}
+
+.view-all-btn {
+    background: transparent;
+    border: none;
+    color: #b062ff;
+    cursor: pointer;
+    margin-top: auto;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    padding-top: 16px;
+    transition: color 0.2s;
+}
+
+.view-all-btn:hover {
+    color: #c482ff;
+    text-decoration: underline;
+    transform: none;
+    box-shadow: none;
+}
+
+#deleteMatchNumber {
+    height: 50px;
+    width: 100px;
+    background-color: var(--color-surface-black-translucent-low);
+    color: var(--color-text-primary);
 }

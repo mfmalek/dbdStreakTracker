@@ -3,35 +3,34 @@
 label {
     display: flex;
     align-items: center;
-
     gap: var(--space-sm);
     margin-top: var(--space-lg);
-
     user-select: none;
 }
 
-/* TEXT AND PASSWORD */
+/* GENERAL TEXT, PASSWORD, AND NUMBER */
 
 input[type="text"],
-input[type="password"] {
-    min-width: 100%;
-
-    font-size: var(--text-sm);
-
+input[type="password"],
+input[type="number"] {
+    width: 100%;
     padding: var(--space-md);
     margin-bottom: var(--space-md);
-
-    border: 1px solid var(--color-border-gray-medium);
+    border: 1px solid var(--color-border-gray-dark);
     border-radius: var(--radius-md);
-
     background-color: var(--color-surface-black-translucent-low);
     color: var(--color-text-primary);
-
+    font-size: var(--text-sm);
     transition: 0.2s;
 }
 
+input[type="number"] {
+    height: auto;
+}
+
 input[type="text"]:focus,
-input[type="password"]:focus {
+input[type="password"]:focus,
+input[type="number"]:focus {
     outline: none;
     border-color: var(--color-border-primary);
     box-shadow: var(--shadow-glow-primary);
@@ -51,14 +50,10 @@ input::placeholder {
 input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    
     position: relative;
-
     background-color: var(--color-surface-gray-darkest);
-    
     border: 2px solid var(--color-border-gray-medium);
     border-radius: var(--radius-sm);
-    
     cursor: pointer;
     appearance: none;
 }
@@ -71,13 +66,10 @@ input[type="checkbox"]:checked {
 input[type="checkbox"]::before {
     display: none;
     position: absolute;
-
     top: -2px;
     left: 2px;
-
     content: "✔";
     color: var(--color-text-primary);
-
     font-size: var(--text-sm);
 }
 
@@ -85,22 +77,101 @@ input[type="checkbox"]:checked::before {
     display: block;
 }
 
-/* NUMBER */
+/* INPUT GROUPS & ALIGNMENT */
 
-input[type="number"] {
-    width: 50px;
-    height: 20px;
-
-    outline: none;
-
-    border: 2px solid var(--color-border-gray-medium);
-    border-radius: var(--radius-md);
+.input-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    align-items: stretch;
 }
 
-/* TOM SELECT */
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 6px;
+    min-width: 0;
+}
+
+.inputGroup label {
+    font-size: 11px;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 0;
+}
+
+/* DASHBOARD DARK INPUTS & TOM SELECT OVERRIDES */
+
+.inviteControls input[type="text"].dark-input,
+.dark-input,
+.ts-wrapper.dark-input .ts-control {
+    background: #0f0f13 !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: #fff !important;
+    padding: 12px 14px !important;
+    border-radius: 8px !important;
+    font-family: inherit;
+    font-size: 14px;
+    width: 100% !important;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    min-height: 45px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.dark-input:focus,
+.ts-wrapper.dark-input.focus .ts-control {
+    border-color: #b062ff !important;
+    box-shadow: 0 0 0 2px rgba(176, 98, 255, 0.15);
+}
+
+.ts-wrapper.dark-input .ts-dropdown {
+    background: #0f0f13;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-radius: 8px;
+}
 
 div.ts-control {
     background-color: var(--color-surface-black-translucent-low);
     border: 2px solid var(--color-border-gray-medium);
     border-radius: var(--radius-sm);
+}
+
+/* DELETE ROW INLINE FORM */
+
+.delete-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.delete-row .input-with-label {
+    display: flex;
+    align-items: center;
+    background: #0f0f13;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    padding-left: 14px;
+    flex: 1.2;
+}
+
+.delete-row .input-with-label .prefix {
+    color: #555;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.delete-row .input-with-label .num-input {
+    border: none !important;
+    background: transparent !important;
+    padding: 12px 10px !important;
+    height: auto !important;
+    width: 100% !important;
+    margin-bottom: 0;
 }

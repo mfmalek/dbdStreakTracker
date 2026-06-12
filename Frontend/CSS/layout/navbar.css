@@ -52,7 +52,7 @@
 .navBtn.ghost:hover {
     border-color: var(--color-border-gray-medium);
     color: var(--color-text-primary);
-    transform: none; /* Removing the scale effect for the top nav */
+    transform: none;
     box-shadow: none;
 }
 
