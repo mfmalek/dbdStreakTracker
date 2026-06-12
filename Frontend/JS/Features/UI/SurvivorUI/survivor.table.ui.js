@@ -68,7 +68,7 @@ function createTableRow(match, displayNumber) {
         <td>${match.killerName || "Unknown Killer"}</td>
         <td>${match.killerPerks?.join(", ") || "N/A"}</td>
         <td>${match.mapName || "Unknown Map"}</td>
-        <td>${sharedTableUI.createMatchActionsCell(match.id)}</td>
+        ${sharedTableUI.createMatchActionsCell(match.id)}
     </tr>`;
 
     return rowHTML;

@@ -40,7 +40,7 @@ function renderTableBody(matches) {
 
             return `
                 <tr>
-                    <td>${sharedTableUI.createMatchNumberCell(displayNumber)}</td>
+                    ${sharedTableUI.createMatchNumberCell(displayNumber)}
                     <td>${match.kills ?? "N/A"}K - ${match.result === "win" ? "✅" : "☠️"}</td>
                     <td>${match.killerPerks?.join(", ") || "N/A"}</td>
                     <td>${match.killerAddons?.join(", ") || "N/A"}</td>
