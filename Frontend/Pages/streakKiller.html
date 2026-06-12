@@ -100,34 +100,57 @@
         </div>
     </div>
 
-    <div id="infoAndStats" class="bottomInfo">
-        <div id="matchInfoSection">
-            <h2>Match Info</h2>
-            <div id="mapSection">
-                <div class="inputGroup">
-                    <label>Map:</label>
-                    <select id="mapName" placeholder="Select Map"></select>
-                </div>
-            </div>
+    <div id="infoAndStats" class="dashboard-grid">
 
-            <div class="bottomButtons">
-                <button id="submitMatchButton">Submit Match</button>
-                <button class="hidden" id="cancelEditButton">Cancel Editing</button>
-                <button id="clearMatchesButton">Clear All Matches</button>
-                <div id="deleteMatch">
-                    <input type="number" id="deleteMatchNumber" placeholder="Match #" min="1">
-                    <button id="deleteMatchButton">Delete Match</button>
+        <div id="matchInfoSection" class="dashboard-card">
+            <h2 class="card-title"><span class="icon-purple">🎯</span> MATCH INFO</h2>
+            <div class="card-content">
+                <div id="mapAndKiller" class="input-row">
+                    <div class="inputGroup">
+                        <label for="mapName">Map</label>
+                        <select id="mapName" class="dark-input"></select>
+                    </div>
+                </div>
+
+                <div class="bottomButtons side-by-side-row">
+                    <button id="submitMatchButton" class="btn-submit">✓ Submit Match</button>
+                    <button class="hidden" id="cancelEditButton">Cancel Editing</button>
+                    <button id="clearMatchesButton" class="btn-ghost">🗑️ Clear All Matches</button>
+                </div>
+
+                <div id="deleteMatch" class="delete-row">
+                    <div class="input-with-label">
+                        <span class="prefix">Match #</span>
+                        <input type="number" id="deleteMatchNumber" placeholder="e.g. 12" min="1"
+                            class="dark-input num-input">
+                    </div>
+                    <button id="deleteMatchButton" class="btn-danger">Delete Match</button>
                 </div>
             </div>
         </div>
 
-        <div id="streakStatsSection">
-            <h2>Streak Stats</h2>
-            <div id="streakStats">
-                <h3>🔥 Current Streak: <span id="currentStreak"></span></h3><br>
-                <h3>🏆 Best Streak: <span id="bestStreak"></span></h3>
+        <div id="streakStatsSection" class="dashboard-card">
+            <h2 class="card-title"><span class="icon-purple">🔥</span> STREAK STATS</h2>
+            <div class="card-content streak-content">
+                <div id="streakStats" class="streak-wrapper">
+                    <div class="streak-box">
+                        <span class="streak-label">CURRENT STREAK</span>
+                        <div class="streak-value">
+                            <span class="icon-fire">🔥</span>
+                            <span id="currentStreak" class="text-green">0</span>
+                        </div>
+                    </div>
+                    <div class="streak-divider"></div>
+                    <div class="streak-box">
+                        <span class="streak-label">BEST STREAK</span>
+                        <div class="streak-value">
+                            <span class="icon-trophy">🏆</span>
+                            <span id="bestStreak" class="text-purple">0</span>
+                        </div>
+                    </div>
+                </div>
+                <button id="resetBestStreakButton" class="btn-ghost-purple">✏️ Reset Best Streak</button>
             </div>
-            <button class="bottomButtons" id="resetBestStreakButton">Reset Best Streak</button>
         </div>
     </div>
 

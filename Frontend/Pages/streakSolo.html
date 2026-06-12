@@ -13,7 +13,7 @@
 
 <body data-page="streak" data-mode="solo">
     <div id="loadingScreen">Loading...</div>
-    
+
     <nav id="navbar">
         <div class="navLeft">
             <button id="homeButton" class="navBtn ghost">
@@ -45,83 +45,145 @@
     <div class="matchEntry">
         <div id="survivorContainer"></div>
 
-        <div class="flex-column-center">
-            <div class="nickAndChar" id="killerInfo">
-                <h2 class="nickname">Killer</h2>
-                <img class="characterPortrait" id="killerImage" src="/Images/Miscellaneous/Icon_Killer.png" alt="Killer"
-                    title="Killer">
-            </div>
-            <div class="perkBuilder">
-                <div class="card">
-                    <h2 class="perkBuilderTitle">Killer's build</h2>
-                    <div class="perkSlots">
-                        <div class="perkSlot" id="killerPerkSlot1">
-                            <label for="killerPerk1" class="perkNumberText">Perk 1:</label>
-                            <select id="killerPerk1"></select>
+        <div class="character-wrapper">
+            <div class="card killer-card">
+                <div class="card-header">
+                    <div class="header-info">
+                        <div class="role-icon killer-icon">
+                            <img src="/Images/Miscellaneous/Icon_Killer.png" id="killer-image-icon" alt="Killer">
                         </div>
-                        <div class="perkSlot" id="killerPerkSlot2">
-                            <label for="killerPerk2" class="perkNumberText">Perk 2:</label>
-                            <select id="killerPerk2"></select>
-                        </div>
-                        <div class="perkSlot" id="killerPerkSlot3">
-                            <label for="killerPerk3" class="perkNumberText">Perk 3:</label>
-                            <select id="killerPerk3"></select>
-                        </div>
-                        <div class="perkSlot" id="killerPerkSlot4">
-                            <label for="killerPerk4" class="perkNumberText">Perk 4:</label>
-                            <select id="killerPerk4"></select>
+                        <div class="name-role">
+                            <h2 class="nickname">KILLER</h2>
                         </div>
                     </div>
+                    <button class="icon-btn edit-btn">✎</button>
+                </div>
+
+                <div class="card-body">
+                    <div class="build-section">
+                        <h2 class="perkBuilderTitle">Killer's Build</h2>
+                        <div class="perkSlots-row">
+                            <div class="perkSlot wrapper">
+                                <div class="perk-input-container">
+                                    <div class="perk-diamond killer-diamond"></div>
+                                    <span class="plus-icon">+</span>
+                                    <select id="killerPerk1" class="hidden-select"></select>
+                                </div>
+                                <label class="perkNumberText">PERK 1</label>
+                            </div>
+                            <div class="perkSlot wrapper">
+                                <div class="perk-input-container">
+                                    <div class="perk-diamond killer-diamond"></div>
+                                    <span class="plus-icon">+</span>
+                                    <select id="killerPerk2" class="hidden-select"></select>
+                                </div>
+                                <label class="perkNumberText">PERK 2</label>
+                            </div>
+                            <div class="perkSlot wrapper">
+                                <div class="perk-input-container">
+                                    <div class="perk-diamond killer-diamond"></div>
+                                    <span class="plus-icon">+</span>
+                                    <select id="killerPerk3" class="hidden-select"></select>
+                                </div>
+                                <label class="perkNumberText">PERK 3</label>
+                            </div>
+                            <div class="perkSlot wrapper">
+                                <div class="perk-input-container">
+                                    <div class="perk-diamond killer-diamond"></div>
+                                    <span class="plus-icon">+</span>
+                                    <select id="killerPerk4" class="hidden-select"></select>
+                                </div>
+                                <label class="perkNumberText">PERK 4</label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="mapImageSection">
                         <img id="mapImage" src="/Images/Maps/Map_GenericMapBackground.png" alt="DBD Map">
+                        <div class="map-label">MAP PREVIEW</div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="infoAndStats" class="bottomInfo">
-        <div id="matchInfoSection">
-            <h2>Match Info</h2>
-            <div id="mapAndKiller">
-                <div class="inputGroup">
-                    <label for="killerName">Killer:</label>
-                    <select id="killerName" placeholder="Select Killer"></select>
+    <div id="infoAndStats" class="dashboard-grid">
+
+        <div id="matchInfoSection" class="dashboard-card">
+            <h2 class="card-title"><span class="icon-purple">🎯</span> MATCH INFO</h2>
+            <div class="card-content">
+                <div id="mapAndKiller" class="input-row">
+                    <div class="inputGroup">
+                        <label for="killerName">Killer</label>
+                        <select id="killerName" class="dark-input"></select>
+                    </div>
+                    <div class="inputGroup">
+                        <label for="mapName">Map</label>
+                        <select id="mapName" class="dark-input"></select>
+                    </div>
                 </div>
-                <div class="inputGroup">
-                    <label>Map:</label>
-                    <select id="mapName" placeholder="Select Map"></select>
+
+                <div class="bottomButtons side-by-side-row">
+                    <button id="submitMatchButton" class="btn-submit">✓ Submit Match</button>
+                    <button class="hidden" id="cancelEditButton">Cancel Editing</button>
+                    <button id="clearMatchesButton" class="btn-ghost">🗑️ Clear All Matches</button>
                 </div>
-            </div>
-            
-            <div class="bottomButtons">
-                <button id="submitMatchButton">Submit Match</button>
-                <button class="hidden" id="cancelEditButton">Cancel Editing</button>
-                <button id="clearMatchesButton">Clear All Matches</button>
-                <div id="deleteMatch">
-                    <input type="number" id="deleteMatchNumber" placeholder="Match #" min="1">
-                    <button id="deleteMatchButton">Delete Match</button>
+
+                <div id="deleteMatch" class="delete-row">
+                    <div class="input-with-label">
+                        <span class="prefix">Match #</span>
+                        <input type="number" id="deleteMatchNumber" placeholder="e.g. 12" min="1"
+                            class="dark-input num-input">
+                    </div>
+                    <button id="deleteMatchButton" class="btn-danger">Delete Match</button>
                 </div>
             </div>
         </div>
 
-        <div id="streakStatsSection">
-            <h2>Streak Stats</h2>
-            <div id="streakStats">
-                <h3>🔥 Current Streak: <span id="currentStreak"></span></h3><br>
-                <h3>🏆 Best Streak: <span id="bestStreak"></span></h3>
+        <div id="streakStatsSection" class="dashboard-card">
+            <h2 class="card-title"><span class="icon-purple">🔥</span> STREAK STATS</h2>
+            <div class="card-content streak-content">
+                <div id="streakStats" class="streak-wrapper">
+                    <div class="streak-box">
+                        <span class="streak-label">CURRENT STREAK</span>
+                        <div class="streak-value">
+                            <span class="icon-fire">🔥</span>
+                            <span id="currentStreak" class="text-green">0</span>
+                        </div>
+                    </div>
+                    <div class="streak-divider"></div>
+                    <div class="streak-box">
+                        <span class="streak-label">BEST STREAK</span>
+                        <div class="streak-value">
+                            <span class="icon-trophy">🏆</span>
+                            <span id="bestStreak" class="text-purple">0</span>
+                        </div>
+                    </div>
+                </div>
+                <button id="resetBestStreakButton" class="btn-ghost-purple">✏️ Reset Best Streak</button>
             </div>
-            <button class="bottomButtons" id="resetBestStreakButton">Reset Best Streak</button>
         </div>
 
-        <div id="groupSection">
-            <h2>Group</h2>
-
-            <div id="invitesList">
-                <h3>Pending Invites</h3>
-                <ul id="invitesContainer"></ul>
+        <div id="groupSection" class="dashboard-card">
+            <h2 class="card-title"><span class="icon-purple">👥</span> GROUP</h2>
+            <div class="card-content">
+                <div class="inviteControls">
+                    <input type="text" id="inviteUsername" placeholder="Enter username..." class="dark-input" />
+                    <button id="inviteButton" class="btn-purple">Invite</button>
+                </div>
+                <div id="groupMembersContainer" class="members-list"></div>
             </div>
         </div>
+
+        <div id="invitesList" class="dashboard-card">
+            <h2 class="card-title"><span class="icon-purple">✉️</span> PENDING INVITES</h2>
+            <div class="card-content invites-content">
+                <ul id="invitesContainer" class="invites-list"></ul>
+                <button class="view-all-btn">View All Invites</button>
+            </div>
+        </div>
+
     </div>
 
     <table id="matchTable">
