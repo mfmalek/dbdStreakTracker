@@ -1,6 +1,6 @@
-import { survivorData } from "./survivor.data";
-import { killerData } from "./killer.data";
-import { mapData } from "./map.data";
+import { survivorData } from "./survivor.data.js";
+import { killerData } from "./killer.data.js";
+import { mapData } from "./map.data.js";
 
 // NAME CONVERTERS
 
