@@ -5,6 +5,8 @@ body {
     background: url('../../Images/Miscellaneous/Background_DarkForest.png') no-repeat center center fixed;
     background-size: cover;
 
+    padding: var(--space-xl);
+
     color: var(--color-text-primary);
 }
 
