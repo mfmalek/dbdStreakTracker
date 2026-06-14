@@ -10,7 +10,7 @@ const killerPerks = [
     "Furtive Chase", "Game Afoot", "Gearhead", "Genetic Limits", "Grim Embrace", "Haywire", "Help Wanted",
     "Hex: Blood Favour", "Hex: Crowd Control", "Hex: Devour Hope", "Hex: Face the Darkness",
     "Hex: Haunted Ground", "Hex: Hive Mind", "Hex: Huntress Lullaby", "Hex: No One Escapes Death", "Hex: Nothing but Misery",
-    "Hex: Overtune of Doom", "Hex: Pentimento", "Hex: Plaything", "Hex: Retribution", "Hex: Ruin", "Hex: Scared to Death",
+    "Hex: Overture of Doom", "Hex: Pentimento", "Hex: Plaything", "Hex: Retribution", "Hex: Ruin", "Hex: Scared to Death",
     "Hex: The Third Seal", "Hex: Thrill of the Hunt", "Hex: Two Can Play", "Hex: Undying", "Hex: Wretched Fate",
     "Hoarder", "Hubris", "Human Greed", "Hysteria", "I'm All Ears", "Infectious Fright",
     "Insidious", "Iron Grasp", "Iron Maiden", "Knock Out", "Languid Touch", "Lethal Pursuer",
@@ -22,7 +22,7 @@ const killerPerks = [
     "Scourge Hook: Hangman's Trick", "Scourge Hook: Jagged Compass",
     "Scourge Hook: Monstrous Shrine", "Scourge Hook: Pain Resonance", "Secret Project", "Septic Touch",
     "Shadowborn", "Shattered Hope", "Silent Shadow", "Sloppy Butcher", "Spies from the Shadows", "Spirit Fury",
-    "Starstruck", "Stridor", "Superior Anatomy", "Surge", "Surveillance", "Tanatophobia", "THWACK!",
+    "Starstruck", "Stridor", "Superior Anatomy", "Surge", "Surveillance", "Tanatophobia", "Thwack!",
     "Terminus", "Territorial Imperative", "Thrilling Tremors", "Tinkerer",
     "Trail of Torment", "Turn Back the Clock", "Ultimate Weapon", "Unbound", "Undone", "Unforseen",
     "Unnerving Presence", "Unrelenting", "Wandering Eye", "Weave Attunement", "Whispers", "Zanshin Tactics"
