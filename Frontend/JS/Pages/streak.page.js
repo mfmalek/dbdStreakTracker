@@ -51,6 +51,7 @@ async function initStreak() {
 
         sharedCore.setupMaps();
         sharedCore.setupMapImageOnChange();
+        sharedCore.setupPerkImagesOnChange();
         killerCore.initKillerSharedUI();
 
         if (role === "survivor") {

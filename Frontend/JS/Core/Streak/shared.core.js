@@ -1,4 +1,5 @@
 import { mapData } from "../Data/map.data.js";
+import { dataManager } from "../Data/data.manager.js"
 
 const MODE = document.body.dataset.mode;
 
