@@ -3,7 +3,7 @@ const killerPerks = [
     "Awakened Awareness", "Bamboozle", "Barbecue & Chilli", "Batteries Included",
     "Beast of Prey", "Bitter Murmur", "Blood Echo", "Blood Warden", "Bloodhound",
     "Brutal Strength", "Call of Brine", "Corrupt Intervention", "Coulrophobia",
-    "Coup de Grâce", "Cruel Limits", "Dark Arrogance", "Dark Devotion", "Darkness Reveal",
+    "Coup de Grâce", "Cruel Limits", "Dark Arrogance", "Dark Devotion", "Darkness Revealed",
     "Dead Man's Switch", "Deadlock", "Deathbound", "Deerstalker", "Discordance", "Dissolution",
     "Distressing", "Dominance", "Dragon's Grip", "Dying Light", "Enduring", "Eruption", "Fire Up",
     "Forced Hesitation", "Forced Penance", "Forever Entwined", "Franklin's Demise", "Friends 'till the End",
