@@ -58,14 +58,9 @@
 }
 
 .navDropdown {
-    background: transparent;
-    border: none;
-    color: var(--color-text-primary);
     font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
+    cursor: default;
+    padding: var(--space-lg) 0;
 }
 
 .userBadge {

@@ -3,7 +3,7 @@ body {
     align-items: center;
     flex-direction: column;
 
-    padding-top: var(--space-4xl);
+    padding-inline: 0px;
 }
 
 h1 {
