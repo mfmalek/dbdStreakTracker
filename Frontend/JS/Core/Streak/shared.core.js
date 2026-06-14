@@ -109,7 +109,7 @@ function setupPerkImagesOnChange() {
 }
 
 function updatePerkImageUI(selectElement) {
-    const wrapper = selectElement.closest(".perkslot-wrapper");
+    const wrapper = selectElement.closest(".perk-input-container");
 
     if (!wrapper) return;
 
@@ -118,23 +118,11 @@ function updatePerkImageUI(selectElement) {
     const perkName = selectElement.value;
 
     if (perkName && diamond) {
-        let cleanName = perkName
-            .replace(/&/g, "and")
-            .replace(/[^a-zA-Z0-9 ]/g, "")
-            .split(/\s+/)
-            .map((word, index) => {
-                if (index === 0) return word.toLowerCase();
-                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-            })
-            .join('');
+        const isKiller = selectElement.id.toLowerCase().includes("kill");
+        const subfolder = isKiller ? "Killer Perks" : "Survivor Perks";
+        const fileName = isKiller ? dataManager.killerPerkImages[perkName] : dataManager.survivorPerkImages[perkName];
 
-        let subfolder = "Survivor Perks";
-
-        if (selectElement.id.toLowerCase().includes("kill")) {
-            subfolder = "Killer Perks";
-        }
-
-        const fileName = `IconPerks_${cleanName}.png`;
+        if (!fileName) return; 
 
         let img = diamond.querySelector(".perk-image");
 
