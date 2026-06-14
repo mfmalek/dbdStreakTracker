@@ -1,4 +1,4 @@
-import { coreData } from "../Data/core.data.js";
+import { mapData } from "../Data/map.data.js";
 
 const MODE = document.body.dataset.mode;
 
@@ -57,7 +57,7 @@ function setupMaps() {
         }
     };
 
-    Object.entries(coreData.maps.mapGroups).forEach(([realm, maps], index) => {
+    Object.entries(mapData.maps).forEach(([realm, maps], index) => {
         const group = `group${index}`;
 
         config.optgroups.push({
@@ -82,22 +82,78 @@ function setupMapImageOnChange() {
     const mapImage = document.getElementById("mapImage");
 
     if (!mapSelect || !mapImage) return;
+
     mapSelect.addEventListener("change", () => {
         const selectedMap = mapSelect.value;
-        const realmFolder =
-            coreData.maps.mapImageFolders[
-                selectedMap.replace(/\s+(I{1,3}|IV|V)$/, "")
-            ];
-        const fileName = coreData.maps.mapImageNames[selectedMap];
 
+        const realmName = dataManager.mapRealms[selectedMap];
+        const mapFileName = dataManager.mapImages[selectedMap];
 
-        if ((!selectedMap) || (!realmFolder)) {
+        if (!realmName || !mapFileName) {
             mapImage.src = "../Images/Maps/Map_GenericMapBackground.png";
             return;
         }
-        mapImage.src = `../Images/Maps/${realmFolder}/${fileName}`;
+
+        mapImage.src = `../Images/Maps/${realmName}/${mapFileName}`;
         mapImage.alt = selectedMap;
     });
+}
+
+function setupPerkImagesOnChange() {
+    document.body.addEventListener("change", (e) => {
+        if (e.target.tagName === "SELECT" && e.target.id.toLowerCase().includes("perk")) {
+            updatePerkImageUI(e.target);
+        }
+    });
+}
+
+function updatePerkImageUI(selectElement) {
+    const wrapper = selectElement.closest(".perkslot-wrapper");
+
+    if (!wrapper) return;
+
+    const diamond = wrapper.querySelector(".perk-diamond");
+    const plusIcon = wrapper.querySelector(".plus-icon");
+    const perkName = selectElement.value;
+
+    if (perkName && diamond) {
+        let cleanName = perkName
+            .replace(/&/g, "and")
+            .replace(/[^a-zA-Z0-9 ]/g, "")
+            .split(/\s+/)
+            .map((word, index) => {
+                if (index === 0) return word.toLowerCase();
+                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+            })
+            .join('');
+
+        let subfolder = "Survivor Perks";
+
+        if (selectElement.id.toLowerCase().includes("kill")) {
+            subfolder = "Killer Perks";
+        }
+
+        const fileName = `IconPerks_${cleanName}.png`;
+
+        let img = diamond.querySelector(".perk-image");
+
+        if (!img) {
+            img = document.createElement("img");
+            img.className = "perk-image";
+            diamond.appendChild(img);
+        }
+
+        img.src = `../Images/Perks/${subfolder}/${fileName}`;
+        img.alt = perkName;
+
+        if (plusIcon) plusIcon.style.display = "none";
+    } else {
+        if (diamond) {
+            const img = diamond.querySelector(".perk-image");
+            if (img) img.remove();
+        }
+        if (plusIcon) plusIcon.style.display = "block";
+    }
 }
 
 export const sharedCore = {
@@ -105,5 +161,6 @@ export const sharedCore = {
     calculateCurrentStreak,
     calculateBestStreak,
     setupMaps,
-    setupMapImageOnChange
+    setupMapImageOnChange,
+    setupPerkImagesOnChange
 };
