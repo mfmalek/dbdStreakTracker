@@ -14,9 +14,12 @@ export async function initKillerStreak({ group, matches, killerName, actions }) 
     killerCore.initKillerOnlyUI();
     killerPresets.initPresets();
 
-    if (killerName) {
-        killerUI.applyKillerToUI(killerName);
-        killerCore.updateKillerAddons(killerName);
+    const currentKiller = killerName || document.getElementById('killerSelect')?.value; 
+
+    killerUI.applyKillerToUI(currentKiller || ""); 
+
+    if (currentKiller) {
+        killerCore.updateKillerAddons(currentKiller);
     }
 
     killerListeners.initListeners(actions);

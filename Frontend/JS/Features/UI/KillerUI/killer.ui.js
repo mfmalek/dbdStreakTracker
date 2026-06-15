@@ -19,10 +19,22 @@ function renderTitle() {
 function applyKillerToUI(killerName) {
     const image = formElements.getKillerImage();
     const nameEl = document.querySelector(".killer-card .nickname");
+
+    if (!killerName) {
+        if (image) image.style.display = 'none';
+        if (nameEl) nameEl.textContent = 'SELECT KILLER';
+        return;
+    }
+
     const clean = killerName.replace(/[^a-zA-Z0-9]/g, "");
 
     if (image) {
         image.src = `../Images/Portraits/Killers/Portrait_${clean}.png`;
+        image.style.display = 'block';
+
+        image.onerror = () => {
+            image.style.display = 'none'; 
+        };
     }
 
     if (nameEl) {
