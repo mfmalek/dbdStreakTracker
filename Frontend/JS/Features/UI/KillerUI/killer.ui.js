@@ -18,7 +18,7 @@ function renderTitle() {
 
 function applyKillerToUI(killerName) {
     const image = formElements.getKillerImage();
-    const nameEl = document.querySelector("#killerInfo .nickname");
+    const nameEl = document.querySelector(".killer-card .nickname");
     const clean = killerName.replace(/[^a-zA-Z0-9]/g, "");
 
     if (image) {
@@ -26,7 +26,7 @@ function applyKillerToUI(killerName) {
     }
 
     if (nameEl) {
-        nameEl.textContent = killerName;
+        nameEl.textContent = killerName.toUpperCase();
     }
 }
 

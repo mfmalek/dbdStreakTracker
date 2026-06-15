@@ -44,5 +44,6 @@
 
 #groupMemberName {
     display: inline-flex;
-    padding: var(--space-md) 0;
+    padding-block: var(--space-md);
+    padding-right: var(--space-md);
 }

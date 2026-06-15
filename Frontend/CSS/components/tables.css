@@ -58,6 +58,11 @@ th {
     gap: var(--space-sm);
 }
 
+.matchHoverActions {
+    display: flex;
+    gap: var(--space-sm);
+}
+
 .action-btn {
     display: flex;
     align-items: center;

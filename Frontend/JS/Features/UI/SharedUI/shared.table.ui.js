@@ -20,7 +20,8 @@ function createMatchActionsCell(matchId) {
                 <button
                     class="deleteMatchHoverBtn"
                     data-match-id="${matchId}"
-                    title="Delete Match">
+                    title="Delete Match"
+                    name="danger">
                     🗑️
                 </button>
             </div>

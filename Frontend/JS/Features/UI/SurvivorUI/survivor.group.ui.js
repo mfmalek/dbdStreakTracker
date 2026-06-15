@@ -26,7 +26,7 @@ function renderGroupMembers(members, group, currentUser) {
             </span>
 
             ${isOwner && !isSelf
-                ? `<button data-user="${member.username}" class="removeBtn">Remove</button>`
+                ? `<button data-user="${member.username}" class="removeBtn btn-danger">Remove</button>`
                 : ""
             }
 
