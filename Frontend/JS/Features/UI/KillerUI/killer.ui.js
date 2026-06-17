@@ -29,8 +29,15 @@ function applyKillerToUI(killerName) {
     const clean = killerName.replace(/[^a-zA-Z0-9]/g, "");
 
     if (image) {
-        image.src = `../Images/Portraits/Killers/Portrait_${clean}.png`;
-        image.style.display = 'block';
+        image.onload = null;
+        image.onerror = null;
+
+        image.style.display = 'none';
+        image.src = `/Images/Portraits/Killers/Portrait_${clean}.png`;
+
+        image.onload = () => {
+            image.style.display = 'block';
+        };
 
         image.onerror = () => {
             image.style.display = 'none'; 
