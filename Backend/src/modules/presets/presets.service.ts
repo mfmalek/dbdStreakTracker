@@ -1,6 +1,18 @@
 import prisma from "../../config/prisma";
+
 import BadRequestError from "../../errors/bad.request.error";
 import NotFoundError from "../../errors/not.found.error";
+
+export interface CreatePresetInput {
+    user: string;
+    mode: string;
+    role: string;
+    killerName?: string;
+    survivor?: number | string;
+    name: string;
+    perks: string[];
+    addons?: string[];
+}
 
 function getSafeKiller(role: string, killerName?: string): string {
     return role === "killer" ? killerName! : "__survivor__";
@@ -30,20 +42,15 @@ function buildWhere(user: string, mode: string, role: string, killerName?: strin
 
 export async function getPresets(user: string, mode: string, role: string, killerName?: string, survivor?: number | string) {
     return prisma.preset.findMany({
-        where: buildWhere(user, mode, role, killerName, survivor),
+        where: buildWhere(
+            user,
+            mode,
+            role,
+            killerName,
+            survivor
+        ),
         orderBy: { createdAt: "asc" }
     });
-}
-
-export interface CreatePresetInput {
-    user: string;
-    mode: string;
-    role: string;
-    killerName?: string;
-    survivor?: number | string;
-    name: string;
-    perks: string[];
-    addons?: string[];
 }
 
 export async function createPreset(data: CreatePresetInput) {

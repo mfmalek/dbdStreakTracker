@@ -7,14 +7,20 @@ export type SurvivorConfigInput = {
 
 export const getConfigs = async (user: string, mode: string) => {
     return prisma.survivorConfig.findMany({
-        where: { user, mode },
+        where: {
+            user,
+            mode
+        },
         orderBy: { index: "asc" }
     });
 };
 
 export const saveConfigs = async (user: string, mode: string, configs: SurvivorConfigInput[]) => {
     await prisma.survivorConfig.deleteMany({
-        where: { user, mode }
+        where: {
+            user,
+            mode
+        }
     });
 
     return prisma.survivorConfig.createMany({

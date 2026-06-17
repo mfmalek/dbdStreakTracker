@@ -1,14 +1,17 @@
 import express from "express";
 import cors from "cors";
+
 import errorMiddleware from "./middlewares/error.middleware";
+
+import NotFoundError from "./errors/not.found.error";
+
 import authRoutes from "./modules/auth/auth.routes";
-import survivorRoutes from "./modules/survivors/survivors.routes";
 import groupRoutes from "./modules/groups/groups.routes";
 import matchesRoutes from "./modules/matches/matches.routes";
 import presetsRoutes from "./modules/presets/presets.routes";
 import profileRoutes from "./modules/profile/profile.routes";
 import streakRoutes from "./modules/streak/streak.routes";
-import NotFoundError from "./errors/not.found.error";
+import survivorRoutes from "./modules/survivors/survivors.routes";
 
 const app = express();
 

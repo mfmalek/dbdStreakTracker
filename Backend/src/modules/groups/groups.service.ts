@@ -1,4 +1,5 @@
 import prisma from "../../config/prisma";
+
 import BadRequestError from "../../errors/bad.request.error";
 import ForbiddenError from "../../errors/forbidden.error";
 import NotFoundError from "../../errors/not.found.error";
@@ -185,9 +186,7 @@ export async function acceptInvite(username: string, inviteId: number) {
 export async function getGroupMembers(groupId: number) {
     return prisma.groupMember.findMany({
         where: { groupId },
-        select: {
-            username: true
-        }
+        select: { username: true }
     });
 }
 

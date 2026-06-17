@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { ZodError } from "zod";
 
-const errorMiddleware = (err: any, req: Request, res: Response, next: NextFunction): void => {
+const errorMiddleware = (err: any, _req: Request, res: Response, _next: NextFunction): void => {
     console.error(err);
 
     if (err instanceof ZodError) {

@@ -91,7 +91,13 @@ export const resetBestStreak = async (user: string, mode: string, role: string, 
     const safeKiller = getSafeKiller(role, killerName);
 
     const matches = await prisma.match.findMany({
-        where: buildWhere(user, mode, groupId, role, killerName),
+        where: buildWhere(
+            user,
+            mode,
+            groupId,
+            role,
+            killerName
+        ),
         orderBy: { createdAt: "asc" }
     });
 

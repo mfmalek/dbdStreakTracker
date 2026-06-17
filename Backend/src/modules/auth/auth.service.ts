@@ -1,6 +1,7 @@
+import prisma from "../../config/prisma";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import prisma from "../../config/prisma";
+
 import BadRequestError from "../../errors/bad.request.error";
 import NotFoundError from "../../errors/not.found.error";
 import UnauthorizedError from "../../errors/unauthorized.error";
@@ -45,8 +46,10 @@ export const login = async (username: string, password: string) => {
         throw new UnauthorizedError("Invalid password");
     }
 
-    const token = jwt.sign(
-        { userId: user.id, username: user.username },
+    const token = jwt.sign({
+        userId: user.id,
+        username: user.username
+    },
         JWT_SECRET,
         { expiresIn: "7d" }
     );

@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
+
 import BadRequestError from "../../errors/bad.request.error";
+
 import { survivorMatchSchema } from "./survivor.match.schema";
 import { killerMatchSchema } from "./killer.match.schema";
 

@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { ZodError, ZodSchema } from "zod";
+import { ZodError, ZodType } from "zod";
 import BadRequestError from "../errors/bad.request.error";
 
 function createValidator(source: "body" | "query" | "params", target: "validatedBody" | "validatedQuery" | "validatedParams") {
-    return (schema: ZodSchema) => {
-        return (req: Request, res: Response, next: NextFunction): void => {
+    return (schema: ZodType) => {
+        return (req: Request, _res: Response, next: NextFunction): void => {
             try {
                 req[target] = schema.parse(req[source]);
                 next();

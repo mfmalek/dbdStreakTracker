@@ -2,7 +2,8 @@ import { z } from "zod";
 import { modeSchema } from "../common/match.enums";
 
 export const inviteGroupSchema = z.object({
-    toUser: z.string().min(1).max(20),
+    mode: modeSchema.exclude(["killer"]),
+
     groupId: z.number().int().positive().nullable().optional(),
-    mode: modeSchema.exclude(["killer"])
+    toUser: z.string().min(1).max(20)
 }).strict();

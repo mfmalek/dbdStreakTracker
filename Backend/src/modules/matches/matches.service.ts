@@ -1,10 +1,12 @@
 import prisma from "../../config/prisma";
+import { Prisma } from "@prisma/client";
+
+import { updateBestStreak } from "../streak/streak.service";
+
 import BadRequestError from "../../errors/bad.request.error";
 import ForbiddenError from "../../errors/forbidden.error";
 import NotFoundError from "../../errors/not.found.error";
 import UnauthorizedError from "../../errors/unauthorized.error";
-import { updateBestStreak } from "../streak/streak.service";
-import { Prisma } from "@prisma/client";
 
 type MatchResult = "win" | "loss";
 
@@ -43,15 +45,19 @@ function buildWhere(user: string, mode: string, groupId: number | undefined, rol
         mode,
         role,
         killerName: safeKiller,
-        ...(groupId
-            ? { groupId: Number(groupId) }
-            : { user })
+        ...(groupId ? { groupId: Number(groupId) } : { user })
     };
 }
 
 export const getMatches = async (user: string, mode: string, role: string, killerName?: string, groupId?: number) => {
     return prisma.match.findMany({
-        where: buildWhere(user, mode, groupId, role, killerName),
+        where: buildWhere(
+            user,
+            mode,
+            groupId,
+            role,
+            killerName
+        ),
         orderBy: { createdAt: "asc" }
     });
 };
@@ -241,7 +247,13 @@ export const deleteMatch = async (id: string | number, user: string) => {
     const safeKiller = getSafeKiller(role, killerName ?? undefined);
 
     const matches = await prisma.match.findMany({
-        where: buildWhere(user, mode, groupId ?? undefined, role, killerName ?? undefined),
+        where: buildWhere(
+            user,
+            mode,
+            groupId ?? undefined,
+            role,
+            killerName ?? undefined
+        ),
         orderBy: { createdAt: "asc" }
     });
 
@@ -281,7 +293,13 @@ export const deleteMatch = async (id: string | number, user: string) => {
 
 export const clearMatches = async (user: string, mode: string, role: string, killerName?: string, groupId?: number) => {
     return prisma.match.deleteMany({
-        where: buildWhere(user, mode, groupId, role, killerName)
+        where: buildWhere(
+            user,
+            mode,
+            groupId,
+            role,
+            killerName
+        )
     });
 };
 

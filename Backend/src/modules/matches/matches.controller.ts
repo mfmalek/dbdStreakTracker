@@ -22,7 +22,11 @@ export const getMatches = async (req: Request, res: Response): Promise<void> => 
 
 export const createMatch = async (req: Request, res: Response): Promise<void> => {
     const user = req.user!.username;
-    const { mode, role, killerName, groupId, ...matchData} = { ...(req.body as Record<string, unknown>), ...(req.validatedPayload as Record<string, unknown>) };
+
+    const { mode, role, killerName, groupId, ...matchData } = {
+        ...(req.body as Record<string, unknown>),
+        ...(req.validatedPayload as Record<string, unknown>)
+    };
 
     const newMatch = await matchesService.createMatch({
         user,

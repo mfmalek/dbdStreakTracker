@@ -1,8 +1,9 @@
 import prisma from "../../config/prisma";
 import bcrypt from "bcrypt";
+
 import BadRequestError from "../../errors/bad.request.error";
-import UnauthorizedError from "../../errors/unauthorized.error";
 import NotFoundError from "../../errors/not.found.error";
+import UnauthorizedError from "../../errors/unauthorized.error";
 
 export async function getProfile(username: string) {
     const user = await prisma.user.findUnique({
@@ -174,7 +175,10 @@ export async function deleteAccount(username: string, password: string) {
 
         await tx.groupInvite.deleteMany({
             where: {
-                OR: [{ fromUser: username }, { toUser: username }]
+                OR: [
+                    { fromUser: username },
+                    { toUser: username }
+                ]
             }
         });
 
@@ -192,7 +196,10 @@ export async function deleteAccount(username: string, password: string) {
 
         await tx.match.deleteMany({
             where: {
-                OR: [{ user: username }, { createdBy: username }]
+                OR: [
+                    { user: username },
+                    { createdBy: username }
+                ]
             }
         });
 
@@ -234,9 +241,15 @@ export async function getStreaks(username: string) {
 
     const streaks = await prisma.streak.findMany({
         where: {
-            OR: [{ user: username }, { groupId: { in: groupIds } }]
+            OR: [
+                { user: username },
+                { groupId: { in: groupIds } }
+            ]
         },
-        orderBy: [{ role: "asc" }, { mode: "asc" }]
+        orderBy: [
+            { role: "asc" },
+            { mode: "asc" }
+        ]
     });
 
     const result = [];

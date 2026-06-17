@@ -35,7 +35,11 @@ export const changePassword = async (req: Request, res: Response): Promise<void>
 
 export const deleteAccount = async (req: Request, res: Response): Promise<void> => {
     const username = req.user!.username;
-    const { password } = req.validatedBody as { password: string; };
+
+    const { password } = req.validatedBody as {
+        password: string;
+    };
+
     const result = await profileService.deleteAccount(username, password);
 
     res.json(result);

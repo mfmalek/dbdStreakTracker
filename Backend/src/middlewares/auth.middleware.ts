@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { JwtPayload } from "../types/auth.types";
+
 import jwt from "jsonwebtoken";
+import { JwtPayload } from "../types/auth.types";
 import UnauthorizedError from "../errors/unauthorized.error";
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -9,7 +10,7 @@ if (!JWT_SECRET) {
     throw new Error("JWT_SECRET is not defined");
 }
 
-const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
+const authMiddleware = (req: Request, _res: Response, next: NextFunction): void => {
     const header = req.headers.authorization;
 
     if (!header) {

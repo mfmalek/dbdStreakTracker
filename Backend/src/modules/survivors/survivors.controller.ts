@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as service from "./survivors.service";
+
 import type { SurvivorConfigInput } from "./survivors.service";
 
 export const getConfigs = async (req: Request, res: Response): Promise<void> => {

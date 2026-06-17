@@ -1,14 +1,14 @@
 import { z } from "zod";
 
 export const roleSchema = z.enum([
-    "killer",
-    "survivor"
+    "survivor",
+    "killer"
 ]);
 
 export const modeSchema = z.enum([
-    "killer",
     "solo",
     "duo",
     "trio",
-    "squad"
+    "squad",
+    "killer"
 ]);
