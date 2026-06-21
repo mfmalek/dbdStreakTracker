@@ -15,8 +15,8 @@ import { streakConfigs } from "../features/streak-page-modules/streak.configs.js
 
 import { survivorController } from "../features/survivor-streak/survivor.controller.js";
 import { killerController } from "../features/killer-streak/killer.controller.js";
-import { matchFormController } from "../features/match-form/match.form.controller.js";
-import { matchDeletion } from "../features/match-form/match.deletion.js";
+import { matchFormController } from "../features/match-form/index.js";
+import { matchDeletion } from "../features/match-form/index.js";
 
 import { navbar } from "../layout/navbar.js";
 

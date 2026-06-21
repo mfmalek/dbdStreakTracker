@@ -1,31 +1,31 @@
-import { streakContext } from "../../core/utils/streak.context.js";
+import { streakContext } from "../../../../core/utils/streak.context.js";
 
-import { killerCore } from "../../core/streak/killer.core.js";
-import { killerController } from "../killer-streak/killer.controller.js";
+import { killerCore } from "../../../../core/streak/killer.core.js";
+import { killerController } from "../../../killer-streak/killer.controller.js";
 
-import { formElements } from "./utils/form.elements.js";
-import { sharedMatchForm } from "./shared.match.form.js";
-import { matchFormValidation } from "./match.form.validation.js";
-import { matchFormState } from "./match.form.state.js";
+import { matchFormElements } from "../../dom/match.form.elements.js";
+import { matchFormReset } from "../../shared/match.form.reset.js";
+import { matchFormValidation } from "../../validation/match.form.validation.js";
+import { matchFormState } from "../../state/match.form.state.js";
 
-import { matchFormUI } from "./match.form.ui.js";
+import { matchFormUI } from "../../ui/match.form.ui.js";
 
 async function submitKillerMatch() {
     const { killerName } = streakContext.getContext();
-    const mapSelect = formElements.getMapSelect();
+    const mapSelect = matchFormElements.getMapSelect();
     const mapName = mapSelect.value;
-    const killsInput = formElements.getKillsInput();
+    const killsInput = matchFormElements.getKillsInput();
     const kills = Number(killsInput.value);
     const killerPerks = [];
     const killerAddons = [];
 
     for (let p = 1; p <= killerCore.KILLER_PERK_COUNT; p++) {
-        const perkSelect = formElements.getKillerPerkSelect(p);
+        const perkSelect = matchFormElements.getKillerPerkSelect(p);
         killerPerks.push(perkSelect.value);
     }
 
     for (let a = 1; a <= killerCore.KILLER_ADDON_COUNT; a++) {
-        const addonSelect = formElements.getKillerAddonSelect(a);
+        const addonSelect = matchFormElements.getKillerAddonSelect(a);
         killerAddons.push(addonSelect?.value || "");
     }
 
@@ -52,15 +52,15 @@ async function submitKillerMatch() {
         killsInput.value = "";
     }
 
-    sharedMatchForm.resetForm();
+    matchFormReset.resetForm();
 
     if (killerName) {
         const clean = killerName.replace(/[^a-zA-Z0-9]/g, "");
 
-        const killerImage = formElements.getKillerImage();
+        const killerImage = matchFormElements.getKillerImage();
         killerImage.src = `../images/portraits/killers/Portrait_${clean}.png`;
     } else {
-        const killerImage = formElements.getKillerImage();
+        const killerImage = matchFormElements.getKillerImage();
         killerImage.src = "../images/miscellaneous/Icon_Killer.png";
     }
 }

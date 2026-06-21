@@ -1,5 +1,10 @@
-import { matchControls } from "./utils/match.controls.js";
-import { matchFormState } from "./match.form.state.js";
+import { matchControls } from "../dom/match.controls.js";
+import { matchFormState } from "../state/match.form.state.js";
+
+const LABELS = Object.freeze({
+    submit: "Submit Match",
+    edit: "Edit Match"
+});
 
 function updateEditingUI() {
     const submitBtn = matchControls.getSubmitMatchButton();
@@ -8,13 +13,13 @@ function updateEditingUI() {
     if (!submitBtn) return;
 
     if (matchFormState.isEditing()) {
-        submitBtn.textContent = "Edit Match";
+        submitBtn.textContent = LABELS.edit;
 
         if (cancelBtn) {
             cancelBtn.classList.remove("hidden");
         }
     } else {
-        submitBtn.textContent = "Submit Match";
+        submitBtn.textContent = LABELS.submit;
 
         if (cancelBtn) {
             cancelBtn.classList.add("hidden");

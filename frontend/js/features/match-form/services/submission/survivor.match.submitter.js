@@ -1,25 +1,25 @@
-import { killerCore } from "../../core/streak/killer.core.js";
-import { survivorController } from "../survivor-streak/survivor.controller.js";
+import { killerCore } from "../../../../core/streak/killer.core.js";
+import { survivorController } from "../../../survivor-streak/survivor.controller.js";
 
-import { formElements } from "./utils/form.elements.js";
+import { matchFormElements } from "../../dom/match.form.elements.js";
 
-import { survivorMatchForm } from "./survivor.match.form.js";
-import { sharedMatchForm } from "./shared.match.form.js";
-import { matchFormState } from "./match.form.state.js";
-import { matchFormValidation } from "./match.form.validation.js";
+import { survivorMatchForm } from "../../ui/survivor.match.form.js";
+import { matchFormReset } from "../../shared/match.form.reset.js";
+import { matchFormState } from "../../state/match.form.state.js";
+import { matchFormValidation } from "../../validation/match.form.validation.js";
 
-import { matchFormUI } from "./match.form.ui.js";
+import { matchFormUI } from "../../ui/match.form.ui.js";
 
 async function submitSurvivorMatch() {
     const survivors = survivorMatchForm.getSurvivors();
-    const mapSelect = formElements.getMapSelect();
-    const killerSelect = formElements.getKillerSelect();
+    const mapSelect = matchFormElements.getMapSelect();
+    const killerSelect = matchFormElements.getKillerSelect();
     const mapName = mapSelect.value;
     const killerName = killerSelect.value;
     const killerPerks = [];
 
     for (let p = 1; p <= killerCore.KILLER_PERK_COUNT; p++) {
-        const perkSelect = formElements.getKillerPerkSelect(p);
+        const perkSelect = matchFormElements.getKillerPerkSelect(p);
         killerPerks.push(perkSelect.value);
     }
 
@@ -42,7 +42,7 @@ async function submitSurvivorMatch() {
         await survivorController.handleSubmitMatch(match);
     }
 
-    sharedMatchForm.resetForm();
+    matchFormReset.resetForm();
 }
 
 export const survivorMatchSubmitter = {

@@ -1,7 +1,7 @@
-import { streakContext } from "../../core/utils/streak.context.js";
-import { survivorMatchSubmitter } from "./survivor.match.submitter.js";
-import { killerMatchSubmitter } from "./killer.match.submitter.js";
-import { matchEditor } from "./match.editor.js";
+import { streakContext } from "../../../core/utils/streak.context.js";
+import { survivorMatchSubmitter } from "../services/submission/survivor.match.submitter.js";
+import { killerMatchSubmitter } from "../services/submission/killer.match.submitter.js";
+import { matchEditor } from "../services/editing/match.editor.js";
 
 async function submitMatch() {
     const { role } = streakContext.getContext();

@@ -1,13 +1,13 @@
-import { matchesApi } from "../../api/matches.js";
+import { matchesApi } from "../../../../api/matches.js";
 
-import { streakContext } from "../../core/utils/streak.context.js";
+import { streakContext } from "../../../../core/utils/streak.context.js";
 
-import { survivorMatchForm } from "./survivor.match.form.js";
-import { killerMatchForm } from "./killer.match.form.js";
-import { sharedMatchForm } from "./shared.match.form.js";
-import { matchFormState } from "./match.form.state.js";
+import { survivorMatchForm } from "../../ui/survivor.match.form.js";
+import { killerMatchForm } from "../../ui/killer.match.form.js";
+import { matchFormReset } from "../../shared/match.form.reset.js";
+import { matchFormState } from "../../state/match.form.state.js";
 
-import { matchFormUI } from "./match.form.ui.js";
+import { matchFormUI } from "../../ui/match.form.ui.js";
 
 async function editMatch(matchId) {
     const matches = await matchesApi.getMatches();
@@ -25,7 +25,7 @@ async function editMatch(matchId) {
 
 function cancelEditing() {
     matchFormState.stopEditing();
-    sharedMatchForm.resetForm();
+    matchFormReset.resetForm();
     matchFormUI.updateEditingUI();
 }
 

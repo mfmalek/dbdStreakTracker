@@ -1,4 +1,4 @@
-import { formElements } from "./utils/form.elements.js";
+import { matchFormElements } from "../dom/match.form.elements.js";
 
 function resetForm() {
     clearSelects();
@@ -27,13 +27,13 @@ function clearInputs() {
 }
 
 function clearImages() {
-    const killerImage = formElements.getKillerImage();
-    const mapImage = formElements.getMapImage();
+    const killerImage = matchFormElements.getKillerImage();
+    const mapImage = matchFormElements.getMapImage();
 
     killerImage.src = "../images/miscellaneous/Icon_Killer.png";
     mapImage.src = "../images/maps/Map_GenericMapBackground.png";
 }
 
-export const sharedMatchForm = {
+export const matchFormReset = {
     resetForm
 };

@@ -1,5 +1,5 @@
 import { uiElements } from "../utils/ui.elements.js";
-import { formElements } from "../../match-form/utils/form.elements.js";
+import { matchFormElements } from "../../match-form/index.js";
 
 import { killerTableUI } from "./killer.table.ui.js";
 import { killerPreviewUI } from "./killer.preview.ui.js";
@@ -18,7 +18,7 @@ function renderTitle() {
 }
 
 function applyKillerToUI(killerName) {
-    const image = formElements.getKillerImage();
+    const image = matchFormElements.getKillerImage();
     const nameEl = document.querySelector(".killer-card .nickname");
 
     if (!killerName) {

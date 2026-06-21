@@ -34,7 +34,7 @@ function getSurvivorCheckbox(index) {
     return document.getElementById(`surv${index}Survived`);
 }
 
-export const formElements = {
+export const matchFormElements = {
     getMapSelect,
     getKillerSelect,
     getKillsInput,

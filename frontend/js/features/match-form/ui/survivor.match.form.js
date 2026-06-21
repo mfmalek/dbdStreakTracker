@@ -1,18 +1,18 @@
-import { survivorCore } from "../../core/streak/survivor.core.js";
-import { killerCore } from "../../core/streak/killer.core.js";
+import { survivorCore } from "../../../core/streak/survivor.core.js";
+import { killerCore } from "../../../core/streak/killer.core.js";
 
-import { selectHelpers } from "./utils/select.helpers.js";
-import { formElements } from "./utils/form.elements.js";
+import { selectHelpers } from "../helpers/select.helpers.js";
+import { matchFormElements } from "../dom/match.form.elements.js";
 
 function getSurvivors() {
     const survivors = [];
 
     for (let s = 1; s <= survivorCore.SURVIVOR_COUNT; s++) {
-        const survivorCheckbox = formElements.getSurvivorCheckbox(s);
+        const survivorCheckbox = matchFormElements.getSurvivorCheckbox(s);
         const perks = [];
 
         for (let p = 1; p <= survivorCore.SURVIVOR_PERK_COUNT; p++) {
-            const select = formElements.getSurvivorPerkSelect(s, p);
+            const select = matchFormElements.getSurvivorPerkSelect(s, p);
 
             perks.push(select?.value || "");
         }
@@ -36,14 +36,14 @@ function populateSurvivorMatch(match) {
 function populateSurvivor(match) {
     match.survivors?.forEach((surv, sIndex) => {
         surv.perks?.forEach((perk, pIndex) => {
-            const select = formElements.getSurvivorPerkSelect(sIndex + 1, pIndex + 1);
+            const select = matchFormElements.getSurvivorPerkSelect(sIndex + 1, pIndex + 1);
 
             if (!select) return;
 
             selectHelpers.setSelectValue(select, perk);
         });
 
-        const checkbox = formElements.getSurvivorCheckbox(sIndex + 1);
+        const checkbox = matchFormElements.getSurvivorCheckbox(sIndex + 1);
 
         if (checkbox) {
             checkbox.checked = surv.survived;
@@ -52,12 +52,12 @@ function populateSurvivor(match) {
 }
 
 function populateKiller(match) {
-    const killerSelect = formElements.getKillerSelect();
+    const killerSelect = matchFormElements.getKillerSelect();
 
     selectHelpers.setSelectValue(killerSelect, match.killerName);
 
     for (let p = 1; p <= killerCore.KILLER_PERK_COUNT; p++) {
-        const select = formElements.getKillerPerkSelect(p);
+        const select = matchFormElements.getKillerPerkSelect(p);
         const perk = match.killerPerks?.[p - 1] || "";
 
         selectHelpers.setSelectValue(select, perk);
@@ -65,7 +65,7 @@ function populateKiller(match) {
 }
 
 function populateMap(match) {
-    const mapSelect = formElements.getMapSelect();
+    const mapSelect = matchFormElements.getMapSelect();
     selectHelpers.setSelectValue(mapSelect, match.mapName);
 }
 
