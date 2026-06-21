@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DBD Streak Tracker - Register</title>
+    <link rel="icon" type="image/x-icon" href="/images/miscellaneous/Logo_DBD.ico">
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/pages/auth.css" />
+</head>
+
+<body data-page="register">
+    <div class="authContainer">
+        <h1>DBD Streak Tracker</h1>
+
+        <div class="form">
+            <label for="username">Username</label>
+            <input type="text" id="username" required />
+
+            <label for="password">Password</label>
+            <input type="password" id="password" required />
+
+            <label for="password">Confirm Password</label>
+            <input type="password" id="confirmPassword" required />
+
+            <div class="buttons">
+                <button id="registerButton" name="alternate">Register</button>
+            </div>
+
+            <div>
+                <span> Already have an account? </span>
+                <a href="/login" class="pageLinking"> Login </a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/app.js"></script>
+</body>
+
+</html>

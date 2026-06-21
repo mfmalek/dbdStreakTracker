@@ -1,0 +1,48 @@
+{
+    "routes": [
+        {
+            "src": "/",
+            "dest": "/pages/login.html"
+        },
+        {
+            "src": "/login",
+            "dest": "/pages/login.html"
+        },
+        {
+            "src": "/register",
+            "dest": "/pages/register.html"
+        },
+        {
+            "src": "/home",
+            "dest": "/pages/home.html"
+        },
+        {
+            "src": "/killerSelection",
+            "dest": "/pages/killerSelection.html"
+        },
+        {
+            "src": "/streakSolo",
+            "dest": "/pages/streakSolo.html"
+        },
+        {
+            "src": "/streakDuo",
+            "dest": "/pages/streakDuo.html"
+        },
+        {
+            "src": "/streakTrio",
+            "dest": "/pages/streakTrio.html"
+        },
+        {
+            "src": "/streakSquad",
+            "dest": "/pages/streakSquad.html"
+        },
+        {
+            "src": "/streakKiller",
+            "dest": "/pages/streakKiller.html"
+        },
+        {
+            "src": "/profile",
+            "dest": "/pages/profile.html"
+        }
+    ]
+}

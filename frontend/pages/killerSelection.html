@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DBD Streak Tracker - Killer Selection</title>
+    <link rel="icon" type="image/x-icon" href="/images/miscellaneous/Logo_DBD.ico">
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/pages/killer.selection.css" />
+</head>
+
+<body data-page="killerSelection">
+
+    <nav id="navbar">
+        <div class="navLeft">
+            <button id="homeButton" class="navBtn ghost">
+                <span class="navIcon">⌂</span> Home
+            </button>
+            <div id="navLogo">
+                <img src="/images/miscellaneous/Logo_DBD.png" alt="DBD Logo" class="logoIcon">
+                <span>DBD TRACKER</span>
+            </div>
+        </div>
+
+        <div class="navCenter">
+            <span class="navIcon">👥</span>
+            <span id="modeIndicator" class="navDropdown"></span>
+        </div>
+
+        <div class="navRight">
+            <span id="welcomeUser" class="userBadge">👑</span>
+            <button id="profileButton" class="navBtn ghost">Profile</button>
+            <button id="logoutButton" class="navBtn ghost">Logout</button>
+        </div>
+    </nav>
+
+    <h1>Select Your Killer</h1>
+
+    <div id="killerList"></div>
+
+    <script type="module" src="/js/app.js"></script>
+</body>
+
+</html>

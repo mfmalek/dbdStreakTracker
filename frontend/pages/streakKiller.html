@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DBD Streak Tracker - Killer</title>
+    <link rel="icon" type="image/x-icon" href="/images/miscellaneous/Logo_DBD.ico">
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/pages/streak.css" />
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet" />
+</head>
+
+<body data-page="streak" data-mode="killer">
+    <div id="loadingScreen">Loading...</div>
+
+    <nav id="navbar">
+        <div class="navLeft">
+            <button id="homeButton" class="navBtn ghost">
+                <span class="navIcon">⌂</span> Home
+            </button>
+            <div id="navLogo">
+                <img src="/images/miscellaneous/Logo_DBD.png" alt="DBD Logo" class="logoIcon">
+                <span>DBD TRACKER</span>
+            </div>
+        </div>
+
+        <div class="navCenter">
+            <span class="navIcon">👥</span>
+            <span id="modeIndicator" class="navDropdown"></span>
+        </div>
+
+        <div class="navRight">
+            <span id="welcomeUser" class="userBadge">👑</span>
+            <button id="profileButton" class="navBtn ghost">Profile</button>
+            <button id="logoutButton" class="navBtn ghost">Logout</button>
+        </div>
+    </nav>
+
+    <div id="titleAndRules">
+        <h1 id="streakTitle"></h1>
+        <div id="ruleset"></div>
+    </div>
+
+    <div class="matchEntry">
+        <div class="character-wrapper">
+            <div class="card killer-card solo-killer-card">
+
+                <div class="card-header">
+                    <div class="header-info">
+                        <div class="role-icon killer-icon">
+                            <img src="/images/miscellaneous/Icon_Killer.png" id="killer-image-icon" alt="Killer"
+                                class="killer-image-icon">
+                        </div>
+                        <div class="name-role">
+                            <h2 class="nickname">KILLER</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="portrait-container">
+                        <img id="killerImage" src="/images/miscellaneous/Icon_Killer.png" alt="Killer">
+                    </div>
+
+                    <div class="build-section">
+                        <h2 class="perkBuilderTitle">Killer's Build</h2>
+
+                        <div class="perkSlots-row">
+                            <div class="perkSlot wrapper">
+                                <div class="perk-input-container">
+                                    <div class="perk-diamond killer-diamond"></div>
+                                    <span class="plus-icon">+</span>
+                                    <select id="killerPerk1" class="hidden-select"></select>
+                                </div>
+                                <label class="perkNumberText">PERK 1</label>
+                            </div>
+                            <div class="perkSlot wrapper">
+                                <div class="perk-input-container">
+                                    <div class="perk-diamond killer-diamond"></div>
+                                    <span class="plus-icon">+</span>
+                                    <select id="killerPerk2" class="hidden-select"></select>
+                                </div>
+                                <label class="perkNumberText">PERK 2</label>
+                            </div>
+                            <div class="perkSlot wrapper">
+                                <div class="perk-input-container">
+                                    <div class="perk-diamond killer-diamond"></div>
+                                    <span class="plus-icon">+</span>
+                                    <select id="killerPerk3" class="hidden-select"></select>
+                                </div>
+                                <label class="perkNumberText">PERK 3</label>
+                            </div>
+                            <div class="perkSlot wrapper">
+                                <div class="perk-input-container">
+                                    <div class="perk-diamond killer-diamond"></div>
+                                    <span class="plus-icon">+</span>
+                                    <select id="killerPerk4" class="hidden-select"></select>
+                                </div>
+                                <label class="perkNumberText">PERK 4</label>
+                            </div>
+                        </div>
+
+                        <div class="addons-row">
+                            <div class="addonSlot" id="addonSlot1">
+                                <label for="killerAddon1" class="perkNumberText">ADD-ON 1</label>
+                                <select id="killerAddon1" class="dark-input"></select>
+                            </div>
+                            <div class="addonSlot" id="addonSlot2">
+                                <label for="killerAddon2" class="perkNumberText">ADD-ON 2</label>
+                                <select id="killerAddon2" class="dark-input"></select>
+                            </div>
+                        </div>
+
+                        <div class="presetControls row">
+                            <div class="preset-input-group">
+                                <input type="text" placeholder="Preset Name" id="presetNameKiller"
+                                    class="dark-input preset-input">
+                                <button class="presetButton save" id="savePresetKiller">Save</button>
+                            </div>
+                            <div class="preset-actions">
+                                <select id="presetListKiller" class="presetSelect dark-input">
+                                    <option value="">Load Preset</option>
+                                </select>
+                                <button class="presetButton delete" id="deletePresetKiller">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="right-info-column">
+                        <div id="killsSection" class="kills-input-container">
+                            <label for="kills" class="perkNumberText">KILLS</label>
+                            <input type="number" id="kills" min="0" max="4" placeholder="0"
+                                class="dark-input num-input">
+                        </div>
+
+                        <div class="mapImageSection">
+                            <img id="mapImage" src="/images/maps/Map_GenericMapBackground.png" alt="DBD Map">
+                            <div class="map-label">MAP PREVIEW</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="infoAndStats" class="dashboard-grid">
+
+        <div id="matchInfoSection" class="dashboard-card">
+            <h2 class="card-title"><span class="icon-purple">🎯</span> MATCH INFO</h2>
+            <div class="card-content">
+                <div id="mapAndKiller" class="input-row">
+                    <div class="inputGroup">
+                        <label for="mapName">Map</label>
+                        <select id="mapName" class="dark-input"></select>
+                    </div>
+                </div>
+
+                <div class="bottomButtons side-by-side-row">
+                    <button id="submitMatchButton" class="btn-submit">✓ Submit Match</button>
+                    <button class="hidden" id="cancelEditButton">Cancel Editing</button>
+                    <button id="clearMatchesButton" class="btn-ghost">🗑️ Clear All Matches</button>
+                </div>
+
+                <div id="deleteMatch" class="delete-row">
+                    <div class="input-with-label">
+                        <span class="prefix">Match #</span>
+                        <input type="number" id="deleteMatchNumber" placeholder="e.g. 12" min="1"
+                            class="dark-input num-input">
+                    </div>
+                    <button id="deleteMatchButton" class="btn-danger">Delete Match</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="streakStatsSection" class="dashboard-card">
+            <h2 class="card-title"><span class="icon-purple">🔥</span> STREAK STATS</h2>
+            <div class="card-content streak-content">
+                <div id="streakStats" class="streak-wrapper">
+                    <div class="streak-box">
+                        <span class="streak-label">CURRENT STREAK</span>
+                        <div class="streak-value">
+                            <span class="icon-fire">🔥</span>
+                            <span id="currentStreak" class="text-green">0</span>
+                        </div>
+                    </div>
+                    <div class="streak-divider"></div>
+                    <div class="streak-box">
+                        <span class="streak-label">BEST STREAK</span>
+                        <div class="streak-value">
+                            <span class="icon-trophy">🏆</span>
+                            <span id="bestStreak" class="text-purple">0</span>
+                        </div>
+                    </div>
+                </div>
+                <button id="resetBestStreakButton" class="btn-ghost-purple">✏️ Reset Best Streak</button>
+            </div>
+        </div>
+    </div>
+
+    <table id="matchTable">
+        <thead></thead>
+        <tbody id="matchTableBody"></tbody>
+    </table>
+
+    <script type="module" src="/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+</body>
+
+</html>
