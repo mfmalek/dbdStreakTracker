@@ -61,7 +61,7 @@ async function initStreak() {
         killerCore.initKillerSharedUI();
 
         if (role === "survivor") {
-            await initSurvivorStreak({
+            await initSurvivorStreak.initStreak({
                 group,
                 matches,
                 actions: {
@@ -78,7 +78,7 @@ async function initStreak() {
         } else if (role === "killer") {
             const { killerName } = streakContext.getContext();
 
-            await initKillerStreak({
+            await initKillerStreak.initStreak({
                 group,
                 matches,
                 killerName,

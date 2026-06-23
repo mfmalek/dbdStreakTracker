@@ -6,7 +6,7 @@ import { killerPresets } from "../killer-streak/killer.presets.js";
 
 import { killerUI } from "../ui/killer/killer.ui.js";
 
-export async function initKillerStreak({ group, matches, killerName, actions }) {
+async function initStreak({ group, matches, killerName, actions }) {
     await killerUI.initUI(group);
 
     killerUI.renderTable(matches);
@@ -30,3 +30,7 @@ export async function initKillerStreak({ group, matches, killerName, actions }) 
         }
     }, 100);
 }
+
+export const initKillerStreak = {
+    initStreak
+};
