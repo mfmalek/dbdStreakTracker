@@ -1,6 +1,6 @@
-import { uiElements } from "../../../ui/utils/ui.elements.js";
-import { survivorCore } from "../../../../core/streak/survivor.core.js";
-import { survivorData } from "../../../../core/data/survivor.data.js";
+import { uiElements } from "../../ui/utils/ui.elements.js";
+import { survivorCore } from "../../../core/streak/survivor.core.js";
+import { survivorData } from "../../../core/data/survivor.data.js";
 
 function renderSurvivors(configs) {
     const container = uiElements.getSurvivorContainer();

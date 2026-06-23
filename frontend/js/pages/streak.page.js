@@ -8,15 +8,15 @@ import { groupsApi } from "../api/groups.js";
 import { sharedCore } from "../core/streak/shared.core.js";
 import { killerCore } from "../core/streak/killer.core.js";
 
-import { initSurvivorStreak } from "../features/survivor-streak/index.js";
+import { initSurvivorStreak } from "../features/survivor-streak";
 import { initKillerStreak } from "../features/streak-page-modules/streak.killer.js";
 import { streakShared } from "../features/streak-page-modules/streak.shared.js";
-import { streakConfigs } from "../features/survivor-streak/index.js";
+import { streakConfigs } from "../features/survivor-streak";
 
-import { survivorController } from "../features/survivor-streak/index.js";
+import { survivorController } from "../features/survivor-streak";
 import { killerController } from "../features/killer-streak/killer.controller.js";
-import { matchFormController } from "../features/match-form/index.js";
-import { matchDeletion } from "../features/match-form/index.js";
+import { matchFormController } from "../features/match-form";
+import { matchDeletion } from "../features/match-form";
 
 import { navbar } from "../layout/navbar.js";
 

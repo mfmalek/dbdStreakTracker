@@ -2,7 +2,7 @@ import { matchesApi } from "../../../../api/matches.js";
 
 import { streakContext } from "../../../../core/utils/streak.context.js";
 
-import { survivorController } from "../../../survivor-streak/index.js";
+import { survivorController } from "../../../survivor-streak";
 import { killerController } from "../../../killer-streak/killer.controller.js";
 import { matchControls } from "../../dom/match.controls.js";
 
