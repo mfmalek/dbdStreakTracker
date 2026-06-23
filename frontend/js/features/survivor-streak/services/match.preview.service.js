@@ -1,4 +1,4 @@
-import { sharedPreviewUI } from "../shared/shared.preview.ui.js";
+import { sharedPreviewUI } from "../../ui/shared/shared.preview.ui.js";
 
 function createMatchPreview(match, names) {
     if (!match) return "Match not found.";
@@ -21,6 +21,6 @@ function createMatchPreview(match, names) {
     return preview.trim();
 }
 
-export const survivorPreviewUI = {
+export const survivorMatchPreview = {
     createMatchPreview
 };

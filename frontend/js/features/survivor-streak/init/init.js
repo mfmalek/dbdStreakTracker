@@ -1,14 +1,14 @@
-import { groupsApi } from "../../api/groups.js";
+import { groupsApi } from "../../../api/groups.js";
 
-import { survivorCore } from "../../core/streak/survivor.core.js";
-import { survivorController } from "../survivor-streak/survivor.controller.js";
+import { survivorCore } from "../../../core/streak/survivor.core.js";
+import { survivorController } from "../controller/survivor.controller.js";
 
-import { survivorListeners } from "../survivor-streak/survivor.listeners.js";
-import { survivorPresets } from "../survivor-streak/survivor.presets.js";
+import { survivorListeners } from "../events/survivor.listeners.js";
+import { survivorPresets } from "../presets/survivor.presets.js";
 
-import { survivorUI } from "../ui/survivor/survivor.ui.js";
+import { survivorUI } from "../ui/survivor.ui.js";
 
-export async function initSurvivorStreak({ group, matches, actions }) {
+async function initStreak({ group, matches, actions }) {
     survivorUI.initUI();
 
     await survivorController.handleRenderTitle();
@@ -36,3 +36,7 @@ export async function initSurvivorStreak({ group, matches, actions }) {
         renderTableHeader: survivorController.handleRenderTableHeader
     });
 }
+
+export const initSurvivorStreak = {
+    initStreak
+};

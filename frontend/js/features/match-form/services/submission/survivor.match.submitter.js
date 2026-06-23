@@ -1,5 +1,5 @@
 import { killerCore } from "../../../../core/streak/killer.core.js";
-import { survivorController } from "../../../survivor-streak/survivor.controller.js";
+import { survivorController } from "../../../survivor-streak";
 
 import { matchFormElements } from "../../dom/match.form.elements.js";
 

@@ -1,5 +1,5 @@
-import { presetsApi } from "../../api/presets.js";
-import { survivorCore } from "../../core/streak/survivor.core.js";
+import { presetsApi } from "../../../api/presets.js";
+import { survivorCore } from "../../../core/streak/survivor.core.js";
 
 function initPresets() {
     for (let s = 1; s <= survivorCore.SURVIVOR_COUNT; s++) {

@@ -1,14 +1,14 @@
-import { auth } from "../../auth/auth.js";
+import { auth } from "../../../auth/auth.js";
 
-import { survivorsApi } from "../../api/survivors.js";
-import { groupsApi } from "../../api/groups.js";
-import { matchesApi } from "../../api/matches.js";
+import { survivorsApi } from "../../../api/survivors.js";
+import { groupsApi } from "../../../api/groups.js";
+import { matchesApi } from "../../../api/matches.js";
 
-import { survivorCore } from "../../core/streak/survivor.core.js";
-import { createBaseController } from "../core-streak/base.controller.js";
+import { survivorCore } from "../../../core/streak/survivor.core.js";
+import { createBaseController } from "../../core-streak/base.controller.js";
 
-import { sharedStatsUI } from "../ui/shared/shared.stats.ui.js";
-import { survivorUI } from "../ui/survivor/survivor.ui.js";
+import { sharedStatsUI } from "../../ui/shared/shared.stats.ui.js";
+import { survivorUI } from "../ui/survivor.ui.js";
 
 const base = createBaseController({
     renderTable: survivorUI.renderTable,

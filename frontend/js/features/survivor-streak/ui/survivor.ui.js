@@ -1,9 +1,9 @@
-import { uiElements } from "../utils/ui.elements.js";
+import { uiElements } from "../../ui/utils/ui.elements.js";
 import { survivorRulesUI } from "./survivor.rules.ui.js";
 import { survivorTableUI } from "./survivor.table.ui.js";
 import { survivorConfigUI } from "./survivor.config.ui.js";
 import { survivorGroupUI } from "./survivor.group.ui.js";
-import { survivorPreviewUI } from "./survivor.preview.ui.js";
+import { survivorMatchPreview } from "../services/match.preview.service.js";
 
 async function initUI() {
     survivorRulesUI.renderRules();
@@ -33,5 +33,5 @@ export const survivorUI = {
     renderSurvivors: survivorConfigUI.renderSurvivors,
     renderGroupMembers: survivorGroupUI.renderGroupMembers,
     renderInvites: survivorGroupUI.renderInvites,
-    createMatchPreview: survivorPreviewUI.createMatchPreview
+    createMatchPreview: survivorMatchPreview.createMatchPreview
 }

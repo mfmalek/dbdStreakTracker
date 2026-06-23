@@ -1,5 +1,5 @@
-import { survivorCore } from "../../core/streak/survivor.core.js";
-import { survivorController } from "../survivor-streak/survivor.controller.js";
+import { survivorCore } from "../../../core/streak/survivor.core.js";
+import { survivorController } from "../controller/survivor.controller.js";
 
 async function saveConfigs() {
     const configs = [];

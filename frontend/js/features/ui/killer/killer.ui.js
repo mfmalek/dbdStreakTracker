@@ -1,5 +1,5 @@
 import { uiElements } from "../utils/ui.elements.js";
-import { matchFormElements } from "../../match-form/index.js";
+import { matchFormElements } from "../../match-form";
 
 import { killerTableUI } from "./killer.table.ui.js";
 import { killerPreviewUI } from "./killer.preview.ui.js";
