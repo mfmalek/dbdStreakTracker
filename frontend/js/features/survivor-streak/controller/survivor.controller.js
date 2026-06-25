@@ -5,12 +5,12 @@ import { groupsApi } from "../../../api/groups.js";
 import { matchesApi } from "../../../api/matches.js";
 
 import { survivorCore } from "../../../core/streak/survivor.core.js";
-import { createBaseController } from "../../core-streak/base.controller.js";
+import { baseController } from "../../shared-streak/index.js";
 
-import { sharedStatsUI } from "../../ui/shared/shared.stats.ui.js";
+import { sharedStatsUI } from "../../shared-streak/index.js";
 import { survivorUI } from "../ui/survivor.ui.js";
 
-const base = createBaseController({
+const base = baseController.createBaseController({
     renderTable: survivorUI.renderTable,
     renderStats: sharedStatsUI.renderStats,
 

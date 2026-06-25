@@ -17,7 +17,7 @@ import { killerController } from "../features/killer-streak/index.js";
 import { matchFormController } from "../features/match-form/index.js";
 import { matchDeletion } from "../features/match-form/index.js";
 
-import { navbar } from "../layout/navbar.js";
+import { navbar } from "../features/shared/index.js";
 
 async function initStreak() {
     const loading = document.getElementById("loadingScreen");

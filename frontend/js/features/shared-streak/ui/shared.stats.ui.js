@@ -1,4 +1,4 @@
-import { uiElements } from "../utils/ui.elements.js";
+import { uiElements } from "../dom/ui.elements.js";
 
 function renderStats({ current, best }) {
     const ongoingStreak = uiElements.getCurrentStreak();

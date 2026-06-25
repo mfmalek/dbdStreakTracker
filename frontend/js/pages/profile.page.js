@@ -5,7 +5,7 @@ import { profileApi } from "../api/profile.js";
 import { profileController } from "../features/profile/profile.controller.js";
 import { profileListeners } from "../features/profile/profile.listeners.js";
 
-import { navbar } from "../layout/navbar.js";
+import { navbar } from "../features/shared/index.js";
 
 async function initProfile() {
     const loading = document.getElementById("loadingScreen");

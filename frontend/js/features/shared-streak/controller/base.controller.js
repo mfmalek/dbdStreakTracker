@@ -1,8 +1,8 @@
-import { matchesApi } from "../../api/matches.js";
-import { streaksApi } from "../../api/streaks.js";
-import { sharedCore } from "../../core/streak/shared.core.js";
+import { matchesApi } from "../../../api/matches.js";
+import { streaksApi } from "../../../api/streaks.js";
+import { sharedCore } from "../../../core/streak/shared.core.js";
 
-export function createBaseController({ renderTable, renderStats , refreshTable }) {
+function createBaseController({ renderTable, renderStats , refreshTable }) {
     async function refreshUI() {
         if (refreshTable) {
             await refreshTable();
@@ -55,3 +55,7 @@ export function createBaseController({ renderTable, renderStats , refreshTable }
         handleRenderStats
     };
 }
+
+export const baseController = {
+    createBaseController
+};

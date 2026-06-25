@@ -1,7 +1,7 @@
 import { auth } from "../auth/auth.js";
 import { streakContext } from "../core/utils/streak.context.js";
 import { killerData } from "../core/data/killer.data.js";
-import { navbar } from "../layout/navbar.js";
+import { navbar } from "../features/shared/index.js";
 
 function initKillerSelection() {
     renderKillers();

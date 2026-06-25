@@ -1,4 +1,4 @@
-import { uiElements } from "../../ui/utils/ui.elements.js";
+import { uiElements } from "../../shared-streak/index.js";
 
 function renderGroupMembers(members, group, currentUser) {
     const container = uiElements.getGroupMembersContainer();

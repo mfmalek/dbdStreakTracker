@@ -1,13 +1,13 @@
-import { sharedPreviewUI } from "../../ui/shared/shared.preview.ui.js";
+import { previewFormatter } from "../../shared-streak/index.js";
 
 function createMatchPreview(match) {
     if (!match) return "Match not found.";
 
     return `
         \tKills: ${match.result === "win" ? "[✅]" : "[☠️]"} ${match.kills ?? "N/A"}
-        Perks: ${sharedPreviewUI.formatPerks(match.killerPerks)}
-        Add-ons: ${sharedPreviewUI.formatAddons(match.killerAddons)}
-        Map: ${sharedPreviewUI.formatMap(match.mapName)}
+        Perks: ${previewFormatter.formatPerks(match.killerPerks)}
+        Add-ons: ${previewFormatter.formatAddons(match.killerAddons)}
+        Map: ${previewFormatter.formatMap(match.mapName)}
     `.trim();
 }
 

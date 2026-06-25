@@ -1,4 +1,4 @@
-import { auth } from "../auth/auth.js";
+import { auth } from "../../../auth/auth.js";
 
 function renderNavbar({ mode }) {
     const user = auth.getUserFromToken();

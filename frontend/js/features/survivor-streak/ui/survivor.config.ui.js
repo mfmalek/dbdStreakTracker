@@ -1,4 +1,4 @@
-import { uiElements } from "../../ui/utils/ui.elements.js";
+import { uiElements } from "../../shared-streak/index.js";
 import { survivorCore } from "../../../core/streak/survivor.core.js";
 import { survivorData } from "../../../core/data/survivor.data.js";
 

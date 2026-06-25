@@ -1,4 +1,4 @@
-import { sharedPreviewUI } from "../../ui/shared/shared.preview.ui.js";
+import { previewFormatter } from "../../shared-streak/index.js";
 
 function createMatchPreview(match, names) {
     if (!match) return "Match not found.";
@@ -7,15 +7,15 @@ function createMatchPreview(match, names) {
 
     match.survivors?.forEach((surv, i) => {
         const name = names?.[i] || `Surv${i + 1}`;
-        const status = sharedPreviewUI.formatStatus(surv.survived);
+        const status = previewFormatter.formatStatus(surv.survived);
 
-        preview += `${status} ${name}: ${sharedPreviewUI.formatPerks(surv.perks)}\n`;
+        preview += `${status} ${name}: ${previewFormatter.formatPerks(surv.perks)}\n`;
     });
 
     preview += `
         \nKiller: ${match.killerName || "Unknown Killer"}
-        \nPerks: ${sharedPreviewUI.formatPerks(match.killerPerks)}
-        \n\nMap: ${sharedPreviewUI.formatMap(match.mapName)}
+        \nPerks: ${previewFormatter.formatPerks(match.killerPerks)}
+        \n\nMap: ${previewFormatter.formatMap(match.mapName)}
     `;
 
     return preview.trim();

@@ -18,7 +18,7 @@ function formatList(items, fallback = "N/A") {
     return items?.join(", ") || fallback;
 }
 
-export const sharedPreviewUI = {
+export const previewFormatter = {
     formatStatus,
     formatPerks,
     formatAddons,

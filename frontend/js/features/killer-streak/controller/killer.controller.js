@@ -1,9 +1,9 @@
 import { matchesApi } from "../../../api/matches.js";
-import { createBaseController } from "../../core-streak/base.controller.js";
-import { sharedStatsUI } from "../../ui/shared/shared.stats.ui.js";
+import { baseController } from "../../shared-streak/index.js";
+import { sharedStatsUI } from "../../shared-streak/index.js";
 import { killerUI } from "../ui/killer.ui.js";
 
-const baseKiller = createBaseController({
+const baseKiller = baseController.createBaseController({
     renderTable: killerUI.renderTable,
     renderStats: sharedStatsUI.renderStats
 });

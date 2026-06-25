@@ -1,4 +1,4 @@
-import { uiElements } from "../../ui/utils/ui.elements.js";
+import { uiElements } from "../../shared-streak/index.js";
 import { matchFormElements } from "../../match-form/index.js";
 
 import { killerTableUI } from "./killer.table.ui.js";

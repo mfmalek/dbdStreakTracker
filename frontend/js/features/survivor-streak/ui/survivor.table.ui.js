@@ -1,5 +1,5 @@
-import { uiElements } from "../../ui/utils/ui.elements.js";
-import { sharedTableUI } from "../../ui/shared/shared.table.ui.js";
+import { uiElements } from "../../shared-streak/index.js";
+import { sharedTableUI } from "../../shared-streak/index.js";
 import { survivorCore } from "../../../core/streak/survivor.core.js";
 
 function renderTable(names, matches) {
