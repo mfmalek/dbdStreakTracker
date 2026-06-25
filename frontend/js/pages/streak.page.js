@@ -10,7 +10,6 @@ import { killerCore } from "../core/streak/killer.core.js";
 
 import { initSurvivorStreak } from "../features/survivor-streak/index.js";
 import { initKillerStreak } from "../features/killer-streak/index.js";
-import { streakShared } from "../features/streak-page-modules/streak.shared.js";
 import { streakConfigs } from "../features/survivor-streak/index.js";
 
 import { survivorController } from "../features/survivor-streak/index.js";
@@ -30,8 +29,10 @@ async function initStreak() {
 
         if (!user) return;
 
+        let context;
+
         try {
-            streakContext.getContext();
+            context = streakContext.getContext();
         } catch {
             window.location.href = "/home";
             return;
@@ -39,9 +40,9 @@ async function initStreak() {
 
         auth.checkLoggedUser();
         navbar.renderNavbar({ mode: sharedCore.MODE });
-        streakShared.syncKillerFromUrl();
+        streakContext.syncKillerContextFromUrl();
 
-        const { role } = streakContext.getContext();
+        const { role } = context;
         const mode = sharedCore.MODE;
         let group = null;
 
@@ -76,7 +77,7 @@ async function initStreak() {
                 }
             });
         } else if (role === "killer") {
-            const { killerName } = streakContext.getContext();
+            const { killerName } = context;
 
             await initKillerStreak.initStreak({
                 group,

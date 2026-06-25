@@ -29,8 +29,28 @@ function clearContext() {
     sessionStorage.removeItem(STORAGE_KEY);
 }
 
+function syncKillerContextFromUrl() {
+    const killer = new URLSearchParams(window.location.search).get("killer");
+
+    if (!killer) return;
+
+    try {
+        const { role } = getContext();
+
+        if (role !== "killer") {
+            return;
+        }
+    } catch { }
+
+    setContext({
+        role: "killer",
+        killerName: killer
+    });
+}
+
 export const streakContext = {
     setContext,
     getContext,
-    clearContext
+    clearContext,
+    syncKillerContextFromUrl
 };
