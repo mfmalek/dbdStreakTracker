@@ -1,7 +1,7 @@
-import { matchesApi } from "../../api/matches.js";
-import { createBaseController } from "../core-streak/base.controller.js";
-import { sharedStatsUI } from "../ui/shared/shared.stats.ui.js";
-import { killerUI } from "../ui/killer/killer.ui.js";
+import { matchesApi } from "../../../api/matches.js";
+import { createBaseController } from "../../core-streak/base.controller.js";
+import { sharedStatsUI } from "../../ui/shared/shared.stats.ui.js";
+import { killerUI } from "../ui/killer.ui.js";
 
 const baseKiller = createBaseController({
     renderTable: killerUI.renderTable,

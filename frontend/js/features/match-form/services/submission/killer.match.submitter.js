@@ -1,7 +1,7 @@
 import { streakContext } from "../../../../core/utils/streak.context.js";
 
 import { killerCore } from "../../../../core/streak/killer.core.js";
-import { killerController } from "../../../killer-streak/killer.controller.js";
+import { killerController } from "../../../killer-streak/index.js";
 
 import { matchFormElements } from "../../dom/match.form.elements.js";
 import { matchFormReset } from "../../shared/match.form.reset.js";

@@ -1,10 +1,10 @@
-import { killerCore } from "../../core/streak/killer.core.js";
-import { killerController } from "../killer-streak/killer.controller.js";
+import { killerCore } from "../../../core/streak/killer.core.js";
+import { killerController } from "../controller/killer.controller.js";
 
-import { killerListeners } from "../killer-streak/killer.listeners.js";
-import { killerPresets } from "../killer-streak/killer.presets.js";
+import { killerListeners } from "../events/killer.listeners.js";
+import { killerPresets } from "../presets/killer.presets.js";
 
-import { killerUI } from "../ui/killer/killer.ui.js";
+import { killerUI } from "../ui/killer.ui.js";
 
 async function initStreak({ group, matches, killerName, actions }) {
     await killerUI.initUI(group);

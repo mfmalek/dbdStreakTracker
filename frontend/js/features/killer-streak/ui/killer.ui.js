@@ -1,8 +1,8 @@
-import { uiElements } from "../utils/ui.elements.js";
+import { uiElements } from "../../ui/utils/ui.elements.js";
 import { matchFormElements } from "../../match-form/index.js";
 
 import { killerTableUI } from "./killer.table.ui.js";
-import { killerPreviewUI } from "./killer.preview.ui.js";
+import { killerMatchPreview } from "../services/match.preview.service.js";
 import { killerRulesUI } from "./killer.rules.ui.js";
 
 function initUI() {
@@ -55,5 +55,5 @@ export const killerUI = {
     initUI,
     applyKillerToUI,
     renderTable: killerTableUI.renderTable,
-    createMatchPreview: killerPreviewUI.createMatchPreview
+    createMatchPreview: killerMatchPreview.createMatchPreview
 };

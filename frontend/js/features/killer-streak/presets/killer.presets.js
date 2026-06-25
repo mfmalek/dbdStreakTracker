@@ -1,4 +1,4 @@
-import { presetsApi } from "../../api/presets.js";
+import { presetsApi } from "../../../api/presets.js";
 
 function initPresets() {
     document.getElementById("savePresetKiller")?.addEventListener("click", savePreset);

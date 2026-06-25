@@ -9,12 +9,12 @@ import { sharedCore } from "../core/streak/shared.core.js";
 import { killerCore } from "../core/streak/killer.core.js";
 
 import { initSurvivorStreak } from "../features/survivor-streak/index.js";
-import { initKillerStreak } from "../features/streak-page-modules/streak.killer.js";
+import { initKillerStreak } from "../features/killer-streak/index.js";
 import { streakShared } from "../features/streak-page-modules/streak.shared.js";
 import { streakConfigs } from "../features/survivor-streak/index.js";
 
 import { survivorController } from "../features/survivor-streak/index.js";
-import { killerController } from "../features/killer-streak/killer.controller.js";
+import { killerController } from "../features/killer-streak/index.js";
 import { matchFormController } from "../features/match-form/index.js";
 import { matchDeletion } from "../features/match-form/index.js";
 
